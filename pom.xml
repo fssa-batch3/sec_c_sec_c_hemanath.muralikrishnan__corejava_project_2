@@ -15,11 +15,8 @@
 		<junit.jupiter.version>5.9.1</junit.jupiter.version>
 		<junit.platform.version>1.9.1</junit.platform.version>
 		<!-- SonarCloud project key -->
-		<sonar.projectKey>core-java-agrokart_agrokart</sonar.projectKey>
-		<!-- SonarCloud organization key -->
-		<sonar.organization>core-java-agrokart</sonar.organization>
-		<!-- SonarCloud authentication token -->
-		<sonar.login>76be494a925fd3f7897ea9af8bbc469ddf7fc907</sonar.login>
+		<sonar.organization>fssa_batch3</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<dependencies>
