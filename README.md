@@ -12,7 +12,21 @@ I will develop a website where the farmer can sell their products, and end custo
 
 This repository contains the backend code for the Agrokart web application. The frontend development is handled separately in the following repository: [Link to Frontend Repository](https://github.com/fssa-batch3/hemanath.muralikrishnan__web_project/tree/dev).
 
-The backend is developed using Core Java and integrated with an SQL database for data storage.
+The backend is developed using Core Java and integrated with an SQL database for data storage .
+
+### Project Structure
+
+The core components of the backend are organized as follows:
+
+- [src/main/java/com/fssa/agrokart/models](src/main/java/com/fssa/agrokart/model): This directory contains the model class that represents the objects.
+
+- [src/main/java/com/fssa/agrokart/service](src/main/java/com/fssa/agrokart/service) : This directory contains service classes that implement business logic for the Agrokart web application.
+
+- [src/main/java/com/fssa/agrokart/dao](src/main/java/com/fssa/agrokart/dao): The Data Access Object (DAO) classes are stored in this directory. The DAO classes handle interactions with the database and provide methods for CRUD operations.
+
+- [src/test/java/com/fssa/agrokart](src/test/java/com/fssa/agrokart) : This directory contains unit test cases for the Agrokart backend
+
+<hr>
 
 ## Milestone -1
 
@@ -47,14 +61,6 @@ You can find the SQL script for creating the Product table in the following loca
 </div>
 
 <hr>
-
-## Unit Testing
-
-For comprehensive unit testing, including test cases for all the operations, please refer to the "tests" directory:
-
-- [Unit Test Cases](src/test/java)
-
-We use JUnit for writing these test cases to ensure the correctness and robustness of our backend functions.
 
 ## Code Quality Analysis
 
