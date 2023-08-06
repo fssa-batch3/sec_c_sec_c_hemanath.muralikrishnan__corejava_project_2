@@ -22,7 +22,7 @@ In Milestone-1, we will focus on implementing the backend logic and functionalit
 
 1. [ ] **Product Model**: Design a Product model to represent the properties of a product, such as name, description, price, quantity, and any other relevant attributes.
 
-2. [In Progress] **Create Product**: Implement a function that allows adding products to the platform. Users can provide product details, and the backend will store the product information in the database.
+2. [ ] **Create Product**: Implement a function that allows adding products to the platform. Users can provide product details, and the backend will store the product information in the database.
 
 3. [ ] **Read Products**: Implement a function to retrieve a list of all available products.
 
