@@ -18,13 +18,13 @@ The backend is developed using Core Java and integrated with an SQL database for
 
 The core components of the backend are organized as follows:
 
-- [src/main/java/com/fssa/agrokart/models](src/main/java/com/fssa/agrokart/model): This directory contains the model class that represents the objects.
+- [src/main/java/com/fssa/agrokart/models](src/main/java/com/fssa/agrokart/model): This directory contains the model classes that represents the objects.
 
 - [src/main/java/com/fssa/agrokart/service](src/main/java/com/fssa/agrokart/service) : This directory contains service classes that implement business logic for the Agrokart web application.
 
 - [src/main/java/com/fssa/agrokart/dao](src/main/java/com/fssa/agrokart/dao): The Data Access Object (DAO) classes are stored in this directory. The DAO classes handle interactions with the database and provide methods for CRUD operations.
 
-- [src/test/java/com/fssa/agrokart](src/test/java/com/fssa/agrokart) : This directory contains unit test cases for the Agrokart backend
+- [src/test/java/com/fssa/agrokart](src/test/java/com/fssa/agrokart) : This directory contains unit test cases for the Agrokart backend.
 
 <hr>
 
