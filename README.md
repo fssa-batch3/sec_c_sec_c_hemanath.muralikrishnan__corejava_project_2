@@ -16,7 +16,7 @@ The backend is developed using Core Java and integrated with an SQL database for
 
 ## Milestone -1
 
-In Milestone-1, we will focus on implementing the backend logic and functionalities to support the Product CRUD operations. This will enable farmers to add their products to the platform, update product details if needed, and manage their product inventory. Additionally, we will implement validation checks and unit tests to ensure the robustness of the system.
+In Milestone-1, we will focus on implementing the backend logic and functionalities to support the Product CRUD operations.
 
 ### Key Tasks
 
