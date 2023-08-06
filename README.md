@@ -42,7 +42,7 @@ In Milestone-1, we will focus on implementing the backend logic and functionalit
 
 4. [ ] **Read Products by Name**: Implement a function to filter products by name and retrieve a list of products matching the provided name.
 
-5. [ ] **Update Product**: Implement a function that enables updating the details of products. Users can modify product information such as name, description, price, and quantity.
+5. [ ] **Update Product**: Implement a function that enables updating the details of products. Users can modify product information such as name, description, price, quantities and any other relevant attributes.
 
 6. [ ] **Delete Product**: Implement a function that allows removing a product from the platform.
 
