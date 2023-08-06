@@ -1,17 +1,22 @@
 package com.fssa.agrokart.dao;
 
+import com.fssa.agrokart.errors.ProductDAOErrors;
 import com.fssa.agrokart.model.*;
 import com.fssa.agrokart.util.*;
 import com.fssa.agrokart.enums.ProductCategory;
 import com.fssa.agrokart.enums.ProductStatus;
 import com.fssa.agrokart.enums.ProductStockUnits;
 import com.fssa.agrokart.exceptions.*;
+import com.fssa.agrokart.constants.ProductConstants;
 
 import java.sql.*;
 import java.util.*;
 
-//	this class holds the product data access object
-
+/**
+ *  A class which holds the Data access object
+ *  It has method with sql queries the methods will do CRUD operations on the product model object
+ * @author HemanathMuralikrishnan
+ */
 public class ProductDAO {
 
     Logger logger = new Logger();
@@ -66,11 +71,11 @@ public class ProductDAO {
 //		calling the available stock method to insert the product available stock
         addAvailableStock(product.getAvailableStock(), generatedProductId);
 
-//		calling the add nutr method to insert the nutr 
-        addNutr(product.getNutritions(), generatedProductId);
+//		calling the add nutr method to insert the nutr
+        addNutr(product.getNutrition(), generatedProductId);
 
-//		calling the add qty method to insert the quantites
-        addQuantities(product.getQuantites(), generatedProductId);
+//		calling the add qty method to insert the quantities
+        addQuantities(product.getQuantities(), generatedProductId);
 
         logger.info("Product inserted successfully.");
 
@@ -106,16 +111,14 @@ public class ProductDAO {
         return true;
     }
 
-    //	Method to add the nutritions for the product
-    public boolean addNutr(ProductNutritions nutr, int productId) throws ProductDAOException {
+    //	Method to add the nutrition's for the product
+    public boolean addNutr(ProductNutrition nutr, int productId) throws ProductDAOException {
 
 //		get the unit_id for protein and carbo
-        String procarboUnit = ProductNutritions.getProcarbounit();
-        int procarboId = getUnitId(procarboUnit);
+        int procarboId = getUnitId(ProductConstants.PROTEIN_CARBOHYDRATES_UNIT);
 
 //		get the unit_id for kcal
-        String caloriesUnit = ProductNutritions.getKcalunit();
-        int caloriesId = getUnitId(caloriesUnit);
+        int caloriesId = getUnitId(ProductConstants.CALORIES_UNIT);
 
         try (Connection conn = ConnectionUtil.getConnection()) {
 
@@ -127,9 +130,9 @@ public class ProductDAO {
                 stmt.setInt(1, productId);
                 stmt.setDouble(2, nutr.getProteinNum());
                 stmt.setInt(3, procarboId);
-                stmt.setDouble(4, nutr.getCarboNum());
+                stmt.setDouble(4, nutr.getCarbonNumb());
                 stmt.setInt(5, procarboId);
-                stmt.setDouble(6, nutr.getCarboNum());
+                stmt.setDouble(6, nutr.getCarbonNumb());
                 stmt.setInt(7, caloriesId);
 
                 stmt.executeUpdate();
@@ -141,17 +144,17 @@ public class ProductDAO {
             throw new ProductDAOException(ProductDAOErrors.NUTR_ERROR + " " + e.getMessage());
         }
 
-//		if the nutr insert successfull then return true
+//		if the nutr insert successfully then return true
         return true;
     }
 
-    // Method to add the quantites for the product
-    public boolean addQuantities(TreeSet<ProductQuantites> qty, int productId) throws ProductDAOException {
+    // Method to add the quantities for the product
+    public boolean addQuantities(SortedSet<ProductQuantities> qty, int productId) throws ProductDAOException {
         String sql = "INSERT INTO product_quantities (product_id, weight, unit_id, rupees) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = ConnectionUtil.getConnection()) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                for (ProductQuantites quantity : qty) {
+                for (ProductQuantities quantity : qty) {
                     int unitId = getUnitId(quantity.getUnit().toString().toLowerCase());
                     stmt.setInt(1, productId);
                     stmt.setDouble(2, quantity.getWeight());
@@ -379,12 +382,12 @@ public class ProductDAO {
         product.setAvailableStock(availableStock);
 
         // Fetch and set product nutritions
-        ProductNutritions nutritions = createNutritionsFromResultSet(rs);
-        product.setNutritions(nutritions);
+        ProductNutrition nutritions = createNutritionsFromResultSet(rs);
+        product.setNutrition(nutritions);
 
         // Fetch and set product quantities
-        TreeSet<ProductQuantites> quantities = createQuantitiesFromResultSet(rs.getInt("id"));
-        product.setQuantites(quantities);
+        SortedSet<ProductQuantities> quantities = createQuantitiesFromResultSet(rs.getInt("id"));
+        product.setQuantities(quantities);
 
         return product;
     }
@@ -403,20 +406,20 @@ public class ProductDAO {
         return stock;
     }
 
-    private ProductNutritions createNutritionsFromResultSet(ResultSet rs) throws SQLException {
+    private ProductNutrition createNutritionsFromResultSet(ResultSet rs) throws SQLException {
 
-        ProductNutritions nutr = new ProductNutritions();
+        ProductNutrition nutr = new ProductNutrition();
 
         nutr.setProteinNum(rs.getDouble("protein"));
-        nutr.setCarboNum(rs.getDouble("carbohydrates"));
+        nutr.setCarbonNumb(rs.getDouble("carbohydrates"));
         nutr.setKcalNum(rs.getDouble("calories"));
 
         return nutr;
     }
 
-    private TreeSet<ProductQuantites> createQuantitiesFromResultSet(int id) throws SQLException {
+    private SortedSet<ProductQuantities> createQuantitiesFromResultSet(int id) throws SQLException {
 
-        TreeSet<ProductQuantites> set = new TreeSet<>();
+        SortedSet<ProductQuantities> set = new TreeSet<>();
 
         try (Connection conn = ConnectionUtil.getConnection()) {
 
@@ -438,7 +441,7 @@ public class ProductDAO {
                         double rupees = rs.getDouble("rupees");
 
                         // Create a new ProductQuantites object with the extracted data
-                        ProductQuantites quantity = new ProductQuantites();
+                        ProductQuantities quantity = new ProductQuantities();
                         quantity.setWeight((float) weight);
 
                         if (unit != null) {
@@ -564,19 +567,19 @@ public class ProductDAO {
                 stmt.executeUpdate();
             }
 
-            // Update the product nutritions
+            // Update the product nutrition's
             String updateNutrSql = "UPDATE product_nutr " + "SET protein = ?, protein_unit_id = ?, "
                     + "carbohydrates = ?, carbo_unit_id = ?, " + "calories = ?, cal_unit_id = ? "
                     + "WHERE product_id = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(updateNutrSql)) {
-                stmt.setDouble(1, updateProduct.getNutritions().getProteinNum());
-                int procarboUnitId = getUnitId(ProductNutritions.getProcarbounit());
+                stmt.setDouble(1, updateProduct.getNutrition().getProteinNum());
+                int procarboUnitId = getUnitId(ProductConstants.PROTEIN_CARBOHYDRATES_UNIT);
                 stmt.setInt(2, procarboUnitId);
-                stmt.setDouble(3, updateProduct.getNutritions().getCarboNum());
+                stmt.setDouble(3, updateProduct.getNutrition().getCarbonNumb());
                 stmt.setInt(4, procarboUnitId);
-                stmt.setDouble(5, updateProduct.getNutritions().getKcalNum());
-                int caloriesUnitId = getUnitId(ProductNutritions.getKcalunit());
+                stmt.setDouble(5, updateProduct.getNutrition().getKcalNum());
+                int caloriesUnitId = getUnitId(ProductConstants.CALORIES_UNIT);
                 stmt.setInt(6, caloriesUnitId);
                 stmt.setInt(7, productId);
 
@@ -588,8 +591,8 @@ public class ProductDAO {
                     + "WHERE product_id = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(updateQuantitiesSql)) {
-                Set<ProductQuantites> quantities = updateProduct.getQuantites();
-                for (ProductQuantites quantity : quantities) {
+                Set<ProductQuantities> quantities = updateProduct.getQuantities();
+                for (ProductQuantities quantity : quantities) {
                     stmt.setDouble(1, quantity.getWeight());
                     int qtyUnitId = getUnitId(quantity.getUnit().toString().toLowerCase());
                     stmt.setInt(2, qtyUnitId);

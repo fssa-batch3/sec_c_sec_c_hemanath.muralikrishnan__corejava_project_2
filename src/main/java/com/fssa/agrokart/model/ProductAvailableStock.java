@@ -6,8 +6,9 @@ package com.fssa.agrokart.model;
 import com.fssa.agrokart.enums.ProductStockUnits;
 
 /**
- * @author HemanathMuralikrishn
  *
+ * A model object class for product-available stock
+ * @author HemanathMuralikrishnan
  */
 public class ProductAvailableStock {
 
@@ -46,10 +47,8 @@ public class ProductAvailableStock {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(num);
-		sb.append(" ");
-		sb.append(unit);
-		return sb.toString();
+        return num +
+				" " +
+				unit;
 	}
 }

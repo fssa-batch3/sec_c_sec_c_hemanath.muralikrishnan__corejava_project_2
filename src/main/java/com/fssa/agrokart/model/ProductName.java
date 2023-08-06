@@ -4,8 +4,8 @@
 package com.fssa.agrokart.model;
 
 /**
- * @author HemanathMuralikrishn
- *
+ * A model object class for product names
+ * @author HemanathMuralikrishnan
  */
 public class ProductName {
 

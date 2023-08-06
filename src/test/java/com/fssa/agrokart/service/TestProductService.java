@@ -13,10 +13,14 @@ import com.fssa.agrokart.exceptions.*;
 import com.fssa.agrokart.model.Product;
 import com.fssa.agrokart.model.ProductAvailableStock;
 import com.fssa.agrokart.model.ProductName;
-import com.fssa.agrokart.model.ProductNutritions;
-import com.fssa.agrokart.model.ProductQuantites;
+import com.fssa.agrokart.model.ProductNutrition;
+import com.fssa.agrokart.model.ProductQuantities;
 import com.fssa.agrokart.util.*;
 
+/**
+ * A class which holds the valid and invalid test cases for product CRUD services
+ * @author HemanathMuralikrishnan
+ */
 public class TestProductService {
 
 //	create instance of product service class
@@ -48,11 +52,11 @@ public class TestProductService {
 		product.setDescription(desc);
 
 //		nutritions
-		ProductNutritions nutr = new ProductNutritions();
+		ProductNutrition nutr = new ProductNutrition();
 		nutr.setProteinNum(1);
-		nutr.setCarboNum(25);
-		nutr.setCarboNum(95);
-		product.setNutritions(nutr);
+		nutr.setCarbonNumb(25);
+		nutr.setCarbonNumb(95);
+		product.setNutrition(nutr);
 
 //		available stock
 		ProductAvailableStock stock = new ProductAvailableStock();
@@ -61,11 +65,11 @@ public class TestProductService {
 		product.setAvailableStock(stock);
 
 //		quantites
-		TreeSet<ProductQuantites> set = new TreeSet<>();
-		set.add(new ProductQuantites(1, ProductStockUnits.KG, 150));
-		set.add(new ProductQuantites(350, ProductStockUnits.GM, 50));
+		TreeSet<ProductQuantities> set = new TreeSet<>();
+		set.add(new ProductQuantities(1, ProductStockUnits.KG, 150));
+		set.add(new ProductQuantities(350, ProductStockUnits.GM, 50));
 //		set.add(new ProductQuantites(400, ProductStockUnits.GM, 75));
-		product.setQuantites(set);
+		product.setQuantities(set);
 
 //		status
 		product.setStatus(ProductStatus.NOT_AVAILABLE);
@@ -103,7 +107,7 @@ public class TestProductService {
 		try {
 			List<Product> productList = service.readAllProducts();
 
-			assertTrue(productList.size() > 0);
+            assertFalse(productList.isEmpty());
 
 			for (Product ele : productList) {
 

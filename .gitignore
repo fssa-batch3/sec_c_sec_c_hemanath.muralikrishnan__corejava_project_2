@@ -1,4 +1,7 @@
 .settings
 .classpath
 .project
+.env
+.idea
+agrokart.iml
 /target/

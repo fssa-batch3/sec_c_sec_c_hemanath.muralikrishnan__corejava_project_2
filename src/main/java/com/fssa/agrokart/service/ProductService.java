@@ -1,18 +1,20 @@
 package com.fssa.agrokart.service;
 
-import com.fssa.agrokart.validator.*;
+import com.fssa.agrokart.dao.ProductDAO;
+import com.fssa.agrokart.exceptions.InvalidProductDataException;
+import com.fssa.agrokart.exceptions.ProductDAOException;
+import com.fssa.agrokart.model.Product;
+import com.fssa.agrokart.validator.ProductValidator;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.TreeSet;
 
-import com.fssa.agrokart.dao.*;
-import com.fssa.agrokart.enums.ProductCategory;
-import com.fssa.agrokart.enums.ProductStatus;
-import com.fssa.agrokart.enums.ProductStockUnits;
-import com.fssa.agrokart.model.*;
-import com.fssa.agrokart.exceptions.*;
+
+/**
+ * A class which holds the services for product model object
+ * It acts has mediator between validator and DAO class
+ *
+ * @author HemanathMuralikrishnan
+ */
 
 // this class holds the product CRUD service
 
@@ -28,30 +30,26 @@ public class ProductService {
 //		sending the product to validate the details
         if (validator.validateProduct(product)) {
 
-//			if all details are valid then insert into the database
+//			if all details are valid, then insert into the database
             productDAO.insertProduct(product);
         }
 
-//		if there is no exception then return true
+//		if there is no exception, then return true
         return true;
     }
 
     //	Service to read the product by name
     public Product readProductByName(String name) throws ProductDAOException {
 
-        Product product = productDAO.readProductByName(name);
-
-//		if there is no exception then return true
-        return product;
+        //		if there is no exception, then return true
+        return productDAO.readProductByName(name);
     }
 
     //	read all the products by method
     public List<Product> readAllProducts() throws ProductDAOException {
 
-        List<Product> productList = productDAO.getAllProducts();
-
-//		if there is no exception then return true
-        return productList;
+        //		if there is no exception, then return true
+        return productDAO.getAllProducts();
     }
 
     //	delete the product by id method
@@ -70,11 +68,11 @@ public class ProductService {
 //		sending the product to validate the details
         if (validator.validateProduct(product)) {
 
-//			if all details are valid then insert into the database
+//			if all details are valid, then insert into the database
             productDAO.updateProductById(id, product);
         }
 
-//		if there is no exception then return true
+//		if there is no exception, then return true
         return true;
     }
 

@@ -1,6 +1,11 @@
 package com.fssa.agrokart.enums;
 
-public enum ProductStatus {
+/**
+ * 	An Enum file which holds the product availability status
+ * 	the user will call this enum and select the product availability status
+ * @author HemanathMuralikrishnan
+ */
 
-	AVAILABLE, NOT_AVAILABLE;
+public enum ProductStatus {
+	AVAILABLE, NOT_AVAILABLE
 }

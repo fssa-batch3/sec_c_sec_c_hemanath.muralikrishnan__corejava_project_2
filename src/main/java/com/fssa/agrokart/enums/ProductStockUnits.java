@@ -1,14 +1,12 @@
 package com.fssa.agrokart.enums;
 
 /**
- * 
- * @author HemanathMuralikrishn
- *
- *         product available stock units which holds the different
+ * product-available stock units which hold the different
+ * @author HemanathMuralikrishnna
  */
 
 public enum ProductStockUnits {
 
-	KG, GM, PKT, NOS;
+    KG, GM, PKT, NOS
 
 }
