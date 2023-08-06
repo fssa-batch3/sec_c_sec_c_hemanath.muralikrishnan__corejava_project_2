@@ -28,18 +28,18 @@ public class TestProductService {
 //	creating new product 
 	public Product getProduct() {
 
-		String desc = "Blueberries contain vitamins, minerals, and antioxidants that provide notable health benefits. For example, blueberries are rich in vitamin K, which plays an important role in promoting heart health. The vitamin is also important to bone health and blood clotting.";
+		String desc = "Green apples are a boon to those who wish to shed the extra fat in their body. This fruit has low calories and rich in fiber that helps you to fight the hunger pangs when you have it early morning in an empty stomach. It is low in sodium, sugar, and fat that helps it to boost the process of calorie burning to achieve your weight loss goals much faster.";
 
 		Product product = new Product();
 
 //		name
 		ProductName name = new ProductName();
-		name.setEnglishName("John Wick");
-		name.setTamilName("கிவி");
+		name.setEnglishName("Apple Green");
+		name.setTamilName("பச்சை ஆப்பிள்");
 		product.setName(name);
 
 //		image
-		product.setImageUrl("https://freeimghost.net/images/2023/03/01/blueberry.jpeg");
+		product.setImageUrl("https://freeimghost.net/images/2023/03/01/apple-green.jpeg");
 
 //		category
 		product.setCategory(ProductCategory.EXOTIC_FRUITS);
@@ -49,20 +49,21 @@ public class TestProductService {
 
 //		nutritions
 		ProductNutritions nutr = new ProductNutritions();
-		nutr.setProteinNum(17);
-		nutr.setCarboNum(11);
-		nutr.setCarboNum(42);
+		nutr.setProteinNum(1);
+		nutr.setCarboNum(25);
+		nutr.setCarboNum(95);
 		product.setNutritions(nutr);
 
 //		available stock
 		ProductAvailableStock stock = new ProductAvailableStock();
-		stock.setNum(50);
+		stock.setNum(25);
 		stock.setUnit(ProductStockUnits.KG);
 		product.setAvailableStock(stock);
 
 //		quantites
 		TreeSet<ProductQuantites> set = new TreeSet<>();
-		set.add(new ProductQuantites(5, ProductStockUnits.KG, 150));
+		set.add(new ProductQuantites(1, ProductStockUnits.KG, 150));
+		set.add(new ProductQuantites(350, ProductStockUnits.GM, 50));
 //		set.add(new ProductQuantites(400, ProductStockUnits.GM, 75));
 		product.setQuantites(set);
 
@@ -118,14 +119,14 @@ public class TestProductService {
 	@Test
 	void testDeleteProductById() {
 
-		assertDoesNotThrow(() -> service.deleteProductById(1));
+		assertDoesNotThrow(() -> service.deleteProductById(3));
 	}
 
 //	test the product update
 	@Test
 	void testUpdateProductServiceWithValid() {
 
-		assertDoesNotThrow(() -> service.updateProductById(1, getProduct()));
+		assertDoesNotThrow(() -> service.updateProductById(2, getProduct()));
 	}
 
 }
