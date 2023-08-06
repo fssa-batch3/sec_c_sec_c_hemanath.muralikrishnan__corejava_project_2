@@ -38,9 +38,29 @@ In Milestone-1, we will focus on implementing the backend logic and functionalit
 
 ## Product Database Design
 
+You can find the SQL script for creating the Product table in the following location:
+
+- [Product SQL Script](src/main/sql/productscripts.sql)
+
 <div align="center">
   <img src="readme_resources/product_database_design.png" alt="Product Database Design" width="80%">
 </div>
+
+<hr>
+
+## Unit Testing
+
+For comprehensive unit testing, including test cases for all the operations, please refer to the "tests" directory:
+
+- [Unit Test Cases](src/test/java)
+
+We use JUnit for writing these test cases to ensure the correctness and robustness of our backend functions.
+
+## Code Quality Analysis
+
+We have integrated our project with SonarCloud to perform code quality analysis and static code analysis. You can find the overall analysis report on the SonarCloud platform:
+
+- [SonarCloud Analysis](https://sonarcloud.io/summary/overall?id=fssa-batch3_sec_c_sec_c_hemanath.muralikrishnan__corejava_project_2)
 
 ### Tech Stack
 
