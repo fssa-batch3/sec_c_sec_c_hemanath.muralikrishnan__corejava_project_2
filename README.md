@@ -34,19 +34,19 @@ In Milestone-1, we will focus on implementing the backend logic and functionalit
 
 ### Key Tasks
 
-1. [ ] **Product Model**: Design a Product model to represent the properties of a product, such as name, description, price, quantity, and any other relevant attributes.
+1. [X] **Product Model**: Design a Product model to represent the properties of a product, such as name, description, price, quantity, and any other relevant attributes.
 
-2. [ ] **Create Product**: Implement a function that allows adding products to the platform. Users can provide product details, and the backend will store the product information in the database.
+2. [X] **Create Product**: Implement a function that allows adding products to the platform. Users can provide product details, and the backend will store the product information in the database.
 
-3. [ ] **Read Products**: Implement a function to retrieve a list of all available products.
+3. [X] **Read Products**: Implement a function to retrieve a list of all available products.
 
-4. [ ] **Read Products by Name**: Implement a function to filter products by name and retrieve a list of products matching the provided name.
+4. [X] **Read Products by Name**: Implement a function to filter products by name and retrieve a list of products matching the provided name.
 
-5. [ ] **Update Product**: Implement a function that enables updating the details of products. Users can modify product information such as name, description, price, and quantity.
+5. [X] **Update Product**: Implement a function that enables updating the details of products. Users can modify product information such as name, description, price, and quantity.
 
-6. [ ] **Delete Product**: Implement a function that allows removing a product from the platform.
+6. [X] **Delete Product**: Implement a function that allows removing a product from the platform.
 
-7. [ ] **Validation and Error Handling**: Implement validation checks on input data to ensure that only valid and complete product information is accepted. Handle errors gracefully and provide appropriate error responses when necessary.
+7. [X] **Validation and Error Handling**: Implement validation checks on input data to ensure that only valid and complete product information is accepted. Handle errors gracefully and provide appropriate error responses when necessary.
 
 8. [In Progress] **Unit Testing**: Write comprehensive unit tests using JUnit to ensure the correctness and robustness of the Product CRUD operations. Test-edge cases and error scenarios to verify that the backend functions as expected.
 
