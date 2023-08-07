@@ -23,11 +23,11 @@ import com.fssa.agrokart.util.*;
  */
 public class TestProductService {
 
-////	create instance of product service class
-//	ProductService service = new ProductService();
-//
-////	logger class to print the products
-//	Logger logger = new Logger();
+//	create instance of product service class
+	ProductService service = new ProductService();
+
+//	logger class to print the products
+	Logger logger = new Logger();
 //
 ////	creating new product
 //	public Product getProduct() {
@@ -118,7 +118,6 @@ public class TestProductService {
 			e.printStackTrace();
 		}
 	}
-//
 //	//	test the product update
 //	@Test
 //	void testUpdateProductServiceWithValid() {
