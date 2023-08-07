@@ -22,18 +22,19 @@ public class ConnectionUtil {
 
     public static Connection getConnection() {
         Connection con = null;
-        Dotenv env;
 
-        // Load environment variables based on the execution context
-        if (isGitHubActions()) {
-            env = Dotenv.configure().ignoreIfMissing().load();
-        } else {
-            env = Dotenv.load();
+        String url, userName, passWord;
+
+        if(System.getenv("CI") !=  null){
+            url= System.getenv("DATABASE_HOST");
+            userName = System.getenv("DATABASE_USERNAME");
+            passWord = System.getenv("DATABASE_PASSWORD");
+        }else {
+             Dotenv env = Dotenv.load();
+             url = env.get("DATABASE_HOST");
+             userName = env.get("DATABASE_USERNAME");
+             passWord = env.get("DATABASE_PASSWORD");
         }
-
-        String url = env.get("DATABASE_HOST");
-        String userName = env.get("DATABASE_USERNAME");
-        String passWord = env.get("DATABASE_PASSWORD");
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -43,11 +44,6 @@ public class ConnectionUtil {
             throw new RuntimeException("Unable to connect to the database");
         }
         return con;
-    }
-
-    private static boolean isGitHubActions() {
-        String actionsEnv = System.getenv("GITHUB_ACTIONS");
-        return "true".equalsIgnoreCase(actionsEnv);
     }
 
     public static void close(ResultSet rs, Statement stmt, PreparedStatement pst, Connection conn) {
