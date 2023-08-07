@@ -1,6 +1,8 @@
 package com.fssa.agrokart.util;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.DotenvBuilder;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,10 +22,19 @@ public class ConnectionUtil {
 
     public static Connection getConnection() {
         Connection con = null;
-        Dotenv env = Dotenv.load();
+        Dotenv env;
+
+        // Load environment variables based on the execution context
+        if (isGitHubActions()) {
+            env = Dotenv.configure().ignoreIfMissing().load();
+        } else {
+            env = Dotenv.load();
+        }
+
         String url = env.get("DATABASE_HOST");
         String userName = env.get("DATABASE_USERNAME");
         String passWord = env.get("DATABASE_PASSWORD");
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url, userName, passWord);
@@ -32,6 +43,11 @@ public class ConnectionUtil {
             throw new RuntimeException("Unable to connect to the database");
         }
         return con;
+    }
+
+    private static boolean isGitHubActions() {
+        String actionsEnv = System.getenv("GITHUB_ACTIONS");
+        return "true".equalsIgnoreCase(actionsEnv);
     }
 
     public static void close(ResultSet rs, Statement stmt, PreparedStatement pst, Connection conn) {
