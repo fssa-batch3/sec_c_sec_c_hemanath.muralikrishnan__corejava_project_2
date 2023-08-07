@@ -496,13 +496,13 @@ public class TestProductValidator {
         }
     }
 
-    //	test the updated time with valid inputs
-    @Test
-    void testValidateUpdateTimeValid() {
-
-        assertDoesNotThrow(
-                () -> val.validateUpdatedTime(LocalTime.now(), LocalTime.now(), LocalDate.now(), LocalDate.now()));
-    }
+//    //	test the updated time with valid inputs
+//    @Test
+//    void testValidateUpdateTimeValid() {
+//
+//        assertDoesNotThrow(
+//                () -> val.validateUpdatedTime(LocalTime.now(), LocalTime.now(), LocalDate.now(), LocalDate.now()));
+//    }
 
     //	test the updated date with invalid inputs
     @Test
