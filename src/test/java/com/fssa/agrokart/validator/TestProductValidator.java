@@ -496,13 +496,13 @@ public class TestProductValidator {
         }
     }
 
-//    //	test the updated time with valid inputs
-//    @Test
-//    void testValidateUpdateTimeValid() {
-//
-//        assertDoesNotThrow(
-//                () -> val.validateUpdatedTime(LocalTime.now(), LocalTime.now(), LocalDate.now(), LocalDate.now()));
-//    }
+    //	test the updated time with valid inputs
+    @Test
+    void testValidateUpdateTimeValid() {
+
+        assertDoesNotThrow(
+                () -> val.validateUpdatedTime(LocalTime.now().plusHours(1), LocalTime.now(), LocalDate.now(), LocalDate.now().plusDays(1)));
+    }
 
     //	test the updated date with invalid inputs
     @Test
@@ -526,13 +526,13 @@ public class TestProductValidator {
                 () -> val.validateUpdatedTime(null, LocalTime.now(), LocalDate.now(), LocalDate.now()));
     }
 
-//    @Test
-//    void testValidateUpdateTInvalid() {
-//
-//        assertThrows(InvalidProductDataException.class, () -> val.validateUpdatedTime(LocalTime.now().minusHours(2),
-//                LocalTime.now(), LocalDate.now(), LocalDate.now()));
-//
-//    }
+    @Test
+    void testValidateUpdateTInvalid() {
+
+        assertThrows(InvalidProductDataException.class, () -> val.validateUpdatedTime(LocalTime.now().minusHours(2),
+                LocalTime.now(), LocalDate.now(), LocalDate.now()));
+
+    }
 
 //	test ends for updated date and time
 
