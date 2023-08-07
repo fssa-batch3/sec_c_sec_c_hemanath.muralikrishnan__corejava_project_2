@@ -101,23 +101,23 @@ public class TestProductService {
 //	}
 //
 ////	test the read all products by
-//	@Test
-//	void testReadAllProducts() {
-//
-//		try {
-//			List<Product> productList = service.readAllProducts();
-//
-//            assertFalse(productList.isEmpty());
-//
-//			for (Product ele : productList) {
-//
-//				logger.info(ele);
-//			}
-//
-//		} catch (ProductDAOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@Test
+	void testReadAllProducts() {
+
+		try {
+			List<Product> productList = service.readAllProducts();
+
+            assertFalse(productList.isEmpty());
+
+			for (Product ele : productList) {
+
+				logger.info(ele);
+			}
+
+		} catch (ProductDAOException e) {
+			e.printStackTrace();
+		}
+	}
 //
 //	//	test the product update
 //	@Test
