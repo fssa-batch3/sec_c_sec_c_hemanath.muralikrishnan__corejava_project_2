@@ -487,7 +487,7 @@ public class TestProductValidator {
     @Test
     void testValidateUpdateDateValid() {
 
-        LocalDate[] dates = {LocalDate.now(), LocalDate.of(2023, 8, 6), LocalDate.of(2023, 8, 7)};
+        LocalDate[] dates = {LocalDate.now(), LocalDate.now().plusDays(1), LocalDate.now().plusDays(2)};
         LocalDate createdDate = LocalDate.now();
 
         for (LocalDate date : dates) {

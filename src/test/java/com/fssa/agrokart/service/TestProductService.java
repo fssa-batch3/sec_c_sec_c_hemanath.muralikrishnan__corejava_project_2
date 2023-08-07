@@ -96,7 +96,7 @@ public class TestProductService {
 	@Test
 	void testReadProductByNameValid() {
 
-		logger.info(assertDoesNotThrow(() -> service.readProductByName("Blueberry")));
+		logger.info(assertDoesNotThrow(() -> service.readProductByName("Apple Green")));
 
 	} 
 
@@ -119,18 +119,20 @@ public class TestProductService {
 		}
 	}
 
-//	test the product delete
-	@Test
-	void testDeleteProductById() {
-
-		assertDoesNotThrow(() -> service.deleteProductById(3));
-	}
-
-//	test the product update
+	//	test the product update
 	@Test
 	void testUpdateProductServiceWithValid() {
 
 		assertDoesNotThrow(() -> service.updateProductById(2, getProduct()));
 	}
+
+//	test the product delete
+	@Test
+	void testDeleteProductById() {
+
+		assertDoesNotThrow(() -> service.deleteProductById(4));
+	}
+
+
 
 }
