@@ -414,8 +414,8 @@ public class ProductValidator {
 
     }
 
-    //	variable to store the minimum amount for all products
-    public static final double minAmount = 10;
+
+
 
     //	Method to validate the rs
     public boolean validateQtyRs(SortedSet<ProductQuantities> qty) throws InvalidProductDataException {
@@ -424,7 +424,7 @@ public class ProductValidator {
         for (ProductQuantities ele : qty) {
 
 //			if any product amount is lesser than 10 rs thrown an exception
-            if (ele.getRs() <= minAmount) {
+            if (ele.getRs() <= ProductConstants.MINIMUM_AMOUNT) {
                 throw new InvalidProductDataException(
                         ProductFieldNames.PRODUCT + " " + ProductValidatorErrors.INVALID_QTY_RS);
             }

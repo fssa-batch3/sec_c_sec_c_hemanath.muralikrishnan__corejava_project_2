@@ -40,4 +40,8 @@ public class ConnectionUtil {
         return con;
     }
 
+    private ConnectionUtil(){
+
+    }
+
 }

@@ -26,8 +26,10 @@ public final class ProductConstants {
     //	if the selected qty is other than gram must be greater than zero
     public static final double MINIMUM_WEIGHT = 0;
 
+    //	variable to store the minimum amount for all products
+    public static final double MINIMUM_AMOUNT = 10;
 
-    private ProductConstants(){
+    private ProductConstants() {
 
     }
 }

@@ -38,7 +38,7 @@ public class Product {
 //	Default constructor
 
     public Product() {
-
+        // default constructor to get instance the object
     }
 
     public ProductName getName() {

@@ -9,38 +9,42 @@ package com.fssa.agrokart.validator;
  *
  * @author HemanathMuralikrishnan
  */
-public interface ProductFieldNames {
+public final class ProductFieldNames {
 
     //	for whole object
-    String PRODUCT = "Product";
+    public static final String PRODUCT = "Product";
     //	for the product name object
-    String NAME_OBJ = "name";
+    public static final String NAME_OBJ = "name";
     //	for product english name
-    String ENGLISH_NAME = "english name";
+    public static final String ENGLISH_NAME = "english name";
     //	for product tamil name
-    String TAMIL_NAME = "tamil name";
+    public static final String TAMIL_NAME = "tamil name";
     //	for product image url
-    String IMAGE_URL = "image url";
+    public static final String IMAGE_URL = "image url";
     //	for category
-    String CATEGORY = "category";
+    public static final String CATEGORY = "category";
     //	for product description
-    String DESCRIPTION = "description";
+    public static final String DESCRIPTION = "description";
     //	for product nutritions
-    String NUTRITION = "nutrition";
+    public static final String NUTRITION = "nutrition";
     //	for protein
-    String PROTEIN = "protein";
+    public static final String PROTEIN = "protein";
     //	for carbohydrates
-    String CARBO = "carbohydrates";
+    public static final String CARBO = "carbohydrates";
     //	for calories
-    String CALORIES = "calories";
+    public static final String CALORIES = "calories";
     //	for available stock
-    String AVAILABLE = "available stock";
+    public static final String AVAILABLE = "available stock";
     //	for available stock unit
-    String AVAIL_UNIT = "available stock unit";
+    public static final String AVAIL_UNIT = "available stock unit";
     //	for product status
-    String STATUS = "status";
+    public static final String STATUS = "status";
     //	for product quantity
-    String QTY_OBJ = "quantity";
+    public static final String QTY_OBJ = "quantity";
     //	for product qty unit
-    String QTY = "quantity unit";
+    public static final String QTY = "quantity unit";
+
+    private ProductFieldNames(){
+
+    }
 }
