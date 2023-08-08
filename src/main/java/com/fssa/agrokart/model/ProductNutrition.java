@@ -53,8 +53,8 @@ public class ProductNutrition {
 
     @Override
     public String toString() {
-        return "Protein: " + proteinNum + " " + ProductConstants.PROTEIN_CARBOHYDRATES_UNIT + " " +
-                "Carbohydrates: " + carbonNumb + " " + ProductConstants.PROTEIN_CARBOHYDRATES_UNIT + " " +
+        return "Protein: " + proteinNum + " " + ProductConstants.PROTEIN_CARBOHYDRATESS_UNIT + " " +
+                "Carbohydrates: " + carbonNumb + " " + ProductConstants.PROTEIN_CARBOHYDRATESS_UNIT + " " +
                 "Calories: " + kcalNum + " " + ProductConstants.CALORIES_UNIT;
     }
 }

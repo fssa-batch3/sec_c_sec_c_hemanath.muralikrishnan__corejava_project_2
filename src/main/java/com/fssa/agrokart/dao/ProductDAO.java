@@ -115,7 +115,7 @@ public class ProductDAO {
     public boolean addNutr(ProductNutrition nutr, int productId) throws ProductDAOException {
 
 //		get the unit_id for protein and carbo
-        int procarboId = getUnitId(ProductConstants.PROTEIN_CARBOHYDRATES_UNIT);
+        int procarboId = getUnitId(ProductConstants.PROTEIN_CARBOHYDRATESS_UNIT);
 
 //		get the unit_id for kcal
         int caloriesId = getUnitId(ProductConstants.CALORIES_UNIT);
@@ -571,7 +571,7 @@ public class ProductDAO {
 
             try (PreparedStatement stmt = conn.prepareStatement(updateNutrSql)) {
                 stmt.setDouble(1, updateProduct.getNutrition().getProteinNum());
-                int procarboUnitId = getUnitId(ProductConstants.PROTEIN_CARBOHYDRATES_UNIT);
+                int procarboUnitId = getUnitId(ProductConstants.PROTEIN_CARBOHYDRATESS_UNIT);
                 stmt.setInt(2, procarboUnitId);
                 stmt.setDouble(3, updateProduct.getNutrition().getCarbonNumb());
                 stmt.setInt(4, procarboUnitId);

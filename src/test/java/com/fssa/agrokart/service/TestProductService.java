@@ -120,7 +120,8 @@ class TestProductService {
             }
 
         } catch (ProductDAOException e) {
-            e.printStackTrace();
+
+            fail("Read all products failed");
         }
     }
 
@@ -135,7 +136,7 @@ class TestProductService {
     @Test
     void testDeleteProductById() {
 
-        assertDoesNotThrow(() -> service.deleteProductById(6));
+        assertDoesNotThrow(() -> service.deleteProductById(7));
     }
 
 
