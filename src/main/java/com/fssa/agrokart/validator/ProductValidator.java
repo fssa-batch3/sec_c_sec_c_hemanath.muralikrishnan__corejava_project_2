@@ -20,7 +20,6 @@ import com.fssa.agrokart.constants.ProductConstants;
  * and fields
  *
  * @author HemanathMuralikrishn
- *
  */
 
 public class ProductValidator {
@@ -444,15 +443,13 @@ public class ProductValidator {
             String unitGm = trimString(ele.getUnit().toString().toLowerCase());
 
 //			if the selected quantity is gm, then check the weight is greater than gram 100
-            if (unitGm.equals("gm")) {
-
 //				if the weight is lesser than 100, throw an exception
-                if (ele.getWeight() <= ProductConstants.MINIMUM_WEIGHT_FOR_GRAM) {
+            if (unitGm.equals("gm") && ele.getWeight() <= ProductConstants.MINIMUM_WEIGHT_FOR_GRAM) {
 
-                    throw new InvalidProductDataException(
-                            ProductFieldNames.PRODUCT + " " + ProductValidatorErrors.INVALID_QTY_WEIGHT_GM);
-                }
+                throw new InvalidProductDataException(
+                        ProductFieldNames.PRODUCT + " " + ProductValidatorErrors.INVALID_QTY_WEIGHT_GM);
             }
+
 
 //			if the weight is lesser than zero, then throw an exception
             if (ele.getWeight() <= ProductConstants.MINIMUM_WEIGHT) {

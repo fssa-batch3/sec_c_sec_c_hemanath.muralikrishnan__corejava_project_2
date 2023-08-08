@@ -18,7 +18,6 @@ public final class ProductConstants {
     public static final double MINIMUM_NUTRITION = 0;
 
     //	variable to store the minimum quantity
-
     public static final double MINIMUM_AVAILABLE_STOCK_QUANTITY = 20;
 
     //	if the selected qty is gram, then the weight must be greater than 100
@@ -26,4 +25,9 @@ public final class ProductConstants {
 
     //	if the selected qty is other than gram must be greater than zero
     public static final double MINIMUM_WEIGHT = 0;
+
+
+    private ProductConstants(){
+
+    }
 }

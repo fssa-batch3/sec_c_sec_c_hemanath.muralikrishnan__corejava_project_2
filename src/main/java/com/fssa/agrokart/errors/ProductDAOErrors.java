@@ -46,5 +46,8 @@ public static final String PRODUCT_NOT_FOUND_NAME = "Product not found with this
 //	while updating the product details
 public static final String PRODUCT_UPDATE_ERROR = "Failed to update the product details.";
 
+private ProductDAOErrors(){
+
+}
 
 }
