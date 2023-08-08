@@ -16,7 +16,7 @@ import com.fssa.agrokart.enums.*;
  *
  * @author HemanathMuralikrishnan
  */
-public class TestProductValidator {
+class TestProductValidator {
 
     //	creating new instance of product validator
     ProductValidator val = new ProductValidator();

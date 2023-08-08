@@ -25,7 +25,7 @@ import com.fssa.agrokart.util.*;
  *
  * @author HemanathMuralikrishnan
  */
-public class TestProductService {
+class TestProductService {
 
     //	create instance of product service class
     ProductService service = new ProductService();
@@ -135,7 +135,7 @@ public class TestProductService {
     @Test
     void testDeleteProductById() {
 
-        assertDoesNotThrow(() -> service.deleteProductById(4));
+        assertDoesNotThrow(() -> service.deleteProductById(6));
     }
 
 

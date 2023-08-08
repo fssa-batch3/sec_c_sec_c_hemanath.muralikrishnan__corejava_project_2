@@ -328,9 +328,6 @@ public class ProductDAO {
 
                 try (ResultSet rs = stmt.executeQuery()) {
 
-                    ResultSetMetaData rsmd = rs.getMetaData();
-                    int numColumns = rsmd.getColumnCount();
-
                     while (rs.next()) {
 
                         Product product = createProductFromResultSet(rs);

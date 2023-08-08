@@ -1,8 +1,6 @@
 package com.fssa.agrokart.util;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import io.github.cdimascio.dotenv.Dotenv;
-import io.github.cdimascio.dotenv.DotenvBuilder;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,7 +21,9 @@ public class ConnectionUtil {
     public static Connection getConnection() {
         Connection con = null;
 
-        String url, userName, passWord;
+        String url;
+        String userName;
+        String passWord;
 
         if (System.getenv("CI") != null) {
             url = System.getenv("DATABASE_HOST");
@@ -40,7 +40,6 @@ public class ConnectionUtil {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url, userName, passWord);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException("Unable to connect to the database");
         }
         return con;
@@ -62,8 +61,6 @@ public class ConnectionUtil {
                 conn.close();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // No need re throw the exception.
         }
     }
 
