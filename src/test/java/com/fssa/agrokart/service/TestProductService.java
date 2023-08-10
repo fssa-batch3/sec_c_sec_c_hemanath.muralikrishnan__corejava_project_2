@@ -29,12 +29,10 @@ class TestProductService {
 
     //	create instance of product service class
     ProductService service = new ProductService();
-
     //	logger class to print the products
     Logger logger = new Logger();
 
-    //
-//	creating new product
+    //	creating new product
     public Product getProduct() {
 
         String desc = "Green apples are a boon to those who wish to shed the extra fat in their body. This fruit has low calories and rich in fiber that helps you to fight the hunger pangs when you have it early morning in an empty stomach. It is low in sodium, sugar, and fat that helps it to boost the process of calorie burning to achieve your weight loss goals much faster.";
@@ -90,6 +88,8 @@ class TestProductService {
         return product;
     }
 
+//    test cases for valid
+
     //	test the insert product service with valid
     @Test
     void testInsertProductValid() {
@@ -136,8 +136,45 @@ class TestProductService {
     @Test
     void testDeleteProductById() {
 
-        assertDoesNotThrow(() -> service.deleteProductById(11));
+        assertDoesNotThrow(() -> service.deleteProductById(13));
+    }
+//test cases end for valid
+
+
+//    test cases start of invalid
+
+    //    test the insert product method with null product
+    @Test
+    void testInsertProductWithNUll() {
+
+        assertThrows(InvalidProductDataException.class, () -> service.addProduct(null));
     }
 
+
+    //    test the readbyname method with invalid product name
+    @Test
+    void testReadByNameInvalid() {
+        try {
+            assertNull(service.readProductByName("Hemanath"));
+        } catch (ProductDAOException e) {
+            fail("Read name by Invalid test cases failed");
+        }
+    }
+
+
+    //    test the delete the method with invalid product it
+    @Test
+    void testDeleteProductInvalidId() {
+
+        assertThrows(ProductDAOException.class, () -> service.deleteProductById(-1));
+    }
+
+    @Test
+    void testUpdateProductWithNUll(){
+
+        assertThrows(InvalidProductDataException.class, ()-> service.updateProductById(2,null));
+    }
+
+//    test caees end for invalid
 
 }

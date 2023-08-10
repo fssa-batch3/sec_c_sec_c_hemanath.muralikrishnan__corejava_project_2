@@ -461,6 +461,8 @@ public class ProductDAO {
         return set;
     }
 
+
+
     //	Read the product by name
     public Product readProductByName(String name) throws ProductDAOException {
 

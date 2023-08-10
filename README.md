@@ -48,7 +48,7 @@ In Milestone-1, we will focus on implementing the backend logic and functionalit
 
 7. [X] **Validation and Error Handling**: Implement validation checks on input data to ensure that only valid and complete product information is accepted. Handle errors gracefully and provide appropriate error responses when necessary.
 
-8. [In Progress] **Unit Testing**: Write comprehensive unit tests using JUnit to ensure the correctness and robustness of the Product CRUD operations. Test-edge cases and error scenarios to verify that the backend functions as expected.
+8. [X] **Unit Testing**: Write comprehensive unit tests using JUnit to ensure the correctness and robustness of the Product CRUD operations. Test-edge cases and error scenarios to verify that the backend functions as expected.
 
 ## Product Database Design
 
