@@ -376,14 +376,14 @@ public class ProductValidator {
 
 //		get the available stock unit
 
-        String StockUnit = stock.getUnit().toString().toLowerCase();
+        String stockUnit = stock.getUnit().toString().toLowerCase();
 
 //		and also validate the weight and rs numbs
 
 //		if the selected available stock is in kg,
 //		then user can only add kg and gram quantities
 
-        if (StockUnit.equals(ProductStockUnits.KG.toString().toLowerCase())) {
+        if (stockUnit.equals(ProductStockUnits.KG.toString().toLowerCase())) {
 
             validateQtyListKg(qty);
 
@@ -392,7 +392,7 @@ public class ProductValidator {
 //		if the selected available stock is in pkt,
 //		then user can only add pkt quantities
 
-        if (StockUnit.equals(ProductStockUnits.PKT.toString().toLowerCase())) {
+        if (stockUnit.equals(ProductStockUnits.PKT.toString().toLowerCase())) {
 
             validateQtyListPkt(qty);
         }
@@ -400,7 +400,7 @@ public class ProductValidator {
 //		if the select available stock is in nos,
 //		then user can only add the no quantities
 
-        if (StockUnit.equals(ProductStockUnits.NOS.toString().toLowerCase())) {
+        if (stockUnit.equals(ProductStockUnits.NOS.toString().toLowerCase())) {
 
             validateQtyListNos(qty);
         }

@@ -136,7 +136,7 @@ class TestProductService {
     @Test
     void testDeleteProductById() {
 
-        assertDoesNotThrow(() -> service.deleteProductById(10));
+        assertDoesNotThrow(() -> service.deleteProductById(11));
     }
 
 
