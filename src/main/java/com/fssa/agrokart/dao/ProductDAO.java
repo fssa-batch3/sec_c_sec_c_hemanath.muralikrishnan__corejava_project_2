@@ -63,7 +63,7 @@ public class ProductDAO {
                 }
 
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
 
             throw new ProductDAOException(ProductDAOErrors.INSERT_ERROR + " " + e.getMessage());
         }
@@ -102,7 +102,7 @@ public class ProductDAO {
 
                 stmt.executeUpdate();
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
 
             throw new ProductDAOException(ProductDAOErrors.AVAILABLE_STOCK_ERROR + " " + e.getMessage());
         }
@@ -139,7 +139,7 @@ public class ProductDAO {
 
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
 
             throw new ProductDAOException(ProductDAOErrors.NUTR_ERROR + " " + e.getMessage());
         }
@@ -171,7 +171,7 @@ public class ProductDAO {
                     }
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
             throw new ProductDAOException(ProductDAOErrors.QTY_ERROR + " " + e.getMessage());
         }
 
@@ -198,7 +198,7 @@ public class ProductDAO {
                 }
 
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
 
             throw new ProductDAOException(ProductDAOErrors.CATEGORY_ERROR + " " + e.getMessage());
         }
@@ -226,7 +226,7 @@ public class ProductDAO {
                 }
 
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
 
             throw new ProductDAOException(ProductDAOErrors.STATUS_ERROR + " " + e.getMessage());
         }
@@ -254,7 +254,7 @@ public class ProductDAO {
                 }
 
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
 
             throw new ProductDAOException(ProductDAOErrors.UNIT_ID_ERROR + " " + e.getMessage());
         }
@@ -294,7 +294,7 @@ public class ProductDAO {
                     throw new ProductDAOException(ProductDAOErrors.PRODUCT_NOT_FOUND_ID + " " + productId + ".");
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
             throw new ProductDAOException(ProductDAOErrors.DELET_ERROR + " " + e.getMessage());
         }
 
@@ -338,7 +338,7 @@ public class ProductDAO {
 
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
 
             throw new ProductDAOException(ProductDAOErrors.READ_PRODUCT_ERROR + " " + e.getMessage());
         }
@@ -348,7 +348,7 @@ public class ProductDAO {
         return productList;
     }
 
-    public Product createProductFromResultSet(ResultSet rs) throws SQLException {
+    public Product createProductFromResultSet(ResultSet rs) throws SQLException, ConnectionException {
 
         Product product = new Product();
 
@@ -414,7 +414,7 @@ public class ProductDAO {
         return nutr;
     }
 
-    private SortedSet<ProductQuantities> createQuantitiesFromResultSet(int id) throws SQLException {
+    private SortedSet<ProductQuantities> createQuantitiesFromResultSet(int id) throws SQLException, ConnectionException {
 
         SortedSet<ProductQuantities> set = new TreeSet<>();
 
@@ -500,7 +500,7 @@ public class ProductDAO {
 
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
 
             throw new ProductDAOException(
                     ProductDAOErrors.PRODUCT_NOT_FOUND_NAME + " " + name + "." + " " + e.getMessage());
@@ -528,7 +528,7 @@ public class ProductDAO {
             String updateProductSql = "UPDATE product "
                     + "SET eng_name = ?, tam_name = ?, image_url = ?, category_id = ?, "
                     + "description = ?, status_id = ?, created_date = ?, created_time = ?, "
-                    + "updated_date = ?, updated_time = ? " + "WHERE id = ?";
+                    + "updated_date = ?, updated_time = ? WHERE id = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(updateProductSql)) {
                 stmt.setString(1, updateProduct.getName().getEnglishName().trim());
@@ -553,8 +553,8 @@ public class ProductDAO {
             }
 
             // Update the product available stock
-            String updateAvailableStockSql = "UPDATE product_available_stock " + "SET weight = ?, unit_id = ? "
-                    + "WHERE product_id = ?";
+            String updateAvailableStockSql = "UPDATE product_available_stock " + "SET weight = ?, unit_id = ? WHERE product_id = ?";
+
 
             try (PreparedStatement stmt = conn.prepareStatement(updateAvailableStockSql)) {
                 stmt.setDouble(1, updateProduct.getAvailableStock().getNum());
@@ -566,8 +566,7 @@ public class ProductDAO {
 
             // Update the product nutrition's
             String updateNutrSql = "UPDATE product_nutr " + "SET protein = ?, protein_unit_id = ?, "
-                    + "carbohydrates = ?, carbo_unit_id = ?, " + "calories = ?, cal_unit_id = ? "
-                    + "WHERE product_id = ?";
+                    + "carbohydrates = ?, carbo_unit_id = ?, " + "calories = ?, cal_unit_id = ? WHERE product_id = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(updateNutrSql)) {
                 stmt.setDouble(1, updateProduct.getNutrition().getProteinNum());
@@ -584,8 +583,8 @@ public class ProductDAO {
             }
 
             // Update the product quantities
-            String updateQuantitiesSql = "UPDATE product_quantities " + "SET weight = ?, unit_id = ?, rupees = ? "
-                    + "WHERE product_id = ?";
+            String updateQuantitiesSql = "UPDATE product_quantities " + "SET weight = ?, unit_id = ?, rupees = ? WHERE product_id = ?";
+
 
             try (PreparedStatement stmt = conn.prepareStatement(updateQuantitiesSql)) {
                 Set<ProductQuantities> quantities = updateProduct.getQuantities();
@@ -609,7 +608,7 @@ public class ProductDAO {
             logger.info("Product updated successfully");
 
             return true;
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionException e) {
             // Rollback the transaction on error
             throw new ProductDAOException(ProductDAOErrors.PRODUCT_UPDATE_ERROR + " " + e.getMessage());
         }

@@ -376,14 +376,14 @@ public class ProductValidator {
 
 //		get the available stock unit
 
-        String trimStockUnit = stock.getUnit().toString().toLowerCase();
+        String StockUnit = stock.getUnit().toString().toLowerCase();
 
 //		and also validate the weight and rs numbs
 
 //		if the selected available stock is in kg,
 //		then user can only add kg and gram quantities
 
-        if (trimStockUnit.equals(ProductStockUnits.KG.toString().toLowerCase())) {
+        if (StockUnit.equals(ProductStockUnits.KG.toString().toLowerCase())) {
 
             validateQtyListKg(qty);
 
@@ -392,7 +392,7 @@ public class ProductValidator {
 //		if the selected available stock is in pkt,
 //		then user can only add pkt quantities
 
-        if (trimStockUnit.equals(ProductStockUnits.PKT.toString().toLowerCase())) {
+        if (StockUnit.equals(ProductStockUnits.PKT.toString().toLowerCase())) {
 
             validateQtyListPkt(qty);
         }
@@ -400,7 +400,7 @@ public class ProductValidator {
 //		if the select available stock is in nos,
 //		then user can only add the no quantities
 
-        if (trimStockUnit.equals(ProductStockUnits.NOS.toString().toLowerCase())) {
+        if (StockUnit.equals(ProductStockUnits.NOS.toString().toLowerCase())) {
 
             validateQtyListNos(qty);
         }
@@ -440,7 +440,7 @@ public class ProductValidator {
 
         for (ProductQuantities ele : qty) {
 
-            String unitGm = trimString(ele.getUnit().toString().toLowerCase());
+            String unitGm = ele.getUnit().toString().toLowerCase();
 
 //			if the selected quantity is gm, then check the weight is greater than gram 100
 //				if the weight is lesser than 100, throw an exception
@@ -472,7 +472,7 @@ public class ProductValidator {
 
         for (ProductQuantities ele : qty) {
 
-            String qtyUnit = trimString(ele.getUnit().toString().toLowerCase());
+            String qtyUnit = ele.getUnit().toString().toLowerCase();
 
             if (!qtyUnit.equals(unitKG) && !qtyUnit.equals(unitGM)) {
 
@@ -495,7 +495,7 @@ public class ProductValidator {
 
         for (ProductQuantities ele : qty) {
 
-            String qtyUnit = trimString(ele.getUnit().toString().toLowerCase());
+            String qtyUnit = ele.getUnit().toString().toLowerCase();
 
             if (!qtyUnit.equals(unitPkt)) {
 
@@ -517,7 +517,7 @@ public class ProductValidator {
 
         for (ProductQuantities ele : qty) {
 
-            String qtyUnit = trimString(ele.getUnit().toString().toLowerCase());
+            String qtyUnit = ele.getUnit().toString().toLowerCase();
 
             if (!qtyUnit.equals(unitNos)) {
 

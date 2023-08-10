@@ -3,6 +3,7 @@ package com.fssa.agrokart.util;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import com.fssa.agrokart.exceptions.ConnectionException;
 
 /**
  * A class which holds the connection and close connection methods
@@ -13,7 +14,7 @@ import java.sql.DriverManager;
  */
 public class ConnectionUtil {
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws ConnectionException {
         Connection con = null;
 
         String url;
@@ -35,7 +36,7 @@ public class ConnectionUtil {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url, userName, passWord);
         } catch (Exception e) {
-            throw new RuntimeException("Unable to connect to the database");
+            throw new ConnectionException("Unable to connect to the database");
         }
         return con;
     }
