@@ -127,7 +127,7 @@ class TestProductService {
     @Test
     void testDeleteProductById() {
 
-        assertDoesNotThrow(() -> service.deleteProductById(3));
+        assertDoesNotThrow(() -> service.deleteProductById(4));
     }
 //test cases end for valid
 

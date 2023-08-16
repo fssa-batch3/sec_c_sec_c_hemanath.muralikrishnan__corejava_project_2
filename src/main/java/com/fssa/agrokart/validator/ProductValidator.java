@@ -124,7 +124,7 @@ public class ProductValidator {
             throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.ENGLISH_NAME + " " + ProductValidatorErrors.INVALID_STRING);
 
 
-        boolean isMatch = stringUtil.StringWithRegex(trimmedInput, ProductRegexPatterns.ENGLISH_NAME);
+        boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.ENGLISH_NAME);
 
         if (!isMatch)
             throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.ENGLISH_NAME + " " + ProductValidatorErrors.PATTERN_MISMATCH_MESSAGE);
@@ -142,7 +142,7 @@ public class ProductValidator {
         if (trimmedInput == null)
             throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.TAMIL_NAME + " " + ProductValidatorErrors.INVALID_STRING);
 
-        boolean isMatch = stringUtil.StringWithRegex(trimmedInput, ProductRegexPatterns.TAMIL_NAME);
+        boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.TAMIL_NAME);
 
         if (!isMatch)
             throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.TAMIL_NAME + " " + ProductValidatorErrors.PATTERN_MISMATCH_MESSAGE);
@@ -164,7 +164,7 @@ public class ProductValidator {
         if (trimmedInput == null)
             throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.IMAGE_URL + " " + ProductValidatorErrors.INVALID_STRING);
 
-        boolean isMatch = stringUtil.StringWithRegex(trimmedInput, ProductRegexPatterns.IMAGE_URL);
+        boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.IMAGE_URL);
 
         if (!isMatch)
             throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.IMAGE_URL + " " + ProductValidatorErrors.PATTERN_MISMATCH_MESSAGE);
@@ -197,7 +197,7 @@ public class ProductValidator {
         if (trimmedInput == null)
             throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.DESCRIPTION + " " + ProductValidatorErrors.INVALID_STRING);
 
-        boolean isMatch = stringUtil.StringWithRegex(trimmedInput, ProductRegexPatterns.DESCRIPTION);
+        boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.DESCRIPTION);
 
         if (!isMatch)
             throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.DESCRIPTION + " " + ProductValidatorErrors.PATTERN_MISMATCH_MESSAGE);
