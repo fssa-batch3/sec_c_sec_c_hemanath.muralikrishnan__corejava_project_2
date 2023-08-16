@@ -1,8 +1,8 @@
 package com.fssa.agrokart.service;
 
 import com.fssa.agrokart.dao.ProductDAO;
-import com.fssa.agrokart.exceptions.InvalidProductDataException;
-import com.fssa.agrokart.exceptions.ProductDAOException;
+import com.fssa.agrokart.exception.InvalidProductDataException;
+import com.fssa.agrokart.exception.ProductDAOException;
 import com.fssa.agrokart.model.Product;
 import com.fssa.agrokart.validator.ProductValidator;
 

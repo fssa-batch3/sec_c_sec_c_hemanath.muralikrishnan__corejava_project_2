@@ -30,22 +30,21 @@ INSERT INTO status (name) VALUES
     ('not_available');
 
 -- create table to store the product details
-CREATE TABLE product(
-	id INT NOT NULL UNIQUE AUTO_INCREMENT,
+CREATE TABLE product (
+    id INT NOT NULL UNIQUE AUTO_INCREMENT,
     eng_name VARCHAR(50) NOT NULL,
     tam_name VARCHAR(50) NOT NULL,
-    image_url VARCHAR (300) NOT NULL,
+    image_url VARCHAR(300) NOT NULL,
     category_id INT NOT NULL,
     description VARCHAR(400) NOT NULL,
-    created_date DATE,
-    created_time TIME,
-    updated_date DATE,
-    updated_time TIME,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     status_id INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(category_id) REFERENCES categories(id),
     FOREIGN KEY(status_id) REFERENCES status(id)
 );
+
 
 
 -- create table to store the available stock for each product
@@ -76,7 +75,7 @@ CREATE TABLE product_nutr(
 );
 
 -- create table to store the product different quantities
-CREATE TABLE product_quantities(
+CREATE TABLE product_quantities_cate(
 	id INT NOT NULL UNIQUE AUTO_INCREMENT,
 	product_id INT NOT NULL,
 	weight DOUBLE NOT NULL,

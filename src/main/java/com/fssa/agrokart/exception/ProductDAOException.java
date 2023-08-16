@@ -1,4 +1,4 @@
-package com.fssa.agrokart.exceptions;
+package com.fssa.agrokart.exception;
 
 /**
  * user defined exception is created to throw the SQLEXCEPTION as DAO exception

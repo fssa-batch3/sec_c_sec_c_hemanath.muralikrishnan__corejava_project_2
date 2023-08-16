@@ -8,7 +8,7 @@ import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 import com.fssa.agrokart.model.*;
-import com.fssa.agrokart.exceptions.*;
+import com.fssa.agrokart.exception.*;
 import com.fssa.agrokart.enums.*;
 
 /**
@@ -58,21 +58,13 @@ class TestProductValidator {
         product.setAvailableStock(stock);
 
 //		quantites
-        TreeSet<ProductQuantities> set = new TreeSet<>();
-        set.add(new ProductQuantities(1, ProductStockUnits.KG, 200));
-        set.add(new ProductQuantities(250, ProductStockUnits.GM, 100));
+        TreeSet<ProductQuantitiesCate> set = new TreeSet<>();
+        set.add(new ProductQuantitiesCate(1, ProductStockUnits.KG, 200));
+        set.add(new ProductQuantitiesCate(250, ProductStockUnits.GM, 100));
         product.setQuantities(set);
 
 //		status
         product.setStatus(ProductStatus.AVAILABLE);
-
-//		creation date and time
-        product.setCreationDate(LocalDate.now());
-        product.setCreationTime(LocalTime.now());
-
-//		update date and time
-        product.setUpdatedDate(LocalDate.now());
-        product.setUpdatedTime(LocalTime.now());
 
         return product;
     }
@@ -479,63 +471,6 @@ class TestProductValidator {
 
     }
 
-//	test end for created date and time
-
-//	test starts for update date and time
-
-    //	test the updated date with valid inputs
-    @Test
-    void testValidateUpdateDateValid() {
-
-        LocalDate[] dates = {LocalDate.now(), LocalDate.now().plusDays(1), LocalDate.now().plusDays(2)};
-        LocalDate createdDate = LocalDate.now();
-
-        for (LocalDate date : dates) {
-
-            assertDoesNotThrow(() -> val.validateUpdatedDate(date, createdDate));
-        }
-    }
-
-    //	test the updated time with valid inputs
-    @Test
-    void testValidateUpdateTimeValid() {
-
-        assertDoesNotThrow(
-                () -> val.validateUpdatedTime(LocalTime.now().plusHours(1), LocalTime.now(), LocalDate.now(), LocalDate.now().plusDays(1)));
-    }
-
-    //	test the updated date with invalid inputs
-    @Test
-    void testValidateUpdateDateInvalid() {
-
-        assertThrows(InvalidProductDataException.class,
-                () -> val.validateUpdatedDate(LocalDate.now().minusDays(1), LocalDate.now()));
-    }
-
-    @Test
-    void testValidateUpdateDateNull() {
-
-        assertThrows(InvalidProductDataException.class, () -> val.validateUpdatedDate(null, LocalDate.now()));
-    }
-
-    //	test the updated time with invalid inputs
-    @Test
-    void testValidateUpdateTimeNull() {
-
-        assertThrows(InvalidProductDataException.class,
-                () -> val.validateUpdatedTime(null, LocalTime.now(), LocalDate.now(), LocalDate.now()));
-    }
-
-    @Test
-    void testValidateUpdateTInvalid() {
-
-        assertThrows(InvalidProductDataException.class, () -> val.validateUpdatedTime(LocalTime.now().minusHours(2),
-                LocalTime.now(), LocalDate.now(), LocalDate.now()));
-
-    }
-
-//	test ends for updated date and time
-
 //	test starts for product quantities
 
     //	test the product quantities with valid inputs
@@ -544,9 +479,9 @@ class TestProductValidator {
 
         ProductAvailableStock stock = new ProductAvailableStock(25, ProductStockUnits.KG);
 
-        TreeSet<ProductQuantities> qty = new TreeSet<>();
-        qty.add(new ProductQuantities(2, ProductStockUnits.KG, 200));
-        qty.add(new ProductQuantities(250, ProductStockUnits.GM, 100));
+        TreeSet<ProductQuantitiesCate> qty = new TreeSet<>();
+        qty.add(new ProductQuantitiesCate(2, ProductStockUnits.KG, 200));
+        qty.add(new ProductQuantitiesCate(250, ProductStockUnits.GM, 100));
 
         assertDoesNotThrow(() -> val.validateQtyObj(qty, stock));
 
@@ -557,9 +492,9 @@ class TestProductValidator {
 
         ProductAvailableStock stock = new ProductAvailableStock(25, ProductStockUnits.PKT);
 
-        TreeSet<ProductQuantities> qty = new TreeSet<>();
-        qty.add(new ProductQuantities(2, ProductStockUnits.PKT, 20));
-        qty.add(new ProductQuantities(10, ProductStockUnits.PKT, 100));
+        TreeSet<ProductQuantitiesCate> qty = new TreeSet<>();
+        qty.add(new ProductQuantitiesCate(2, ProductStockUnits.PKT, 20));
+        qty.add(new ProductQuantitiesCate(10, ProductStockUnits.PKT, 100));
 
         assertDoesNotThrow(() -> val.validateQtyObj(qty, stock));
 
@@ -570,9 +505,9 @@ class TestProductValidator {
 
         ProductAvailableStock stock = new ProductAvailableStock(25, ProductStockUnits.NOS);
 
-        TreeSet<ProductQuantities> qty = new TreeSet<>();
-        qty.add(new ProductQuantities(2, ProductStockUnits.NOS, 20));
-        qty.add(new ProductQuantities(10, ProductStockUnits.NOS, 100));
+        TreeSet<ProductQuantitiesCate> qty = new TreeSet<>();
+        qty.add(new ProductQuantitiesCate(2, ProductStockUnits.NOS, 20));
+        qty.add(new ProductQuantitiesCate(10, ProductStockUnits.NOS, 100));
 
         assertDoesNotThrow(() -> val.validateQtyObj(qty, stock));
 
@@ -592,9 +527,9 @@ class TestProductValidator {
 
         ProductAvailableStock stock = new ProductAvailableStock(25, ProductStockUnits.KG);
 
-        TreeSet<ProductQuantities> qty = new TreeSet<>();
-        qty.add(new ProductQuantities(2, ProductStockUnits.PKT, 20));
-        qty.add(new ProductQuantities(10, ProductStockUnits.KG, 100));
+        TreeSet<ProductQuantitiesCate> qty = new TreeSet<>();
+        qty.add(new ProductQuantitiesCate(2, ProductStockUnits.PKT, 20));
+        qty.add(new ProductQuantitiesCate(10, ProductStockUnits.KG, 100));
 
         assertThrows(InvalidProductDataException.class, () -> val.validateQtyObj(qty, stock));
 
@@ -605,9 +540,9 @@ class TestProductValidator {
 
         ProductAvailableStock stock = new ProductAvailableStock(25, ProductStockUnits.PKT);
 
-        TreeSet<ProductQuantities> qty = new TreeSet<>();
-        qty.add(new ProductQuantities(2, ProductStockUnits.KG, 20));
-        qty.add(new ProductQuantities(10, ProductStockUnits.NOS, 100));
+        TreeSet<ProductQuantitiesCate> qty = new TreeSet<>();
+        qty.add(new ProductQuantitiesCate(2, ProductStockUnits.KG, 20));
+        qty.add(new ProductQuantitiesCate(10, ProductStockUnits.NOS, 100));
 
         assertThrows(InvalidProductDataException.class, () -> val.validateQtyObj(qty, stock));
 
@@ -618,9 +553,9 @@ class TestProductValidator {
 
         ProductAvailableStock stock = new ProductAvailableStock(25, ProductStockUnits.NOS);
 
-        TreeSet<ProductQuantities> qty = new TreeSet<>();
-        qty.add(new ProductQuantities(2, ProductStockUnits.KG, 20));
-        qty.add(new ProductQuantities(10, ProductStockUnits.PKT, 100));
+        TreeSet<ProductQuantitiesCate> qty = new TreeSet<>();
+        qty.add(new ProductQuantitiesCate(2, ProductStockUnits.KG, 20));
+        qty.add(new ProductQuantitiesCate(10, ProductStockUnits.PKT, 100));
 
         assertThrows(InvalidProductDataException.class, () -> val.validateQtyObj(qty, stock));
 

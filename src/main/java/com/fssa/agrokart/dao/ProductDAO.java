@@ -1,20 +1,21 @@
 package com.fssa.agrokart.dao;
 
-import com.fssa.agrokart.errors.ProductDAOErrors;
+import com.fssa.agrokart.error.ProductDAOErrors;
 import com.fssa.agrokart.model.*;
 import com.fssa.agrokart.util.*;
 import com.fssa.agrokart.enums.ProductCategory;
 import com.fssa.agrokart.enums.ProductStatus;
 import com.fssa.agrokart.enums.ProductStockUnits;
-import com.fssa.agrokart.exceptions.*;
+import com.fssa.agrokart.exception.*;
 import com.fssa.agrokart.constants.ProductConstants;
 
 import java.sql.*;
 import java.util.*;
 
 /**
- *  A class which holds the Data access object
- *  It has method with sql queries the methods will do CRUD operations on the product model object
+ * A class which holds the Data access object
+ * It has method with sql queries the methods will do CRUD operations on the product model object
+ *
  * @author HemanathMuralikrishnan
  */
 public class ProductDAO {
@@ -34,9 +35,8 @@ public class ProductDAO {
             // Get the status ID based on the status name
             int statusId = getStatusIDByName(product.getStatus().toString().toLowerCase());
 
-            String sql = "INSERT INTO product (eng_name, tam_name, image_Url, category_id, description, status_id, "
-                    + "created_date, created_time, updated_date, updated_time) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO product (eng_name, tam_name, image_Url, category_id, description, status_id) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -46,11 +46,6 @@ public class ProductDAO {
                 stmt.setInt(4, categoryId); // Set the category ID obtained from getCategoryIDByName()
                 stmt.setString(5, product.getDescription().trim());
                 stmt.setInt(6, statusId);
-                stmt.setDate(7, java.sql.Date.valueOf(product.getCreationDate()));
-                stmt.setTime(8, java.sql.Time.valueOf(product.getCreationTime()));
-                stmt.setDate(9, java.sql.Date.valueOf(product.getUpdatedDate()));
-                stmt.setTime(10, java.sql.Time.valueOf(product.getUpdatedTime()));
-
                 int affectedRows = stmt.executeUpdate();
 
                 if (affectedRows > 0) {
@@ -149,12 +144,12 @@ public class ProductDAO {
     }
 
     // Method to add the quantities for the product
-    public boolean addQuantities(SortedSet<ProductQuantities> qty, int productId) throws ProductDAOException {
-        String sql = "INSERT INTO product_quantities (product_id, weight, unit_id, rupees) VALUES (?, ?, ?, ?)";
+    public boolean addQuantities(SortedSet<ProductQuantitiesCate> qty, int productId) throws ProductDAOException {
+        String sql = "INSERT INTO product_quantities_cate (product_id, weight, unit_id, rupees) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = ConnectionUtil.getConnection()) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                for (ProductQuantities quantity : qty) {
+                for (ProductQuantitiesCate quantity : qty) {
                     int unitId = getUnitId(quantity.getUnit().toString().toLowerCase());
                     stmt.setInt(1, productId);
                     stmt.setDouble(2, quantity.getWeight());
@@ -268,7 +263,7 @@ public class ProductDAO {
         try (Connection conn = ConnectionUtil.getConnection()) {
             String deleteStockSql = "DELETE FROM product_available_stock WHERE product_id = ?";
             String deleteNutrSql = "DELETE FROM product_nutr WHERE product_id = ?";
-            String deleteQuantitiesSql = "DELETE FROM product_quantities WHERE product_id = ?";
+            String deleteQuantitiesSql = "DELETE FROM product_quantities_cate WHERE product_id = ?";
             String deleteProductSql = "DELETE FROM product WHERE id = ?";
 
             try (PreparedStatement deleteStockStmt = conn.prepareStatement(deleteStockSql);
@@ -309,8 +304,7 @@ public class ProductDAO {
 
         try (Connection conn = ConnectionUtil.getConnection()) {
 
-            String sql = "SELECT p.id, p.eng_name, p.tam_name, p.image_url, p.description, " +
-                    "p.created_date, p.created_time, p.updated_date, p.updated_time, " +
+            String sql = "SELECT p.id, p.eng_name, p.tam_name, p.image_url, p.description, p.created_at, p.updated_at, " +
                     "c.name AS category, s.name AS status, pa.weight, u.unit AS stock_unit_name, " +
                     "pn.protein, up.unit AS protein_unit_name, pn.carbohydrates, uc.unit AS carbo_unit_name, " +
                     "pn.calories, ucal.unit AS cal_unit_name " +
@@ -369,10 +363,9 @@ public class ProductDAO {
             ProductStatus status = ProductStatus.valueOf(statuString.toUpperCase());
             product.setStatus(status);
         }
-        product.setCreationDate(rs.getDate("created_date").toLocalDate());
-        product.setCreationTime(rs.getTime("created_time").toLocalTime());
-        product.setUpdatedDate(rs.getDate("updated_date").toLocalDate());
-        product.setUpdatedTime(rs.getTime("updated_time").toLocalTime());
+        product.setCreatedDateTime(rs.getTimestamp("created_at").toLocalDateTime());
+        product.setUpdateDateTime(rs.getTimestamp("updated_at").toLocalDateTime());
+
 
         // Fetch and set product available stock
         ProductAvailableStock availableStock = createAvailableStockFromResultSet(rs);
@@ -383,7 +376,7 @@ public class ProductDAO {
         product.setNutrition(nutritions);
 
         // Fetch and set product quantities
-        SortedSet<ProductQuantities> quantities = createQuantitiesFromResultSet(rs.getInt("id"));
+        SortedSet<ProductQuantitiesCate> quantities = createQuantitiesFromResultSet(rs.getInt("id"));
         product.setQuantities(quantities);
 
         return product;
@@ -414,14 +407,14 @@ public class ProductDAO {
         return nutr;
     }
 
-    private SortedSet<ProductQuantities> createQuantitiesFromResultSet(int id) throws SQLException, ConnectionException {
+    private SortedSet<ProductQuantitiesCate> createQuantitiesFromResultSet(int id) throws SQLException, ConnectionException {
 
-        SortedSet<ProductQuantities> set = new TreeSet<>();
+        SortedSet<ProductQuantitiesCate> set = new TreeSet<>();
 
         try (Connection conn = ConnectionUtil.getConnection()) {
 
             String sql = "SELECT pq.weight AS qty_weight, uq.unit AS qty_unit_name, pq.rupees " +
-                    "FROM product_quantities pq " +
+                    "FROM product_quantities_cate pq " +
                     "LEFT JOIN units uq ON pq.unit_id = uq.id " +
                     "WHERE pq.product_id = ?"; // Replace "?" with the desired product ID
 
@@ -438,7 +431,7 @@ public class ProductDAO {
                         double rupees = rs.getDouble("rupees");
 
                         // Create a new ProductQuantites object with the extracted data
-                        ProductQuantities quantity = new ProductQuantities();
+                        ProductQuantitiesCate quantity = new ProductQuantitiesCate();
                         quantity.setWeight((float) weight);
 
                         if (unit != null) {
@@ -462,7 +455,6 @@ public class ProductDAO {
     }
 
 
-
     //	Read the product by name
     public Product readProductByName(String name) throws ProductDAOException {
 
@@ -470,8 +462,7 @@ public class ProductDAO {
 
         try (Connection conn = ConnectionUtil.getConnection()) {
 
-            String sql = "SELECT p.id, p.eng_name, p.tam_name, p.image_url, p.description, " +
-                    "p.created_date, p.created_time, p.updated_date, p.updated_time, " +
+            String sql = "SELECT p.id, p.eng_name, p.tam_name, p.image_url, p.description,p.created_at, p.updated_at, " +
                     "c.name AS category, s.name AS status, pa.weight, u.unit AS stock_unit_name, " +
                     "pn.protein, up.unit AS protein_unit_name, pn.carbohydrates, uc.unit AS carbo_unit_name, " +
                     "pn.calories, ucal.unit AS cal_unit_name " +
@@ -529,8 +520,7 @@ public class ProductDAO {
             // Update the product basic details
             String updateProductSql = "UPDATE product "
                     + "SET eng_name = ?, tam_name = ?, image_url = ?, category_id = ?, "
-                    + "description = ?, status_id = ?, created_date = ?, created_time = ?, "
-                    + "updated_date = ?, updated_time = ? WHERE id = ?";
+                    + "description = ?, status_id = ? WHERE id = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(updateProductSql)) {
                 stmt.setString(1, updateProduct.getName().getEnglishName().trim());
@@ -539,11 +529,7 @@ public class ProductDAO {
                 stmt.setInt(4, categoryId);
                 stmt.setString(5, updateProduct.getDescription().trim());
                 stmt.setInt(6, statusId);
-                stmt.setDate(7, java.sql.Date.valueOf(updateProduct.getCreationDate()));
-                stmt.setTime(8, java.sql.Time.valueOf(updateProduct.getCreationTime()));
-                stmt.setDate(9, java.sql.Date.valueOf(updateProduct.getUpdatedDate()));
-                stmt.setTime(10, java.sql.Time.valueOf(updateProduct.getUpdatedTime()));
-                stmt.setInt(11, productId);
+                stmt.setInt(7, productId);
 
                 int affectedRows = stmt.executeUpdate();
 
@@ -585,12 +571,12 @@ public class ProductDAO {
             }
 
             // Update the product quantities
-            String updateQuantitiesSql = "UPDATE product_quantities " + "SET weight = ?, unit_id = ?, rupees = ? WHERE product_id = ?";
+            String updateQuantitiesSql = "UPDATE product_quantities_cate " + "SET weight = ?, unit_id = ?, rupees = ? WHERE product_id = ?";
 
 
             try (PreparedStatement stmt = conn.prepareStatement(updateQuantitiesSql)) {
-                Set<ProductQuantities> quantities = updateProduct.getQuantities();
-                for (ProductQuantities quantity : quantities) {
+                Set<ProductQuantitiesCate> quantities = updateProduct.getQuantities();
+                for (ProductQuantitiesCate quantity : quantities) {
                     stmt.setDouble(1, quantity.getWeight());
                     int qtyUnitId = getUnitId(quantity.getUnit().toString().toLowerCase());
                     stmt.setInt(2, qtyUnitId);

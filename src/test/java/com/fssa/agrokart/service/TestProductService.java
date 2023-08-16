@@ -12,12 +12,12 @@ import java.util.TreeSet;
 import com.fssa.agrokart.enums.ProductCategory;
 import com.fssa.agrokart.enums.ProductStatus;
 import com.fssa.agrokart.enums.ProductStockUnits;
-import com.fssa.agrokart.exceptions.*;
+import com.fssa.agrokart.exception.*;
 import com.fssa.agrokart.model.Product;
 import com.fssa.agrokart.model.ProductAvailableStock;
 import com.fssa.agrokart.model.ProductName;
 import com.fssa.agrokart.model.ProductNutrition;
-import com.fssa.agrokart.model.ProductQuantities;
+import com.fssa.agrokart.model.ProductQuantitiesCate;
 import com.fssa.agrokart.util.*;
 
 /**
@@ -41,7 +41,7 @@ class TestProductService {
 
 //		name
         ProductName name = new ProductName();
-        name.setEnglishName("Apple Green");
+        name.setEnglishName("Balaji S");
         name.setTamilName("பச்சை ஆப்பிள்");
         product.setName(name);
 
@@ -68,22 +68,13 @@ class TestProductService {
         product.setAvailableStock(stock);
 
 //		quantites
-        TreeSet<ProductQuantities> set = new TreeSet<>();
-        set.add(new ProductQuantities(1, ProductStockUnits.KG, 150));
-        set.add(new ProductQuantities(350, ProductStockUnits.GM, 50));
-//		set.add(new ProductQuantites(400, ProductStockUnits.GM, 75));
+        TreeSet<ProductQuantitiesCate> set = new TreeSet<>();
+        set.add(new ProductQuantitiesCate(1, ProductStockUnits.KG, 150));
+        set.add(new ProductQuantitiesCate(350, ProductStockUnits.GM, 50));
         product.setQuantities(set);
 
 //		status
         product.setStatus(ProductStatus.NOT_AVAILABLE);
-
-//		creation date and time
-        product.setCreationDate(LocalDate.now());
-        product.setCreationTime(LocalTime.now());
-
-//		update date and time
-        product.setUpdatedDate(LocalDate.now());
-        product.setUpdatedTime(LocalTime.now());
 
         return product;
     }
@@ -129,14 +120,14 @@ class TestProductService {
     @Test
     void testUpdateProductServiceWithValid() {
 
-        assertDoesNotThrow(() -> service.updateProductById(2, getProduct()));
+        assertDoesNotThrow(() -> service.updateProductById(1, getProduct()));
     }
 
     //	test the product delete
     @Test
     void testDeleteProductById() {
 
-        assertDoesNotThrow(() -> service.deleteProductById(13));
+        assertDoesNotThrow(() -> service.deleteProductById(3));
     }
 //test cases end for valid
 

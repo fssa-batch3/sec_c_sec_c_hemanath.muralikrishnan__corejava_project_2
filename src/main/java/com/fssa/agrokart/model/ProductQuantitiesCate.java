@@ -11,19 +11,19 @@ import com.fssa.agrokart.enums.ProductStockUnits;
  * A model object class for product quantities
  * @author HemanathMuralikrishnan
  */
-public class ProductQuantities implements Comparable<ProductQuantities> {
+public class ProductQuantitiesCate implements Comparable<ProductQuantitiesCate> {
 
     private double rs;
     private ProductStockUnits unit;
     private double weight;
 
     //	default constructor
-    public ProductQuantities() {
+    public ProductQuantitiesCate() {
 
     }
 
     //	Parameterized constructor
-    public ProductQuantities(double weight, ProductStockUnits unit, double rs) {
+    public ProductQuantitiesCate(double weight, ProductStockUnits unit, double rs) {
 
         this.weight = weight;
         this.unit = unit;
@@ -66,7 +66,7 @@ public class ProductQuantities implements Comparable<ProductQuantities> {
             return true;
         if (obj == null || getClass() != obj.getClass())
             return false;
-        ProductQuantities other = (ProductQuantities) obj;
+        ProductQuantitiesCate other = (ProductQuantitiesCate) obj;
         return Double.compare(other.rs, rs) == 0 && Double.compare(other.weight, weight) == 0;
     }
 
@@ -76,7 +76,7 @@ public class ProductQuantities implements Comparable<ProductQuantities> {
     }
 
     @Override
-    public int compareTo(ProductQuantities other) {
+    public int compareTo(ProductQuantitiesCate other) {
         return Double.compare(this.rs, other.rs);
     }
 

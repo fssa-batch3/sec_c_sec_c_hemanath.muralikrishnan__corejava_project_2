@@ -3,7 +3,7 @@ package com.fssa.agrokart.util;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import com.fssa.agrokart.exceptions.ConnectionException;
+import com.fssa.agrokart.exception.ConnectionException;
 
 /**
  * A class which holds the connection and close connection methods

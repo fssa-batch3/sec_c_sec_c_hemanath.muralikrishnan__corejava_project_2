@@ -2,9 +2,7 @@
  *
  */
 package com.fssa.agrokart.model;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import com.fssa.agrokart.enums.*;
@@ -28,12 +26,12 @@ public class Product {
     private String description;
     private ProductNutrition nutrition;
     private ProductAvailableStock availableStock;
-    private SortedSet<ProductQuantities> quantities;
+    private SortedSet<ProductQuantitiesCate> quantities;
     private ProductStatus status;
-    private LocalDate creationDate;
-    private LocalTime creationTime;
-    private LocalDate updatedDate;
-    private LocalTime updatedTime;
+
+    private LocalDateTime createdDateTime;
+
+    private LocalDateTime updateDateTime;
 
 //	Default constructor
 
@@ -89,11 +87,11 @@ public class Product {
         this.availableStock = availableStock;
     }
 
-    public SortedSet<ProductQuantities> getQuantities() {
+    public SortedSet<ProductQuantitiesCate> getQuantities() {
         return quantities;
     }
 
-    public void setQuantities(SortedSet<ProductQuantities> quantities) {
+    public void setQuantities(SortedSet<ProductQuantitiesCate> quantities) {
         this.quantities = quantities;
     }
 
@@ -105,37 +103,6 @@ public class Product {
         this.status = status;
     }
 
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public LocalTime getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(LocalTime creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public LocalDate getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(LocalDate updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public LocalTime getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(LocalTime updatedTime) {
-        this.updatedTime = updatedTime;
-    }
 
     public int getId() {
         return id;
@@ -143,6 +110,22 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public LocalDateTime getUpdateDateTime() {
+        return updateDateTime;
+    }
+
+    public void setUpdateDateTime(LocalDateTime updateDateTime) {
+        this.updateDateTime = updateDateTime;
+    }
+
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+        this.createdDateTime = createdDateTime;
     }
 
     @Override
@@ -158,7 +141,7 @@ public class Product {
 
         // Append Quantities
         sb.append("Quantities: [");
-        for (ProductQuantities quantity : quantities) {
+        for (ProductQuantitiesCate quantity : quantities) {
             sb.append(quantity).append(", ");
         }
         // Remove the last comma and space if quantities are present
@@ -168,10 +151,9 @@ public class Product {
         sb.append("]\n");
 
         sb.append("Status: ").append(status).append("\n");
-        sb.append("Creation Date: ").append(creationDate).append("\n");
-        sb.append("Creation Time: ").append(creationTime).append("\n");
-        sb.append("Updated Date: ").append(updatedDate).append("\n");
-        sb.append("Updated Time: ").append(updatedTime).append("\n");
+        sb.append("Created Date and Time: ").append(createdDateTime).append("\n");
+        sb.append("Updated Date and Time:  ").append(updateDateTime).append("\n");
+
 
         return sb.toString();
     }

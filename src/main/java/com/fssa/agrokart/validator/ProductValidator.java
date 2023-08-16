@@ -6,14 +6,14 @@ package com.fssa.agrokart.validator;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.SortedSet;
-import java.util.regex.Pattern;
 
-import com.fssa.agrokart.errors.ProductValidatorErrors;
-import com.fssa.agrokart.exceptions.InvalidProductDataException;
+import com.fssa.agrokart.error.ProductValidatorErrors;
+import com.fssa.agrokart.exception.InvalidProductDataException;
 import com.fssa.agrokart.model.*;
 import com.fssa.agrokart.enums.*;
 import com.fssa.agrokart.regexpattern.ProductRegexPatterns;
 import com.fssa.agrokart.constants.ProductConstants;
+import com.fssa.agrokart.util.StringUtil;
 
 /**
  * A validator class which holds the all types of validator for a product object
@@ -23,6 +23,9 @@ import com.fssa.agrokart.constants.ProductConstants;
  */
 
 public class ProductValidator {
+
+    //    creating new string util class
+    StringUtil stringUtil = new StringUtil();
 
     //	method will validate the object is not equal not null
     public boolean validateObject(Object obj, String field) throws InvalidProductDataException {
@@ -42,7 +45,7 @@ public class ProductValidator {
 
 //		if the object is not current instance of class then throw an exception
         if (obj instanceof Product || obj instanceof ProductName || obj instanceof ProductNutrition
-                || obj instanceof ProductAvailableStock || obj instanceof ProductQuantities) {
+                || obj instanceof ProductAvailableStock || obj instanceof ProductQuantitiesCate) {
 
 //			if the object is current instance of class, then return true
             return true;
@@ -53,52 +56,6 @@ public class ProductValidator {
                 ProductFieldNames.PRODUCT + " " + field + " " + ProductValidatorErrors.INVALID_INSTANCE_CLASS);
     }
 
-    // Method to trim a string, returns null if the input is null or empty after
-    // trimming
-    private String trimString(String input) {
-        if (input == null || input.trim().isEmpty()) {
-            return null;
-        }
-        return input.trim();
-    }
-
-    // Method to validate the string is not equal to null or empty string after
-    // trimming
-    public boolean validateString(String input, String field) throws InvalidProductDataException {
-
-//		calling the trim string method to trim the string
-        String trimmedInput = trimString(input);
-
-//		if the trimmed input is equal to null, then throw an exception
-        if (trimmedInput == null)
-            throw new InvalidProductDataException(
-                    ProductFieldNames.PRODUCT + " " + field + " " + ProductValidatorErrors.INVALID_STRING);
-
-//		if the input string is not equal to null or empty string, then return true
-        return true;
-    }
-
-    //	Method to validate the string with regular expression
-    public boolean validateStringWithRegex(String input, String pattern, String field)
-            throws InvalidProductDataException {
-
-//		calling the trim string method to trim the string
-        String trimmedInput = trimString(input);
-
-//		matching the input with the given regex pattern 
-//		if it matches then matches method return true
-//		otherwise it will return false
-        boolean isMatch = Pattern.matches(pattern, trimmedInput);
-
-//		if the input doesn't match the pattern then thrown exception
-        if (!isMatch)
-            throw new InvalidProductDataException(
-                    ProductFieldNames.PRODUCT + " " + field + " " + ProductValidatorErrors.PATTERN_MISMATCH_MESSAGE);
-
-//		if the input matches the regex pattern, then return true
-        return true;
-
-    }
 
 //	main validation starts for product
 
@@ -127,19 +84,6 @@ public class ProductValidator {
 
 //		validate the product quantities
         validateQtyObj(product.getQuantities(), product.getAvailableStock());
-
-//		validate the product creation date
-        validateCreatedDate(product.getCreationDate());
-
-//		validate the product creation time
-        validateCreatedTime(product.getCreationTime());
-
-//		validate the product updated date
-        validateUpdatedDate(product.getUpdatedDate(), product.getCreationDate());
-
-//		validate the product updated time
-        validateUpdatedTime(product.getUpdatedTime(), product.getCreationTime(), product.getCreationDate(),
-                product.getUpdatedDate());
 
 //		if there is no exception, then return true
         return true;
@@ -174,11 +118,16 @@ public class ProductValidator {
     //	Method to validate the product english name
     public boolean validateEnglishName(String engName) throws InvalidProductDataException {
 
-//		validate with string validator
-        validateString(engName, ProductFieldNames.ENGLISH_NAME);
+        String trimmedInput = stringUtil.trimString(engName);
 
-//		validate with regex pattern validator
-        validateStringWithRegex(engName, ProductRegexPatterns.ENGLISH_NAME, ProductFieldNames.ENGLISH_NAME);
+        if (trimmedInput == null)
+            throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.ENGLISH_NAME + " " + ProductValidatorErrors.INVALID_STRING);
+
+
+        boolean isMatch = stringUtil.StringWithRegex(trimmedInput, ProductRegexPatterns.ENGLISH_NAME);
+
+        if (!isMatch)
+            throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.ENGLISH_NAME + " " + ProductValidatorErrors.PATTERN_MISMATCH_MESSAGE);
 
 //		if there is no exception, then return true
         return true;
@@ -188,11 +137,15 @@ public class ProductValidator {
     //	Method validate teh product tamil name
     public boolean validateTamilName(String tamName) throws InvalidProductDataException {
 
-//		validate with string validator
-        validateString(tamName, ProductFieldNames.TAMIL_NAME);
+        String trimmedInput = stringUtil.trimString(tamName);
 
-//		validate with regex pattern validator
-        validateStringWithRegex(tamName, ProductRegexPatterns.TAMIL_NAME, ProductFieldNames.TAMIL_NAME);
+        if (trimmedInput == null)
+            throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.TAMIL_NAME + " " + ProductValidatorErrors.INVALID_STRING);
+
+        boolean isMatch = stringUtil.StringWithRegex(trimmedInput, ProductRegexPatterns.TAMIL_NAME);
+
+        if (!isMatch)
+            throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.TAMIL_NAME + " " + ProductValidatorErrors.PATTERN_MISMATCH_MESSAGE);
 
 //		if there is no exception, then return true
         return true;
@@ -206,11 +159,15 @@ public class ProductValidator {
     //	Method to validate the product image url
     public boolean validateImageUrl(String imgUrl) throws InvalidProductDataException {
 
-//		validate with string validator
-        validateString(imgUrl, ProductFieldNames.IMAGE_URL);
+        String trimmedInput = stringUtil.trimString(imgUrl);
 
-//		validate with regex pattern validator
-        validateStringWithRegex(imgUrl, ProductRegexPatterns.IMAGE_URL, ProductFieldNames.IMAGE_URL);
+        if (trimmedInput == null)
+            throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.IMAGE_URL + " " + ProductValidatorErrors.INVALID_STRING);
+
+        boolean isMatch = stringUtil.StringWithRegex(trimmedInput, ProductRegexPatterns.IMAGE_URL);
+
+        if (!isMatch)
+            throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.IMAGE_URL + " " + ProductValidatorErrors.PATTERN_MISMATCH_MESSAGE);
 
 //		if there is no exception, then return true
         return true;
@@ -234,11 +191,17 @@ public class ProductValidator {
     //	Method to validate the product description
     public boolean validateDescription(String desc) throws InvalidProductDataException {
 
-//		validate with string validator
-        validateString(desc, ProductFieldNames.DESCRIPTION);
 
-//		validate with regex pattern validator
-        validateStringWithRegex(desc, ProductRegexPatterns.DESCRIPTION, ProductFieldNames.DESCRIPTION);
+        String trimmedInput = stringUtil.trimString(desc);
+
+        if (trimmedInput == null)
+            throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.DESCRIPTION + " " + ProductValidatorErrors.INVALID_STRING);
+
+        boolean isMatch = stringUtil.StringWithRegex(trimmedInput, ProductRegexPatterns.DESCRIPTION);
+
+        if (!isMatch)
+            throw new InvalidProductDataException(ProductFieldNames.PRODUCT + " " + ProductFieldNames.DESCRIPTION + " " + ProductValidatorErrors.PATTERN_MISMATCH_MESSAGE);
+
 
 //		if there is no exception, then return true
         return true;
@@ -325,7 +288,7 @@ public class ProductValidator {
 //	validation starts for product quantities
 
     //	Method to validate the rupees, unit,quantity
-    public boolean validateQtyObj(SortedSet<ProductQuantities> qty, ProductAvailableStock stock)
+    public boolean validateQtyObj(SortedSet<ProductQuantitiesCate> qty, ProductAvailableStock stock)
             throws InvalidProductDataException {
 
 //	check list minimum one qty is added or not
@@ -334,7 +297,7 @@ public class ProductValidator {
                     + ProductValidatorErrors.INVALID_QTY_OBJ);
 
 //		validate the qty object is not equal to null
-        for (ProductQuantities ele : qty) {
+        for (ProductQuantitiesCate ele : qty) {
 
             validateObject(ele, ProductFieldNames.QTY);
 
@@ -362,11 +325,11 @@ public class ProductValidator {
 //	validate the status end
 
     //	Method to validate the unit,rs,weight
-    public boolean validateQtyEle(SortedSet<ProductQuantities> qty, ProductAvailableStock stock)
+    public boolean validateQtyEle(SortedSet<ProductQuantitiesCate> qty, ProductAvailableStock stock)
             throws InvalidProductDataException {
 
 //		check the qty units is not equal to null
-        for (ProductQuantities ele : qty) {
+        for (ProductQuantitiesCate ele : qty) {
 
             if (ele.getUnit() == null) {
 
@@ -415,13 +378,11 @@ public class ProductValidator {
     }
 
 
-
-
     //	Method to validate the rs
-    public boolean validateQtyRs(SortedSet<ProductQuantities> qty) throws InvalidProductDataException {
+    public boolean validateQtyRs(SortedSet<ProductQuantitiesCate> qty) throws InvalidProductDataException {
 
 //		iterate through the for each loop
-        for (ProductQuantities ele : qty) {
+        for (ProductQuantitiesCate ele : qty) {
 
 //			if any product amount is lesser than 10 rs thrown an exception
             if (ele.getRs() <= ProductConstants.MINIMUM_AMOUNT) {
@@ -436,9 +397,9 @@ public class ProductValidator {
 
 
     //	Method to the validate the weight of the product
-    public boolean validateQtyWeight(SortedSet<ProductQuantities> qty) throws InvalidProductDataException {
+    public boolean validateQtyWeight(SortedSet<ProductQuantitiesCate> qty) throws InvalidProductDataException {
 
-        for (ProductQuantities ele : qty) {
+        for (ProductQuantitiesCate ele : qty) {
 
             String unitGm = ele.getUnit().toString().toLowerCase();
 
@@ -464,13 +425,13 @@ public class ProductValidator {
     }
 
     //	Method to validate the list of quantities if the available stock is kg
-    public boolean validateQtyListKg(SortedSet<ProductQuantities> qty) throws InvalidProductDataException {
+    public boolean validateQtyListKg(SortedSet<ProductQuantitiesCate> qty) throws InvalidProductDataException {
 
 //		if they selected the available stock is kg, then the quantities must be kg or gm
         String unitKG = ProductStockUnits.KG.toString().toLowerCase();
         String unitGM = ProductStockUnits.GM.toString().toLowerCase();
 
-        for (ProductQuantities ele : qty) {
+        for (ProductQuantitiesCate ele : qty) {
 
             String qtyUnit = ele.getUnit().toString().toLowerCase();
 
@@ -487,13 +448,13 @@ public class ProductValidator {
     }
 
     //	Method to validate the list of quantities if the available stock is pkt
-    public boolean validateQtyListPkt(SortedSet<ProductQuantities> qty) throws InvalidProductDataException {
+    public boolean validateQtyListPkt(SortedSet<ProductQuantitiesCate> qty) throws InvalidProductDataException {
 
 //		if they selected the available stock is pkt, then the quantities must be pkt
 
         String unitPkt = ProductStockUnits.PKT.toString().toLowerCase();
 
-        for (ProductQuantities ele : qty) {
+        for (ProductQuantitiesCate ele : qty) {
 
             String qtyUnit = ele.getUnit().toString().toLowerCase();
 
@@ -509,13 +470,13 @@ public class ProductValidator {
     }
 
     //	Method to validate the list of quantities if the available stock is nos
-    public boolean validateQtyListNos(SortedSet<ProductQuantities> qty) throws InvalidProductDataException {
+    public boolean validateQtyListNos(SortedSet<ProductQuantitiesCate> qty) throws InvalidProductDataException {
 
 //		if they selected the available stock is nos, then the quantities must be nos
 
         String unitNos = ProductStockUnits.NOS.toString().toLowerCase();
 
-        for (ProductQuantities ele : qty) {
+        for (ProductQuantitiesCate ele : qty) {
 
             String qtyUnit = ele.getUnit().toString().toLowerCase();
 
@@ -569,50 +530,5 @@ public class ProductValidator {
         return true; // or false based on your requirements
     }
 
-//	validation ends for product-created date and time
-
-//	validation starts for product updated date and time
-
-    //	Method to validate the product updated date
-    public boolean validateUpdatedDate(LocalDate date, LocalDate createdDate) throws InvalidProductDataException {
-//		check if the date is null
-        if (date == null) {
-
-            throw new InvalidProductDataException(
-                    ProductFieldNames.PRODUCT + " " + ProductValidatorErrors.INVALID_UPDATED_DATE_NULL);
-        }
-
-//		if the updated is lesser than created date thrown exception
-        if (date.isBefore(createdDate)) {
-            throw new InvalidProductDataException(
-                    ProductFieldNames.PRODUCT + " " + ProductValidatorErrors.INVALID_UPDATED_DATE);
-        }
-
-//		if there is no exception, then return true
-        return true;
-
-    }
-
-    //	Method to validate the product updated time
-    public boolean validateUpdatedTime(LocalTime updatedTime, LocalTime createdTime, LocalDate createdDate,
-                                       LocalDate updatedDate) throws InvalidProductDataException {
-
-//		check if the time is null
-        if (updatedTime == null) {
-            throw new InvalidProductDataException(
-                    ProductFieldNames.PRODUCT + " " + ProductValidatorErrors.INVALID_UPDATED_TIME_NULL);
-        }
-
-        if (updatedDate.equals(createdDate) && updatedTime.isBefore(createdTime)) {
-
-            throw new InvalidProductDataException(
-                    ProductFieldNames.PRODUCT + " " + ProductValidatorErrors.INVALID_UPDATED_TIME);
-        }
-
-//		if there is no exception, then return true
-        return true;
-    }
-
-//	validation ends for product updated date and time
 
 }

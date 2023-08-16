@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.fssa.agrokart.exceptions;
+package com.fssa.agrokart.exception;
 
 import java.io.Serial;
 

@@ -18,7 +18,7 @@ The backend is developed using Core Java and integrated with an SQL database for
 
 The core components of the backend are organized as follows:
 
-- [src/main/java/com/fssa/agrokart/models](src/main/java/com/fssa/agrokart/model): This directory contains the model classes that represents the objects.
+- [src/main/java/com/fssa/agrokart/model](src/main/java/com/fssa/agrokart/model): This directory contains the model classes that represents the objects.
 
 - [src/main/java/com/fssa/agrokart/service](src/main/java/com/fssa/agrokart/service) : This directory contains service classes that implement business logic for the Agrokart web application.
 
@@ -28,7 +28,7 @@ The core components of the backend are organized as follows:
 
 <hr>
 
-## Milestone -1
+## Milestone -1 
 
 In Milestone-1, we will focus on implementing the backend logic and functionalities to support the Product CRUD operations.
 
@@ -50,16 +50,8 @@ In Milestone-1, we will focus on implementing the backend logic and functionalit
 
 8. [X] **Unit Testing**: Write comprehensive unit tests using JUnit to ensure the correctness and robustness of the Product CRUD operations. Test-edge cases and error scenarios to verify that the backend functions as expected.
 
-## Product Database Design
-
-You can find the SQL script for creating the Product table in the following location:
-
-- [Product SQL Script](src/main/sql/productscripts.sql)
-
-<div align="center">
-  <img src="readme_resources/product_database_design.png" alt="Product Database Design" width="80%">
-</div>
-
+## GitHub Issue - Milestone - 1:
+Link to GitHub Issue: [Milestone -1 GitHub Issue](https://github.com/fssa-batch3/sec_c_sec_c_hemanath.muralikrishnan__corejava_project_2/issues?q=is%3Aopen+is%3Aissue+milestone%3A%22MileStone+-+1%22)
 <hr>
 
 ## Code Quality Analysis

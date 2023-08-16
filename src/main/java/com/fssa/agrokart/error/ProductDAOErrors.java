@@ -1,4 +1,4 @@
-package com.fssa.agrokart.errors;
+package com.fssa.agrokart.error;
 
 /**
  *  An interface which holds error messages for product DAO operations
