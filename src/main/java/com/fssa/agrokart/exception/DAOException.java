@@ -6,19 +6,19 @@ package com.fssa.agrokart.exception;
  * @author HemanathMuralikrishnan
  */
 
-public class ProductDAOException extends Exception {
+public class DAOException extends Exception {
 
     // Calling each super constructor for each of the types
 
-    public ProductDAOException(String msg) {
+    public DAOException(String msg) {
         super(msg);
     }
 
-    public ProductDAOException(Throwable te) {
+    public DAOException(Throwable te) {
         super(te);
     }
 
-    public ProductDAOException(String msg, Throwable te) {
+    public DAOException(String msg, Throwable te) {
         super(msg, te);
     }
 }

@@ -10,84 +10,151 @@ package com.fssa.agrokart.error;
  */
 public final class ProductValidatorErrors {
 
-    //	INVALID_OBJECT nullity checks
-    public static final String INVALID_OBJECT = "object cannot be null.";
+    /**
+     * The constant INVALID_PRODUCT_OBJ.
+     */
+    public static final String INVALID_PRODUCT_OBJ = "Product cannot be null";
 
-    //	INVALID_INSTANCE_CLASS not instance of current class
-    public static final String INVALID_INSTANCE_CLASS = "object is not current instance of class.";
+    /**
+     * The constant INVALID_NAME_OBJ.
+     */
+    public static final String INVALID_NAME_OBJ = "Product name cannot be null.";
 
-    //	INVALID_STRING checks for null or empty string
-    public static final String INVALID_STRING = "cannot be null or empty string.";
+    /**
+     * The constant INVALID_ENGLISH_NAME_NULL.
+     */
+    public static final String INVALID_ENGLISH_NAME_NULL = "Product english name cannot be null or empty string.";
 
-    //	INVALID product id
-    public static final String INVALID_ID = "id cannot be zero or lesser than zero.";
+    /**
+     * The constant INVALID_TAMIL_NAME_NULL.
+     */
+    public static final String INVALID_TAMIL_NAME_NULL = "Product tamil name cannot be null or empty string.";
 
-    //	PATTERN_MISMATCH_MESSAGE
-    public static final String PATTERN_MISMATCH_MESSAGE = "given input doesn't match the requested format.";
+    /**
+     * The constant INVALID_ENGLISH_NAME_PATTERN.
+     */
+    public static final String INVALID_ENGLISH_NAME_PATTERN = "Product English name must contain alphabets only and have a length between 2 and 50 characters. It should not have consecutive spaces exceeding one. Please ensure that the name follows the pattern: '^(?!.*\\s{2,})[A-Za-z ]{2,50}$'.";
 
-    //	INVALID PRODUCT CATEGORY SELECTED
-    public static final String INVALID_CATEGORY = "invalid category selected";
+    /**
+     * The constant INVALID_TAMIL_NAME_PATTERN.
+     */
+    public static final String INVALID_TAMIL_NAME_PATTERN = "Product Tamil name is invalid. It should consist of Tamil characters, dots, and spaces. Consecutive spaces are not allowed. The name should not start with a space. Please ensure that the name follows the pattern: '^(?!\\s)(?!.*\\s{2})[\\p{IsTamil}. ]+'.";
 
-    //	INVALID nutr count
-    public static final String INVALID_NUTR_COUNT = "value cannot be lesser than zero";
+    /**
+     * The constant INVALID_IMAGE_URL_NULL.
+     */
+    public static final String INVALID_IMAGE_URL_NULL = "Product image url cannot be null or empty string.";
 
-    //	INVALID available stock unit
-    public static final String INVALID_AVAIL_UNIT = "Product available stock unit is null.";
+    /**
+     * The constant INVALID_IMAGE_URL_PATTERN.
+     */
+    public static final String INVALID_IMAGE_URL_PATTERN = "Invalid image URL. The URL should start with 'http', 'https', or 'ftp', followed by the domain name, and end with a valid image file extension (jpg, jpeg, gif, png, bmp). Please ensure that the URL matches the pattern: '(?i)\\b((https?|ftp)://)?[a-z0-9-]+(\\.[a-z0-9-]+)+([/?].*)?\\.(jpg|jpeg|gif|png|bmp)\\b'.";
 
-    //	INVALID available stock num
-    public static final String INVALID_AVAIL_NUM = "available stock amount must be greater that 20";
+    /**
+     * The constant INVALID_CATEGORY.
+     */
+    public static final String INVALID_CATEGORY = "Invalid product category";
 
-    //	INVALID product created date
-    public static final String INVALID_CREATED_DATE_NULL = "created date cannot be null.";
+    /**
+     * The constant INVALID_DESCRIPTION_NULL.
+     */
+    public static final String INVALID_DESCRIPTION_NULL = "Product description cannot be null or empty string";
 
-    //	INVALID product created date
-    public static final String INVALID_CREATED_DATE = "created date must be the current date";
+    /**
+     * The constant INVALID_DESCRIPTION_PATTERN.
+     */
+    public static final String INVALID_DESCRIPTION_PATTERN = "Description should be at least 10 characters long and can only contain letters, numbers, punctuation, and basic symbols.";
 
-    //	INVALID product created time
-    public static final String INVALID_CREATED_TIME_NULL = "created time cannot be null.";
+    /**
+     * The constant INVALID_NUTR_OBJ.
+     */
+    public static final String INVALID_NUTR_OBJ = "Product nutritions cannot be null.";
 
-    //	INVALID product created time
-    public static final String INVALID_CREATED_TIME = "created time must be within 24 hours.";
+    /**
+     * The constant INVALID_PROTEIN_NUTR.
+     */
+    public static final String INVALID_PROTEIN_NUTR = "Protein must be greater than or equal to zero. Per 100gm of the product.";
 
-    //	INVALID product updated date
-    public static final String INVALID_UPDATED_DATE_NULL = "updated date cannot be null.";
+    /**
+     * The constant INVALID_CARBOHYDRATES_NUTR.
+     */
+    public static final String INVALID_CARBOHYDRATES_NUTR = "Carbohydrates must be greater than or equal to zero. Per 100gm of the product.";
 
-    //	INVALID product updated date
-    public static final String INVALID_UPDATED_DATE = "updated date must be same as created date or future date";
+    /**
+     * The constant INVALID_CALORIES_NUTR.
+     */
+    public static final String INVALID_CALORIES_NUTR = "Calories must be greater than or equal to zero. Per 100gm of the product.";
 
-    //	INVALID product update time
-    public static final String INVALID_UPDATED_TIME_NULL = "update time cannot be null.";
+    /**
+     * The constant INVALID_AVAILABLE_STOCK_OBJ.
+     */
+    public static final String INVALID_AVAILABLE_STOCK_OBJ = "Available stock cannot be null.";
 
-    //	INVALID product update time
-    public static final String INVALID_UPDATED_TIME = "updated time must be greater than or equal to the creation time.";
 
-    //	INVALID product quantity unit
-    public static final String INVALID_QTY_OBJ = "object cannot be null.";
+    /**
+     * The constant INVALID_AVAILABLE_STOCK_UNIT.
+     */
+    public static final String INVALID_AVAILABLE_STOCK_UNIT = "Available stock unit cannot be null.";
 
-    //	INVALID product quantity unit
-    public static final String INVALID_QTY_UNIT = "Product quantity unit cannot be null.";
+    /**
+     * The constant INVALID_AVAILABLE_STOCK_NUM.
+     */
+    public static final String INVALID_AVAILABLE_STOCK_NUM = "Available stock quantity must be greater than or equal to 20.";
 
-    //	INVALID product quantity selected for kg
-    public static final String INVALID_QTY_KG = "is kg. So you can only add the quantites kg and gm unit.";
+    /**
+     * The constant INVALID_STATUS.
+     */
+    public static final String INVALID_STATUS = "Active status cannot be null.";
 
-    //	INVALID product quantity selected for pkt
-    public static final String INVALID_QTY_PKT = "is pkt. So you can only add the quantites with pkt unit.";
 
-    //	INVALID product quantity selected for nos
-    public static final String INVALID_QTY_NOS = "is nos. So you can only add the quantites with nos unit.";
+    /**
+     * The constant INVALID_QUANTITY_CATE_OBJ.
+     */
+    public static final String INVALID_QUANTITY_CATE_OBJ = "Quantities category cannot be null.";
 
-    //	INVALID product price
-    public static final String INVALID_QTY_RS = "quantity rupees must be greater than 10";
+    /**
+     * The constant INVALID_QUANTITY_CATE_UNIT.
+     */
+    public static final String INVALID_QUANTITY_CATE_UNIT = "Quantities category unit cannot be null.";
 
-    //	INVALID product quantity weight
-    public static final String INVALID_QTY_WEIGHT_GM = "for gram quantity weight must be greater than 100 gm";
 
-    //	INVALID product quantity weight
-    public static final String INVALID_QTY_WEIGHT = "quantity weight is invalid.";
+    /**
+     * The constant INVALID_QUANTITY_CATE_AMOUNT.
+     */
+    public static final String INVALID_QUANTITY_CATE_AMOUNT = "Quantities category amount must be greater than or equal to 10.";
 
-    //	INVALID product status
-    public static final String INVALID_STATUS = "invalid.";
 
+    /**
+     * The constant INVALID_QUANTITY_CATE_GRAM.
+     */
+    public static final String INVALID_QUANTITY_CATE_GRAM = "Quantities which have gram must be greater than or equal 100 gram.";
+
+
+    /**
+     * The constant INVALID_QUANTITY_CATE_NUM.
+     */
+    public static final String INVALID_QUANTITY_CATE_NUM = "Quantity must be greater than or equal to 1.";
+
+
+    /**
+     * The constant INVALID_QUANTITY_FOR_KG.
+     */
+    public static final String INVALID_QUANTITY_FOR_KG = "Selected available stock quantity is KG. Only you can add KG or GM for quantities cate.";
+
+    /**
+     * The constant INVALID_QUANTITY_FOR_PKT.
+     */
+    public static final String INVALID_QUANTITY_FOR_PKT = "Selected available stock is PKT. Only you can add PKT for quantities cate.";
+
+    /**
+     * The constant INVALID_QUANTITY_FOR_NOS.
+     */
+    public static final String INVALID_QUANTITY_FOR_NOS = "Selected available stock is NOS. Only you can add NOS for quantities cate.";
+
+
+    /**
+     * Instantiates a new Product validator errors.
+     */
     private ProductValidatorErrors() {
 
 

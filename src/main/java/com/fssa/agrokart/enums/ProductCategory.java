@@ -1,15 +1,33 @@
-/**
- *
- */
 package com.fssa.agrokart.enums;
 
 /**
- * @author HemanathMuralikrishn
- *         this enums holds the category id and names which I compare with the
- *         user input
+ * The enum Product category.
  */
 public enum ProductCategory {
 
-    EXOTIC_FRUITS, EXOTIC_VEGGIES, FRESH_VEGGIES, FRESH_FRUITS, LEAFY_GREEN, TUBERS
+    /**
+     * Exotic fruits product category.
+     */
+    EXOTIC_FRUITS,
+    /**
+     * Exotic veggies product category.
+     */
+    EXOTIC_VEGGIES,
+    /**
+     * Fresh veggies product category.
+     */
+    FRESH_VEGGIES,
+    /**
+     * Fresh fruits product category.
+     */
+    FRESH_FRUITS,
+    /**
+     * Leafy green product category.
+     */
+    LEAFY_GREEN,
+    /**
+     * Tubers product category.
+     */
+    TUBERS
 
 }

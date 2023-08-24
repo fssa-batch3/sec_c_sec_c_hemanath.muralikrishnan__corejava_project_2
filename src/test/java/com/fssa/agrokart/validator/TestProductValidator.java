@@ -19,7 +19,7 @@ import com.fssa.agrokart.enums.*;
 class TestProductValidator {
 
     //	creating new instance of product validator
-    ProductValidator val = new ProductValidator();
+    ProductValidator validate = new ProductValidator();
 
 //	creating a one product object to validate with the main validation
 
@@ -73,7 +73,7 @@ class TestProductValidator {
     @Test
     void testMainMethodWithValid() {
 
-        assertDoesNotThrow(() -> val.validateProduct(getProduct()));
+        assertDoesNotThrow(() -> validate.validateProduct(getProduct()));
     }
 
     //	test the main method with invalid input null
@@ -82,7 +82,7 @@ class TestProductValidator {
 
         Product product = null;
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateProduct(product));
+        assertThrows(InvalidInputException.class, () -> validate.validateProduct(product));
     }
 
 //	test starts for a name object
@@ -91,14 +91,14 @@ class TestProductValidator {
     @Test
     void testValidateNameObj() {
 
-        assertDoesNotThrow(() -> val.validateNameObj(getProduct().getName()));
+        assertDoesNotThrow(() -> validate.validateNameObj(getProduct().getName()));
     }
 
     //	test the name object with null input
     @Test
     void testValidateNameObjWithNull() {
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateNameObj(null));
+        assertThrows(InvalidInputException.class, () -> validate.validateNameObj(null));
     }
 
     //	test the english name with different valid inputs
@@ -121,7 +121,7 @@ class TestProductValidator {
 
         for (String name : validProductNames) {
 
-            assertDoesNotThrow(() -> val.validateEnglishName(name));
+            assertDoesNotThrow(() -> validate.validateEnglishName(name));
         }
 
     }
@@ -139,7 +139,7 @@ class TestProductValidator {
 
         for (String name : invalidProductNames) {
 
-            assertThrows(InvalidProductDataException.class, () -> val.validateEnglishName(name));
+            assertThrows(InvalidInputException.class, () -> validate.validateEnglishName(name));
         }
 
     }
@@ -165,7 +165,7 @@ class TestProductValidator {
 
         for (String name : validProductNames) {
 
-            assertDoesNotThrow(() -> val.validateTamilName(name));
+            assertDoesNotThrow(() -> validate.validateTamilName(name));
         }
     }
 
@@ -177,7 +177,7 @@ class TestProductValidator {
 
         for (String name : invalidProductNames) {
 
-            assertThrows(InvalidProductDataException.class, () -> val.validateTamilName(name));
+            assertThrows(InvalidInputException.class, () -> validate.validateTamilName(name));
 
         }
     }
@@ -269,7 +269,7 @@ class TestProductValidator {
 
         for (String url : validImageUrl) {
 
-            assertDoesNotThrow(() -> val.validateImageUrl(url));
+            assertDoesNotThrow(() -> validate.validateImageUrl(url));
         }
 
     }
@@ -286,7 +286,7 @@ class TestProductValidator {
 
         for (String url : invalidImageUrls) {
 
-            assertThrows(InvalidProductDataException.class, () -> val.validateImageUrl(url));
+            assertThrows(InvalidInputException.class, () -> validate.validateImageUrl(url));
 
         }
 
@@ -299,18 +299,18 @@ class TestProductValidator {
     @Test
     void testProductCategoryValid() {
 
-        assertDoesNotThrow(() -> val.validateCategory(ProductCategory.EXOTIC_FRUITS));
-        assertDoesNotThrow(() -> val.validateCategory(ProductCategory.EXOTIC_VEGGIES));
-        assertDoesNotThrow(() -> val.validateCategory(ProductCategory.FRESH_FRUITS));
-        assertDoesNotThrow(() -> val.validateCategory(ProductCategory.FRESH_VEGGIES));
-        assertDoesNotThrow(() -> val.validateCategory(ProductCategory.LEAFY_GREEN));
-        assertDoesNotThrow(() -> val.validateCategory(ProductCategory.TUBERS));
+        assertDoesNotThrow(() -> validate.validateCategory(ProductCategory.EXOTIC_FRUITS));
+        assertDoesNotThrow(() -> validate.validateCategory(ProductCategory.EXOTIC_VEGGIES));
+        assertDoesNotThrow(() -> validate.validateCategory(ProductCategory.FRESH_FRUITS));
+        assertDoesNotThrow(() -> validate.validateCategory(ProductCategory.FRESH_VEGGIES));
+        assertDoesNotThrow(() -> validate.validateCategory(ProductCategory.LEAFY_GREEN));
+        assertDoesNotThrow(() -> validate.validateCategory(ProductCategory.TUBERS));
     }
 
     @Test
     void testCategoryInvalid() {
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateCategory(null));
+        assertThrows(InvalidInputException.class, () -> validate.validateCategory(null));
     }
 
 //	test end for product category
@@ -325,7 +325,7 @@ class TestProductValidator {
 
         for (String desc : validInputs) {
 
-            assertDoesNotThrow(() -> val.validateDescription(desc));
+            assertDoesNotThrow(() -> validate.validateDescription(desc));
         }
 
     }
@@ -338,7 +338,7 @@ class TestProductValidator {
 
         for (String desc : invalidDescriptions) {
 
-            assertThrows(InvalidProductDataException.class, () -> val.validateDescription(desc));
+            assertThrows(InvalidInputException.class, () -> validate.validateDescription(desc));
         }
 
     }
@@ -353,7 +353,7 @@ class TestProductValidator {
 
         ProductNutrition nutr = null;
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateNutrObj(nutr));
+        assertThrows(InvalidInputException.class, () -> validate.validateNutrObj(nutr));
     }
 
     //	test the nutr with a valid object
@@ -362,7 +362,7 @@ class TestProductValidator {
 
         ProductNutrition nutr = new ProductNutrition(20, 15.5, 100);
 
-        assertDoesNotThrow(() -> val.validateNutrObj(nutr));
+        assertDoesNotThrow(() -> validate.validateNutrObj(nutr));
 
     }
 
@@ -372,7 +372,7 @@ class TestProductValidator {
 
         ProductNutrition nutr = new ProductNutrition(-1, -2, 0);
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateNutrObj(nutr));
+        assertThrows(InvalidInputException.class, () -> validate.validateNutrObj(nutr));
     }
 
 //	test ends for nutrition's
@@ -385,7 +385,7 @@ class TestProductValidator {
 
         ProductAvailableStock stock = null;
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateAvailObj(stock));
+        assertThrows(InvalidInputException.class, () -> validate.validateAvailObj(stock));
     }
 
     //	test the available stock with valid input
@@ -396,9 +396,9 @@ class TestProductValidator {
         ProductAvailableStock stock2 = new ProductAvailableStock(25, ProductStockUnits.PKT);
         ProductAvailableStock stock3 = new ProductAvailableStock(25, ProductStockUnits.NOS);
 
-        assertDoesNotThrow(() -> val.validateAvailObj(stock1));
-        assertDoesNotThrow(() -> val.validateAvailObj(stock2));
-        assertDoesNotThrow(() -> val.validateAvailObj(stock3));
+        assertDoesNotThrow(() -> validate.validateAvailObj(stock1));
+        assertDoesNotThrow(() -> validate.validateAvailObj(stock2));
+        assertDoesNotThrow(() -> validate.validateAvailObj(stock3));
 
     }
 
@@ -409,8 +409,8 @@ class TestProductValidator {
         ProductAvailableStock stock1 = new ProductAvailableStock(18, ProductStockUnits.KG);
         ProductAvailableStock stock2 = new ProductAvailableStock(25, null);
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateAvailObj(stock1));
-        assertThrows(InvalidProductDataException.class, () -> val.validateAvailObj(stock2));
+        assertThrows(InvalidInputException.class, () -> validate.validateAvailObj(stock1));
+        assertThrows(InvalidInputException.class, () -> validate.validateAvailObj(stock2));
     }
 
 //	test ends for available stock
@@ -421,8 +421,8 @@ class TestProductValidator {
     @Test
     void testValidateStatusWithValid() {
 
-        assertDoesNotThrow(() -> val.validateStatus(ProductStatus.AVAILABLE));
-        assertDoesNotThrow(() -> val.validateStatus(ProductStatus.NOT_AVAILABLE));
+        assertDoesNotThrow(() -> validate.validateStatus(ProductStatus.AVAILABLE));
+        assertDoesNotThrow(() -> validate.validateStatus(ProductStatus.NOT_AVAILABLE));
 
     }
 
@@ -430,46 +430,10 @@ class TestProductValidator {
     @Test
     void testValidateStatusWithInvalid() {
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateStatus(null));
+        assertThrows(InvalidInputException.class, () -> validate.validateStatus(null));
     }
 //	test ends for product status
 
-//	test starts for created date and time
-
-    //	test with valid created date
-    @Test
-    void testValidateCreatedDateValid() {
-
-        assertDoesNotThrow(() -> val.validateCreatedDate(LocalDate.now()));
-    }
-
-    //	test with valid created time
-    @Test
-    void testValidateCreatedTimeValid() {
-
-        assertDoesNotThrow(() -> val.validateCreatedTime(LocalTime.now()));
-    }
-
-    //	test the created date invalid inputs
-    @Test
-    void testValidateCreatedDateInvalid() {
-
-        LocalDate[] dates = {null, LocalDate.of(2023, 8, 31), LocalDate.now().plusDays(1),
-                LocalDate.of(2022, 11, 04)};
-
-        for (LocalDate date : dates) {
-
-            assertThrows(InvalidProductDataException.class, () -> val.validateCreatedDate(date));
-        }
-    }
-
-    //	test the created time with invalid inputs
-    @Test
-    void testValidateCreatedTimeInvalid() {
-
-        assertThrows(InvalidProductDataException.class, () -> val.validateCreatedTime(null));
-
-    }
 
 //	test starts for product quantities
 
@@ -483,7 +447,7 @@ class TestProductValidator {
         qty.add(new ProductQuantitiesCate(2, ProductStockUnits.KG, 200));
         qty.add(new ProductQuantitiesCate(250, ProductStockUnits.GM, 100));
 
-        assertDoesNotThrow(() -> val.validateQtyObj(qty, stock));
+        assertDoesNotThrow(() -> validate.validateQtyObj(qty, stock));
 
     }
 
@@ -496,7 +460,7 @@ class TestProductValidator {
         qty.add(new ProductQuantitiesCate(2, ProductStockUnits.PKT, 20));
         qty.add(new ProductQuantitiesCate(10, ProductStockUnits.PKT, 100));
 
-        assertDoesNotThrow(() -> val.validateQtyObj(qty, stock));
+        assertDoesNotThrow(() -> validate.validateQtyObj(qty, stock));
 
     }
 
@@ -509,7 +473,7 @@ class TestProductValidator {
         qty.add(new ProductQuantitiesCate(2, ProductStockUnits.NOS, 20));
         qty.add(new ProductQuantitiesCate(10, ProductStockUnits.NOS, 100));
 
-        assertDoesNotThrow(() -> val.validateQtyObj(qty, stock));
+        assertDoesNotThrow(() -> validate.validateQtyObj(qty, stock));
 
     }
 
@@ -519,7 +483,7 @@ class TestProductValidator {
 
         ProductAvailableStock stock = new ProductAvailableStock(25, ProductStockUnits.NOS);
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateQtyObj(null, stock));
+        assertThrows(InvalidInputException.class, () -> validate.validateQtyObj(null, stock));
     }
 
     @Test
@@ -531,7 +495,7 @@ class TestProductValidator {
         qty.add(new ProductQuantitiesCate(2, ProductStockUnits.PKT, 20));
         qty.add(new ProductQuantitiesCate(10, ProductStockUnits.KG, 100));
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateQtyObj(qty, stock));
+        assertThrows(InvalidInputException.class, () -> validate.validateQtyObj(qty, stock));
 
     }
 
@@ -544,7 +508,7 @@ class TestProductValidator {
         qty.add(new ProductQuantitiesCate(2, ProductStockUnits.KG, 20));
         qty.add(new ProductQuantitiesCate(10, ProductStockUnits.NOS, 100));
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateQtyObj(qty, stock));
+        assertThrows(InvalidInputException.class, () -> validate.validateQtyObj(qty, stock));
 
     }
 
@@ -557,7 +521,7 @@ class TestProductValidator {
         qty.add(new ProductQuantitiesCate(2, ProductStockUnits.KG, 20));
         qty.add(new ProductQuantitiesCate(10, ProductStockUnits.PKT, 100));
 
-        assertThrows(InvalidProductDataException.class, () -> val.validateQtyObj(qty, stock));
+        assertThrows(InvalidInputException.class, () -> validate.validateQtyObj(qty, stock));
 
     }
 //	test ends for product quantities

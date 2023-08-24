@@ -1,22 +1,38 @@
 /**
+ * Class representing a product in the Agrokart application.
+ * This class defines the structure of a product object and its associated attributes.
+ * Each product in the Agrokart application is represented by an instance of this class.
  *
+ * <p> The class includes attributes such as ID, name, image URL, category, description, nutrition information,
+ * available stock, quantities, status, and creation/update date and time.
+ *
+ * <p> It provides getter and setter methods for these attributes.
+ *
+ * <p> The toString method generates a formatted string representation of the product, including its details.
+ *
+ * @param id The unique identifier for the product.
+ * @param name The name of the product.
+ * @param imageUrl The URL of the product image.
+ * @param category The category to which the product belongs.
+ * @param description A brief description of the product.
+ * @param nutrition Nutritional information of the product.
+ * @param availableStock Availability status of the product.
+ * @param quantities The sorted set of quantity categories for the product.
+ * @param status The current status of the product.
+ * @param createdDateTime The date and time when the product was created.
+ * @param updateDateTime The date and time when the product was last updated.
+ * @return A formatted string containing the product details.
+ * @author HemanathMuralikrishnan
  */
+
+
 package com.fssa.agrokart.model;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
 import com.fssa.agrokart.enums.*;
 
-/**
- * product object model
- * com.fssa.agrokart.model.Product - Class representing a product in the
- * Agrokart application.
- * This class defines the structure of a product object and its
- * associated attributes. Each product in the Agrokart application is
- * represented by an instance of this class.
- *
- * @author HemanathMuralikrishnan
- */
 public class Product {
 
     private int id;
@@ -28,15 +44,16 @@ public class Product {
     private ProductAvailableStock availableStock;
     private SortedSet<ProductQuantitiesCate> quantities;
     private ProductStatus status;
-
     private LocalDateTime createdDateTime;
 
     private LocalDateTime updateDateTime;
 
-//	Default constructor
-
+    /**
+     * Default constructor to create an instance of the Product class.
+     * This constructor initializes the object with default values.
+     */
     public Product() {
-        // default constructor to get instance the object
+        // Default constructor to create an instance of the object
     }
 
     public ProductName getName() {

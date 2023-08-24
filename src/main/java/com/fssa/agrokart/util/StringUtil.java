@@ -3,18 +3,20 @@ package com.fssa.agrokart.util;
 import java.util.regex.Pattern;
 
 /**
- * A class which holds the basic method to validate a string like
- * is the string is empty or null
+ * A utility class containing methods for basic string validation operations.
+ * This class provides methods to validate strings for empty, null values, and regex patterns.
  *
  * @author HemanathMuralikrishnan
  */
-
 public class StringUtil {
 
     /**
-     * @param input is string
-     * @return if the input is null or after trimming both ends if the string is empty then this will
-     * return null, Otherwise it will return the trimmed input to the other methods
+     * Trim the input string and check if it is empty or null.
+     * If the input is null or becomes empty after trimming, this method returns null.
+     * Otherwise, the trimmed input string is returned for further processing.
+     *
+     * @param input The string to be trimmed and validated.
+     * @return The trimmed input string if it's not empty or null; otherwise, null.
      */
     public String trimString(String input) {
         if (input == null || input.trim().isEmpty()) {
@@ -24,21 +26,18 @@ public class StringUtil {
     }
 
     /**
-     * @param input   is string
-     * @param pattern is string consists of regex pattern
-     * @return if matches true other false
+     * Check if the input string matches a given regular expression pattern.
+     *
+     * @param input   The string to be validated against the regex pattern.
+     * @param pattern The regex pattern string to be matched against the input.
+     * @return true if the input matches the regex pattern, otherwise false.
      */
     public boolean stringWithRegex(String input, String pattern) {
-
-//		calling the trim string method to trim the string
+        // Call the trimString method to trim the input string
         String trimmedInput = trimString(input);
 
-//		matching the input with the given regex pattern
-//		if it matches then matches method return true
-//		otherwise it will return false
-        boolean isMatch = Pattern.matches(pattern, trimmedInput);
-
-        return isMatch;
+        // Match the input with the given regex pattern
+        // If it matches, the matches method returns true; otherwise, false is returned.
+        return Pattern.matches(pattern, trimmedInput);
     }
-
 }

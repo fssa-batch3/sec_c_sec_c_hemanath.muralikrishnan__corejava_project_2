@@ -1,35 +1,56 @@
 package com.fssa.agrokart.constants;
 
 /**
- * An interface which holds the constant variable for a product model object
+ * The `ProductConstants` class contains constant variables related to the product model in the Agrokart system.
+ * It defines various units, minimum values, and thresholds used for product attributes.
+ *
+ * These constants are used to maintain standardized values and thresholds for product-related calculations and checks.
+ * The class is designed as final and cannot be instantiated.
  *
  * @author HemanathMuralikrishnan
+ *
  */
-
 public final class ProductConstants {
 
-    //	units for protein and carbohydrates is "gram" only it will not change
-    public static final String PROTEIN_CARBOHYDRATESS_UNIT = "gm";
+    /**
+     * The unit for protein and carbohydrates in products, represented in grams.
+     */
+    public static final String PROTEIN_CARBOHYDRATES_UNIT = "gm";
 
-    //	unit for kcal is "cSal" only it will not change
+    /**
+     * The unit for calorie content in products, represented in kilocalories.
+     */
     public static final String CALORIES_UNIT = "kcal";
 
-    //	minimum value for all nutrition
+    /**
+     * The minimum value for all nutrition-related attributes in products.
+     */
     public static final double MINIMUM_NUTRITION = 0;
 
-    //	variable to store the minimum quantity
+    /**
+     * The minimum available stock quantity for products.
+     */
     public static final double MINIMUM_AVAILABLE_STOCK_QUANTITY = 20;
 
-    //	if the selected qty is gram, then the weight must be greater than 100
+    /**
+     * The minimum weight required for products measured in grams if the selected quantity is in grams.
+     */
     public static final double MINIMUM_WEIGHT_FOR_GRAM = 100;
 
-    //	if the selected qty is other than gram must be greater than zero
-    public static final double MINIMUM_WEIGHT = 0;
+    /**
+     * The minimum weight required for products measured in units other than grams.
+     */
+    public static final double MINIMUM_WEIGHT = 1;
 
-    //	variable to store the minimum amount for all products
+    /**
+     * The minimum amount allowed for all products.
+     */
     public static final double MINIMUM_AMOUNT = 10;
 
+    /**
+     * Private constructor to prevent instantiation of the class.
+     */
     private ProductConstants() {
-
+        // This constructor is intentionally empty.
     }
 }
