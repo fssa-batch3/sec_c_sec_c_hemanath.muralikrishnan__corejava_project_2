@@ -1,5 +1,6 @@
 package com.fssa.agrokart.service;
 
+import com.fssa.agrokart.model.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,15 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import java.util.TreeSet;
 
-import com.fssa.agrokart.enums.ProductCategory;
-import com.fssa.agrokart.enums.ProductStatus;
-import com.fssa.agrokart.enums.ProductStockUnits;
+import com.fssa.agrokart.model.ProductCategory;
+import com.fssa.agrokart.model.ProductStatus;
+import com.fssa.agrokart.model.ProductStockUnits;
 import com.fssa.agrokart.exception.*;
-import com.fssa.agrokart.model.Product;
-import com.fssa.agrokart.model.ProductAvailableStock;
-import com.fssa.agrokart.model.ProductName;
-import com.fssa.agrokart.model.ProductNutrition;
-import com.fssa.agrokart.model.ProductQuantitiesCate;
+import com.fssa.agrokart.model.ProductQuantitiesCategory;
 import com.fssa.agrokart.util.*;
 
 /**
@@ -57,7 +54,7 @@ class TestProductService {
 		ProductNutrition nutr = new ProductNutrition();
 		nutr.setProteinNum(1);
 		nutr.setCarbonNumb(25);
-		nutr.setCarbonNumb(95);
+		nutr.setKcalNum(95);
 		product.setNutrition(nutr);
 
 //		available stock
@@ -67,9 +64,9 @@ class TestProductService {
 		product.setAvailableStock(stock);
 
 //		quantites
-		TreeSet<ProductQuantitiesCate> set = new TreeSet<>();
-		set.add(new ProductQuantitiesCate(1, ProductStockUnits.KG, 150));
-		set.add(new ProductQuantitiesCate(350, ProductStockUnits.GM, 50));
+		TreeSet<ProductQuantitiesCategory> set = new TreeSet<>();
+		set.add(new ProductQuantitiesCategory(1, ProductStockUnits.KG, 150));
+		set.add(new ProductQuantitiesCategory(350, ProductStockUnits.GM, 50));
 		product.setQuantities(set);
 
 //		status
@@ -82,16 +79,31 @@ class TestProductService {
 
 	// test the insert product service with valid
 	@Test
-	void testInsertProductValid() {
+	void testInsertProductValid() throws ServiceException {
 
-		assertDoesNotThrow(() -> service.addProduct(getProduct()));
+		try {
+
+			assertTrue(service.addProduct(getProduct()));
+
+		} catch (ServiceException e) {
+
+			fail(e);
+		}
+
 	}
 
 	// test the read product by name with valid
 	@Test
 	void testReadProductByNameValid() {
 
-		logger.info(assertDoesNotThrow(() -> service.readProductByName("Apple Green")));
+		try {
+//			Product product = service.readProductByName("Hemanath");
+			Product product = service.readProductByName("பச்சை ஆப்பிள்");
+			assertNotNull(product);
+			logger.info(product);
+		} catch (ServiceException e) {
+			fail(e);
+		}
 
 	}
 
@@ -109,9 +121,9 @@ class TestProductService {
 				logger.info(ele);
 			}
 
-		} catch (DAOException e) {
+		} catch (ServiceException e) {
 
-			fail("Read all products failed");
+			fail(e);
 		}
 	}
 
@@ -119,14 +131,26 @@ class TestProductService {
 	@Test
 	void testUpdateProductServiceWithValid() {
 
-		assertDoesNotThrow(() -> service.updateProductById(1, getProduct()));
+		try {
+
+			assertTrue(service.updateProductById(2, getProduct()));
+		} catch (ServiceException e) {
+			fail(e);
+		}
+
 	}
 
 	// test the product delete
 	@Test
 	void testDeleteProductById() {
 
-		assertDoesNotThrow(() -> service.deleteProductById(1));
+		try {
+
+			assertTrue(service.deleteProductById(1));
+		} catch (ServiceException e) {
+
+			fail(e);
+		}
 	}
 //test cases end for valid
 
@@ -144,7 +168,7 @@ class TestProductService {
 	void testReadByNameInvalid() {
 		try {
 			assertNull(service.readProductByName("Hemanath"));
-		} catch (DAOException e) {
+		} catch (ServiceException e) {
 			fail("Read name by Invalid test cases failed");
 		}
 	}

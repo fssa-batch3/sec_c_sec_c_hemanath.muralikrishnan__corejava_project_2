@@ -31,8 +31,6 @@ package com.fssa.agrokart.model;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import com.fssa.agrokart.enums.*;
-
 public class Product {
 
     private int id;
@@ -42,7 +40,7 @@ public class Product {
     private String description;
     private ProductNutrition nutrition;
     private ProductAvailableStock availableStock;
-    private SortedSet<ProductQuantitiesCate> quantities;
+    private SortedSet<ProductQuantitiesCategory> quantities;
     private ProductStatus status;
     private LocalDateTime createdDateTime;
 
@@ -104,11 +102,11 @@ public class Product {
         this.availableStock = availableStock;
     }
 
-    public SortedSet<ProductQuantitiesCate> getQuantities() {
+    public SortedSet<ProductQuantitiesCategory> getQuantities() {
         return quantities;
     }
 
-    public void setQuantities(SortedSet<ProductQuantitiesCate> quantities) {
+    public void setQuantities(SortedSet<ProductQuantitiesCategory> quantities) {
         this.quantities = quantities;
     }
 
@@ -158,7 +156,7 @@ public class Product {
 
         // Append Quantities
         sb.append("Quantities: [");
-        for (ProductQuantitiesCate quantity : quantities) {
+        for (ProductQuantitiesCategory quantity : quantities) {
             sb.append(quantity).append(", ");
         }
         // Remove the last comma and space if quantities are present

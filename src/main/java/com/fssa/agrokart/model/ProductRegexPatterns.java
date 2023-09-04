@@ -3,7 +3,7 @@
  *
  * @author HemanathMuralikrishnan
  */
-package com.fssa.agrokart.regexpattern;
+package com.fssa.agrokart.model;
 
 public final class ProductRegexPatterns {
 

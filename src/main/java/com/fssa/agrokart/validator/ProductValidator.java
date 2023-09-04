@@ -1,459 +1,730 @@
 /**
+ * This class provides validation methods for various fields and objects related to the Product model.
+ * It ensures that the data entered for a product is valid and follows certain rules and patterns.
  *
+ * @author HemanathMuralikrishnan
  */
 package com.fssa.agrokart.validator;
 
 import java.util.SortedSet;
 
-import com.fssa.agrokart.error.ProductValidatorErrors;
 import com.fssa.agrokart.exception.InvalidInputException;
 import com.fssa.agrokart.model.*;
-import com.fssa.agrokart.enums.*;
-import com.fssa.agrokart.regexpattern.ProductRegexPatterns;
-import com.fssa.agrokart.constants.ProductConstants;
+import com.fssa.agrokart.model.ProductRegexPatterns;
 import com.fssa.agrokart.util.StringUtil;
 
-
 /**
- * A validator class which holds the all types of validator for a product object
- * and fields
- *
- * @author HemanathMuralikrishn
+ * A validator class which holds various validation methods for a Product object
+ * and its fields.
  */
 
 public class ProductValidator {
 
-    //    creating new string util class
-    StringUtil stringUtil = new StringUtil();
+	StringUtil stringUtil = new StringUtil();
 
-    //	method will validate the object is not equal not null
-    public boolean validateObject(Object obj, String message) throws InvalidInputException {
+	
+	/**
+	 * Validates that an object is not null.
+	 *
+	 * @param obj     The object to validate.
+	 * @param message The error message to throw if the object is null.
+	 * @return True if the object is not null.
+	 * @throws InvalidInputException If the object is null.
+	 */
+	public boolean validateObject(Object obj, String message) throws InvalidInputException {
 
-//		if the object is null, then thrown an exception
+		if (obj == null)
+			throw new InvalidInputException(message);
 
-        if (obj == null)
-            throw new InvalidInputException(message);
-
-//		if the object is not equal to null, then return true
-        return true;
-    }
-
+		return true;
+	}
 
 //	main validation starts for product
 
-    public boolean validateProduct(Product product) throws InvalidInputException {
+	/**
+	 * Validates a Product object.
+	 *
+	 * @param product The Product object to validate.
+	 * @return True if the Product is valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateProduct(Product product) throws InvalidInputException {
 
 //		validate the product object is not equal to null
-        validateObject(product, ProductValidatorErrors.INVALID_PRODUCT_OBJ);
+		validateObject(product, ProductValidatorErrors.INVALID_PRODUCT_OBJ);
 
 //		validate the product name
-        validateNameObj(product.getName());
+		validateNameObj(product.getName());
 
 //		validate the product image url
-        validateImageUrl(product.getImageUrl());
+		validateImageUrl(product.getImageUrl());
 
 //		validate the product description
-        validateDescription(product.getDescription());
+		validateDescription(product.getDescription());
 
 //		validate the product nutrition's
-        validateNutrObj(product.getNutrition());
+		validateNutrObj(product.getNutrition());
 
 //		validate the product available stock
-        validateAvailObj(product.getAvailableStock());
+		validateAvbllObj(product.getAvailableStock());
 
 //		validate the product quantities
-        validateQtyObj(product.getQuantities(), product.getAvailableStock());
+		validateQtyObj(product.getQuantities(), product.getAvailableStock());
 
 //		if there is no exception, then return true
-        return true;
+		return true;
 
-    }
-
+	}
+ 
 //	main validation ends for product
 
 //	validation start for a product name object
 
-    //	Method to validate the name
-    public boolean validateNameObj(ProductName name) throws InvalidInputException {
+	/**
+	 * Validates the name object of a Product.
+	 *
+	 * @param name The ProductName object to validate.
+	 * @return True if the ProductName object is valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateNameObj(ProductName name) throws InvalidInputException {
 
 //		validate with object validator
-        validateObject(name, ProductValidatorErrors.INVALID_NAME_OBJ);
+		validateObject(name, ProductValidatorErrors.INVALID_NAME_OBJ);
 
 //		send the English name to english name validator
-        validateEnglishName(name.getEnglishName());
+		validateEnglishName(name.getEnglishName());
 
 //		send the tamil name to tamil name validator
-        validateTamilName(name.getTamilName());
+		validateTamilName(name.getTamilName());
 
 //		if there is no exception, then return true
-        return true;
+		return true;
 
 //		
-    }
+	}
 
-    //	Method to validate the product english name
-    public boolean validateEnglishName(String engName) throws InvalidInputException {
+	// Method to validate the product english name
 
-        String trimmedInput = stringUtil.trimString(engName);
+	/**
+	 * Validates the English name of a Product.
+	 *
+	 * @param engName The English name to validate.
+	 * @return True if the English name is valid.
+	 * @throws InvalidInputException If the English name is null or does not match
+	 *                               the required pattern.
+	 */
+	public boolean validateEnglishName(String engName) throws InvalidInputException {
 
-        if (trimmedInput == null)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_ENGLISH_NAME_NULL);
+		String trimmedInput = stringUtil.trimString(engName);
 
+		if (trimmedInput == null)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_ENGLISH_NAME_NULL);
 
-        boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.ENGLISH_NAME);
+		boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.ENGLISH_NAME);
 
-        if (!isMatch)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_ENGLISH_NAME_PATTERN);
-
-//		if there is no exception, then return true
-        return true;
-
-    }
-
-    //	Method validate teh product tamil name
-    public boolean validateTamilName(String tamName) throws InvalidInputException {
-
-        String trimmedInput = stringUtil.trimString(tamName);
-
-        if (trimmedInput == null)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_TAMIL_NAME_NULL);
-
-        boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.TAMIL_NAME);
-
-        if (!isMatch)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_TAMIL_NAME_PATTERN);
+		if (!isMatch)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_ENGLISH_NAME_PATTERN);
 
 //		if there is no exception, then return true
-        return true;
+		return true;
 
-    }
+	}
+
+	// Method validate teh product tamil name
+
+	/**
+	 * Validates the Tamil name of a Product.
+	 *
+	 * @param tamName The Tamil name to validate.
+	 * @return True if the Tamil name is valid.
+	 * @throws InvalidInputException If the Tamil name is null or does not match the
+	 *                               required pattern.
+	 */
+	public boolean validateTamilName(String tamName) throws InvalidInputException {
+
+		String trimmedInput = stringUtil.trimString(tamName);
+
+		if (trimmedInput == null)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_TAMIL_NAME_NULL);
+
+		boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.TAMIL_NAME);
+
+		if (!isMatch)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_TAMIL_NAME_PATTERN);
+
+//		if there is no exception, then return true
+		return true;
+
+	}
 
 //	validation end for a product name object
 
 //	validation starts for product image url
 
-    //	Method to validate the product image url
-    public boolean validateImageUrl(String imgUrl) throws InvalidInputException {
+	/**
+	 * Validates the image URL of a Product.
+	 *
+	 * @param imgUrl The image URL to validate.
+	 * @return True if the image URL is valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateImageUrl(String imgUrl) throws InvalidInputException {
 
-        String trimmedInput = stringUtil.trimString(imgUrl);
+		String trimmedInput = stringUtil.trimString(imgUrl);
 
-        if (trimmedInput == null)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_IMAGE_URL_NULL);
+		if (trimmedInput == null)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_IMAGE_URL_NULL);
 
-        boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.IMAGE_URL);
+		boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.IMAGE_URL);
 
-        if (!isMatch)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_IMAGE_URL_PATTERN);
+		if (!isMatch)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_IMAGE_URL_PATTERN);
 
 //		if there is no exception, then return true
-        return true;
-    }
+		return true;
+	}
 
 //	validation end for product image url
 
-    //	validate the product category
-    public boolean validateCategory(ProductCategory cat) throws InvalidInputException {
+	// validate the product category
+
+	/**
+	 * Validates the product category of a Product.
+	 *
+	 * @param cat The ProductCategory to validate.
+	 * @return True if the category is valid.
+	 * @throws InvalidInputException If the category is null.
+	 */
+	public boolean validateCategory(ProductCategory cat) throws InvalidInputException {
 
 //		validate the category is not equal to null
-        if (cat == null)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_CATEGORY);
+		if (cat == null)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_CATEGORY);
 
 //		if the category is not equal to null
-        return true;
-    }
+		return true;
+	}
 
 //	validation starts for product description
 
-    //	Method to validate the product description
-    public boolean validateDescription(String desc) throws InvalidInputException {
+	// Method to validate the product description
 
+	/**
+	 * Validates the description of a Product.
+	 *
+	 * @param desc The description to validate.
+	 * @return True if the description is valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateDescription(String desc) throws InvalidInputException {
 
-        String trimmedInput = stringUtil.trimString(desc);
+		String trimmedInput = stringUtil.trimString(desc);
 
-        if (trimmedInput == null)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_DESCRIPTION_NULL);
+		if (trimmedInput == null)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_DESCRIPTION_NULL);
 
-        boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.DESCRIPTION);
+		boolean isMatch = stringUtil.stringWithRegex(trimmedInput, ProductRegexPatterns.DESCRIPTION);
 
-        if (!isMatch)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_DESCRIPTION_PATTERN);
-
+		if (!isMatch)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_DESCRIPTION_PATTERN);
 
 //		if there is no exception, then return true
-        return true;
-    }
+		return true;
+	}
 
 //	validation end for product description
 
-//    TODO: check for nutr maximum values for protein,carbo,kcal
-
 //	validation starts for product nutrition's
 
-    //	Method to validate the nutrition's num
-    public boolean validateNutrNum(double num, String message) throws InvalidInputException {
+	// Method to validate the product nutrition's
 
-        if (num < ProductConstants.MINIMUM_NUTRITION)
-            throw new InvalidInputException(message);
-
-//	if there is no exception, then return true
-        return true;
-    }
-
-    //	Method to validate the product nutrition's
-    public boolean validateNutrObj(ProductNutrition nutr) throws InvalidInputException {
+	/**
+	 * Validates the nutrition object of a Product.
+	 *
+	 * @param nutr The ProductNutrition object to validate.
+	 * @return True if the ProductNutrition object is valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateNutrObj(ProductNutrition nutr) throws InvalidInputException {
 
 //		validate the object is not equal to null
-        validateObject(nutr, ProductValidatorErrors.INVALID_NUTR_OBJ);
+		validateObject(nutr, ProductValidatorErrors.INVALID_NUTR_OBJ);
 
 //		validate the protein num
-        validateNutrNum(nutr.getProteinNum(), ProductValidatorErrors.INVALID_PROTEIN_NUTR);
+		validateProteinNutr(nutr.getProteinNum());
 
 //		validate the carbo num
-        validateNutrNum(nutr.getCarbonNumb(), ProductValidatorErrors.INVALID_CARBOHYDRATES_NUTR);
+		validateCarboHydratesNutr(nutr.getCarbonNumb());
 
 //		validate the calories
-        validateNutrNum(nutr.getKcalNum(), ProductValidatorErrors.INVALID_CALORIES_NUTR);
+		validateCaloriesNutr(nutr.getKcalNum());
 
 //		if there is no exception, then return true
-        return true;
+		return true;
 
-    }
+	}
+
+	// validation for product protein nutr
+
+	/**
+	 * Validates the protein content in the nutrition of a Product.
+	 *
+	 * @param num The protein value to validate.
+	 * @return True if the protein value is within valid range.
+	 * @throws InvalidInputException If the protein value is out of range.
+	 */
+	public boolean validateProteinNutr(double num) throws InvalidInputException {
+
+		if (num < ProductConstants.MINIMUM_PROTEIN_VALUE || num > ProductConstants.MAXIMUM_PROTEIN_VALUE) {
+
+			throw new InvalidInputException((ProductValidatorErrors.INVALID_PROTEIN_NUTR));
+		}
+
+		return true;
+	}
+
+	// validate the product carbohydrates
+
+	/**
+	 * Validates the carbohydrate content in the nutrition of a Product.
+	 *
+	 * @param num The carbohydrate value to validate.
+	 * @return True if the carbohydrate value is within valid range.
+	 * @throws InvalidInputException If the carbohydrate value is out of range.
+	 */
+	public boolean validateCarboHydratesNutr(double num) throws InvalidInputException {
+
+		if (num < ProductConstants.MINIMUM_CARBOHYDRATES_VALUE || num > ProductConstants.MAXIMUM_CARBOHYDRATES_VALUE) {
+
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_CARBOHYDRATES_NUTR);
+		}
+
+		return true;
+	}
+
+	// validate the product calories
+
+	/**
+	 * Validates the calorie content in the nutrition of a Product.
+	 *
+	 * @param num The calorie value to validate.
+	 * @return True if the calorie value is within valid range.
+	 * @throws InvalidInputException If the calorie value is out of range.
+	 */
+	public boolean validateCaloriesNutr(double num) throws InvalidInputException {
+
+		if (num < ProductConstants.MINIMUM_CALORIES_VALUE || num > ProductConstants.MAXIMUM_CALORIES_VALUE) {
+
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_CALORIES_NUTR);
+		}
+
+		return true;
+	}
 
 //	validation end for product nutrition's
 
+	/**
+	 * Checks if a number is a whole number (integer).
+	 *
+	 * @param number The number to check.
+	 * @return True if the number is a whole number.
+	 */
+	public boolean isWholeNumber(double number) {
+		return Math.floor(number) == number;
+	}
+
 //	validation starts for product available stock
 
-    //	Method to validate the available stock object
-    public boolean validateAvailObj(ProductAvailableStock avail) throws InvalidInputException {
+	// Method to validate the available stock object
+
+	/**
+	 * Validates the available stock object of a Product.
+	 *
+	 * @param avail The ProductAvailableStock object to validate.
+	 * @return True if the ProductAvailableStock object is valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateAvbllObj(ProductAvailableStock avail) throws InvalidInputException {
 
 //		validate the avail stock obj
-        validateObject(avail, ProductValidatorErrors.INVALID_AVAILABLE_STOCK_OBJ);
+		validateObject(avail, ProductValidatorErrors.INVALID_AVAILABLE_STOCK_OBJ);
 
 //		validate the available stock num
-        validateAvailableStock(avail.getNum(), avail.getUnit());
+		validateAvblStock(avail.getNum(), avail.getUnit());
 
 //		if there is no exception, then return true
-        return true;
-    }
+		return true;
+	}
 
-    //	Method to validate the weight num
-    public boolean validateAvailableStock(double num, ProductStockUnits productStockUnits)
-            throws InvalidInputException {
+	// Method to validate the weight num
+
+	/**
+	 * Validates the available stock number and unit of a Product.
+	 *
+	 * @param num               The available stock number to validate.
+	 * @param productStockUnits The unit of the available stock to validate.
+	 * @return True if the available stock number and unit are valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateAvblStock(double num, ProductStockUnits productStockUnits) throws InvalidInputException {
 
 //		check the stock unit not equal to null
-        if (productStockUnits == null)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_AVAILABLE_STOCK_UNIT);
+		if (productStockUnits == null)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_AVAILABLE_STOCK_UNIT);
+
+		if (productStockUnits.toString().equalsIgnoreCase("pkt")
+				|| productStockUnits.toString().equalsIgnoreCase("nos")) {
+
+			if (!isWholeNumber(num)) {
+
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_AVAILABLE_STOCK_PKT_NOS);
+			}
+		}
 
 //		if the num is lesser than zero or lesser than 20, then throw an exception
-        if (num <= ProductConstants.MINIMUM_AVAILABLE_STOCK_QUANTITY)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_AVAILABLE_STOCK_NUM);
+		if (num <= ProductConstants.MINIMUM_AVAILABLE_STOCK_QUANTITY)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_AVAILABLE_STOCK_NUM);
 
 //		if there is no exception, then return true
-        return true;
-    }
+		return true;
+	}
 
 //	validation ends for product available stock
 
-    //	validate the status start
+	// validate the status start
 
-    public boolean validateStatus(ProductStatus status) throws InvalidInputException {
+	/**
+	 * Validates the status of a Product.
+	 *
+	 * @param status The ProductStatus to validate.
+	 * @return True if the status is valid.
+	 * @throws InvalidInputException If the status is null.
+	 */
+	public boolean validateStatus(ProductStatus status) throws InvalidInputException {
 
-        if (status == null)
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_STATUS);
+		if (status == null)
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_STATUS);
 
-        return true;
-    }
+		return true;
+	}
 
 //	validation starts for product quantities
 
-    //	Method to validate the rupees, unit,quantity
-    public boolean validateQtyObj(SortedSet<ProductQuantitiesCate> qty, ProductAvailableStock stock)
-            throws InvalidInputException {
+	// Method to validate the rupees, unit,quantity
+
+	/**
+	 * Validates the quantities object of a Product.
+	 *
+	 * @param qty   The SortedSet of ProductQuantitiesCategory objects to validate.
+	 * @param stock The ProductAvailableStock object associated with the quantities.
+	 * @return True if the quantities are valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateQtyObj(SortedSet<ProductQuantitiesCategory> qty, ProductAvailableStock stock)
+			throws InvalidInputException {
 
 //	check list minimum one qty is added or not
-        if (qty == null || qty.isEmpty())
-            throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_CATE_OBJ);
+		if (qty == null || qty.isEmpty())
+			throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_CATE_OBJ);
 
 //		validate the qty object is not equal to null
-        for (ProductQuantitiesCate ele : qty) {
+		for (ProductQuantitiesCategory ele : qty) {
 
-            validateObject(ele, ProductValidatorErrors.INVALID_QUANTITY_CATE_OBJ);
-        }
+			validateObject(ele, ProductValidatorErrors.INVALID_QUANTITY_CATE_OBJ);
+		}
 
 //		if there is no exception, then send the qty list to another method to validate the units,rs,weight
-        validateQtyEle(qty, stock);
+		validateQtyEle(qty, stock);
 
 //		if there is no exception, then return true
-        return true;
-    }
-
+		return true;
+	}
 
 //	validate the status end
 
-    //	Method to validate the unit,rs,weight
-    public boolean validateQtyEle(SortedSet<ProductQuantitiesCate> qty, ProductAvailableStock stock)
-            throws InvalidInputException {
+	// Method to validate the unit,rs,weight
+
+	/**
+	 * Validates the weights and units of the quantities of a Product.
+	 *
+	 * @param qty   The SortedSet of ProductQuantitiesCategory objects to validate.
+	 * @param stock The ProductAvailableStock object associated with the quantities.
+	 * @return True if the quantities' weights and units are valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateQtyEle(SortedSet<ProductQuantitiesCategory> qty, ProductAvailableStock stock)
+			throws InvalidInputException {
 
 //		check the qty units is not equal to null
-        for (ProductQuantitiesCate ele : qty) {
+		for (ProductQuantitiesCategory ele : qty) {
 
-            if (ele.getUnit() == null) {
+			if (ele.getUnit() == null) {
 
-                throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_CATE_UNIT);
-            }
-        }
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_CATE_UNIT);
+			}
+		}
 
 //		get the available stock unit
 
-        String stockUnit = stock.getUnit().toString().toLowerCase();
+		String stockUnit = stock.getUnit().toString().toLowerCase();
 
 //		and also validate the weight and rs numbs
 
 //		if the selected available stock is in kg,
 //		then user can only add kg and gram quantities
 
-        if (stockUnit.equals(ProductStockUnits.KG.toString().toLowerCase())) {
+		if (stockUnit.equals(ProductStockUnits.KG.toString().toLowerCase())) {
 
-            validateQtyListKg(qty);
-
-        }
+			validateQtyListKg(qty);
+			validateQtyWeightKg(qty, stock);
+		}
 
 //		if the selected available stock is in pkt,
 //		then user can only add pkt quantities
 
-        if (stockUnit.equals(ProductStockUnits.PKT.toString().toLowerCase())) {
+		if (stockUnit.equals(ProductStockUnits.PKT.toString().toLowerCase())) {
 
-            validateQtyListPkt(qty);
-        }
+			validateQtyListPkt(qty);
+			validateQtyWeightPkt(qty, stock);
+		}
 
 //		if the select available stock is in nos,
 //		then user can only add the no quantities
 
-        if (stockUnit.equals(ProductStockUnits.NOS.toString().toLowerCase())) {
+		if (stockUnit.equals(ProductStockUnits.NOS.toString().toLowerCase())) {
 
-            validateQtyListNos(qty);
-        }
+			validateQtyListNos(qty);
+			validateQtyWeightNos(qty, stock);
+		}
 
-//		validate the rs and weight
-        validateQtyWeight(qty);
-        validateQtyRs(qty);
+		validateQtyRs(qty);
 
 //		if there is no exception, then return true
-        return true;
+		return true;
 
-    }
+	}
 
+	// Method to validate the rs
 
-    //	Method to validate the rs
-    public boolean validateQtyRs(SortedSet<ProductQuantitiesCate> qty) throws InvalidInputException {
+	/**
+	 * Validates the rupees (Rs) value of quantities for a Product.
+	 *
+	 * @param qty The SortedSet of ProductQuantitiesCategory objects to validate.
+	 * @return True if the rupees values of the quantities are valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateQtyRs(SortedSet<ProductQuantitiesCategory> qty) throws InvalidInputException {
 
 //		iterate through the for each loop
-        for (ProductQuantitiesCate ele : qty) {
+		for (ProductQuantitiesCategory ele : qty) {
 
 //			if any product amount is lesser than 10 rs thrown an exception
-            if (ele.getRs() <= ProductConstants.MINIMUM_AMOUNT) {
-                throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_CATE_AMOUNT);
-            }
-        }
+			if (ele.getRs() < ProductConstants.MINIMUM_AMOUNT) {
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_CATE_AMOUNT);
+			}
+		}
 
 //		if there is no exception, then return true
-        return true;
-    }
+		return true;
+	}
 
+	// Method to validate the list of quantities if the available stock is kg
 
-    //	Method to the validate the weight of the product
-
-//    TODO: check if the available stock 20 then the user given quantites cate must be 20 kg | nos | pkt not more than that
-    public boolean validateQtyWeight(SortedSet<ProductQuantitiesCate> qty) throws InvalidInputException {
-
-        for (ProductQuantitiesCate ele : qty) {
-
-            String unitGm = ele.getUnit().toString().toLowerCase();
-
-//			if the selected quantity is gm, then check the weight is greater than gram 100
-//				if the weight is lesser than 100, throw an exception
-            if (unitGm.equals("gm") && ele.getWeight() <= ProductConstants.MINIMUM_WEIGHT_FOR_GRAM) {
-
-                throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_CATE_GRAM);
-            }
-
-
-//			if the weight is lesser than one, then throw an exception
-            if (ele.getWeight() < ProductConstants.MINIMUM_WEIGHT) {
-
-                throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_CATE_NUM);
-            }
-        }
-
-//		if there is no exception return true
-        return true;
-    }
-
-    //	Method to validate the list of quantities if the available stock is kg
-    public boolean validateQtyListKg(SortedSet<ProductQuantitiesCate> qty) throws InvalidInputException {
+	/**
+	 * Validates the unit, rs, and weight values of quantities for a Product with
+	 * available stock in kilograms.
+	 *
+	 * @param qty The SortedSet of ProductQuantitiesCategory objects to validate.
+	 * @return True if the quantities' unit and weight values are valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateQtyListKg(SortedSet<ProductQuantitiesCategory> qty) throws InvalidInputException {
 
 //		if they selected the available stock is kg, then the quantities must be kg or gm
-        String unitKG = ProductStockUnits.KG.toString().toLowerCase();
-        String unitGM = ProductStockUnits.GM.toString().toLowerCase();
+		String unitKG = ProductStockUnits.KG.toString().toLowerCase();
+		String unitGM = ProductStockUnits.GM.toString().toLowerCase();
 
-        for (ProductQuantitiesCate ele : qty) {
+		for (ProductQuantitiesCategory ele : qty) {
 
-            String qtyUnit = ele.getUnit().toString().toLowerCase();
+			String qtyUnit = ele.getUnit().toString().toLowerCase();
 
-            if (!qtyUnit.equals(unitKG) && !qtyUnit.equals(unitGM)) {
+			if (!qtyUnit.equals(unitKG) && !qtyUnit.equals(unitGM)) {
 
-                throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_FOR_KG);
-            }
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_FOR_KG);
+			}
 
-        }
-
+		}
 //		if there is no exception, then return true
-        return true;
-    }
+		return true;
+	}
 
-    //	Method to validate the list of quantities if the available stock is pkt
-    public boolean validateQtyListPkt(SortedSet<ProductQuantitiesCate> qty) throws InvalidInputException {
+	// validate the weights of the set
+
+	/**
+	 * Validates the weights of quantities for a Product with available stock in
+	 * kilograms.
+	 *
+	 * @param qty   The SortedSet of ProductQuantitiesCategory objects to validate.
+	 * @param stock The ProductAvailableStock object associated with the quantities.
+	 * @return True if the quantities' weight values are valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateQtyWeightKg(SortedSet<ProductQuantitiesCategory> qty, ProductAvailableStock stock)
+			throws InvalidInputException {
+
+		double weight = stock.getNum() * 1000;
+
+//        validate the weight of the quantity cate
+		for (ProductQuantitiesCategory ele : qty) {
+
+			if (ele.getUnit().toString().toLowerCase().equals("kg")) {
+
+				if (ele.getWeight() * 1000 > weight || ele.getWeight() < ProductConstants.MINIMUM_WEIGHT_FOR_KG) {
+
+					throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_WEIGHT);
+
+				}
+			} else if (ele.getWeight() > weight || ele.getWeight() < ProductConstants.MINIMUM_WEIGHT_FOR_GRAM) {
+
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_WEIGHT);
+			}
+		}
+
+//        return true if there is no exception
+		return true;
+	}
+
+	// Method to validate the list of quantities if the available stock is pkt
+
+	/**
+	 * Validates the unit values of quantities for a Product with available stock in
+	 * packets.
+	 *
+	 * @param qty The SortedSet of ProductQuantitiesCategory objects to validate.
+	 * @return True if the quantities' unit values are valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateQtyListPkt(SortedSet<ProductQuantitiesCategory> qty) throws InvalidInputException {
 
 //		if they selected the available stock is pkt, then the quantities must be pkt
 
-        String unitPkt = ProductStockUnits.PKT.toString().toLowerCase();
+		String unitPkt = ProductStockUnits.PKT.toString().toLowerCase();
 
-        for (ProductQuantitiesCate ele : qty) {
+		for (ProductQuantitiesCategory ele : qty) {
 
-            String qtyUnit = ele.getUnit().toString().toLowerCase();
+			String qtyUnit = ele.getUnit().toString().toLowerCase();
 
-            if (!qtyUnit.equals(unitPkt)) {
+			if (!qtyUnit.equals(unitPkt)) {
 
-                throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_FOR_PKT);
-            }
-        }
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_FOR_PKT);
+			}
+		}
 
 //		if there is no exception, then return true
-        return true;
-    }
+		return true;
+	}
 
-    //	Method to validate the list of quantities if the available stock is nos
-    public boolean validateQtyListNos(SortedSet<ProductQuantitiesCate> qty) throws InvalidInputException {
+	// validate the weights of the set
+
+	/**
+	 * Validates the weights of quantities for a Product with available stock in
+	 * packets.
+	 *
+	 * @param qty   The SortedSet of ProductQuantitiesCategory objects to validate.
+	 * @param stock The ProductAvailableStock object associated with the quantities.
+	 * @return True if the quantities' weight values are valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateQtyWeightPkt(SortedSet<ProductQuantitiesCategory> qty, ProductAvailableStock stock)
+			throws InvalidInputException {
+
+		double weight = stock.getNum();
+
+		for (ProductQuantitiesCategory ele : qty) {
+
+			if (!isWholeNumber(ele.getWeight())) {
+
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_WEIGTH_PKT_NOS);
+
+			}
+
+			if (ele.getWeight() > weight || ele.getWeight() < ProductConstants.MINIMUM_WEIGHT_FOR_PKT) {
+
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_WEIGHT);
+
+			}
+		}
+
+//        no exception return true
+		return true;
+	}
+
+	// Method to validate the list of quantities if the available stock is nos
+
+	/**
+	 * Validates the unit values of quantities for a Product with available stock in
+	 * pieces.
+	 *
+	 * @param qty The SortedSet of ProductQuantitiesCategory objects to validate.
+	 * @return True if the quantities' unit values are valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateQtyListNos(SortedSet<ProductQuantitiesCategory> qty) throws InvalidInputException {
 
 //		if they selected the available stock is nos, then the quantities must be nos
 
-        String unitNos = ProductStockUnits.NOS.toString().toLowerCase();
+		String unitNos = ProductStockUnits.NOS.toString().toLowerCase();
 
-        for (ProductQuantitiesCate ele : qty) {
+		for (ProductQuantitiesCategory ele : qty) {
 
-            String qtyUnit = ele.getUnit().toString().toLowerCase();
+			String qtyUnit = ele.getUnit().toString().toLowerCase();
 
-            if (!qtyUnit.equals(unitNos)) {
+			if (!qtyUnit.equals(unitNos)) {
 
-                throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_FOR_NOS);
-            }
-        }
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_FOR_NOS);
+			}
+		}
 
 //		if there is no exception, then return true
-        return true;
-    }
+		return true;
+	}
+
+	// validate the weights of set
+
+	/**
+	 * Validates the weights of quantities for a Product with available stock in
+	 * pieces.
+	 *
+	 * @param qty   The SortedSet of ProductQuantitiesCategory objects to validate.
+	 * @param stock The ProductAvailableStock object associated with the quantities.
+	 * @return True if the quantities' weight values are valid.
+	 * @throws InvalidInputException If any validation fails.
+	 */
+	public boolean validateQtyWeightNos(SortedSet<ProductQuantitiesCategory> qty, ProductAvailableStock stock)
+			throws InvalidInputException {
+
+		double weight = stock.getNum();
+
+		for (ProductQuantitiesCategory ele : qty) {
+
+			if (!isWholeNumber(ele.getWeight())) {
+
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_WEIGTH_PKT_NOS);
+
+			}
+
+			if (ele.getWeight() > weight || ele.getWeight() < ProductConstants.MINIMUM_WEIGHT_FOR_NOS) {
+
+				throw new InvalidInputException(ProductValidatorErrors.INVALID_QUANTITY_WEIGHT);
+
+			}
+		}
+
+//        no exception return true
+		return true;
+	}
 
 //	validation ends for product quantities
-
 
 }

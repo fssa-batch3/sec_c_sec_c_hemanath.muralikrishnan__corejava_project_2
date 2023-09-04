@@ -3,21 +3,23 @@
  * This class defines the structure of the available stock information for a product.
  * Each instance of this class holds the numeric value and unit of available stock.
  *
- * @param num The numeric value of available stock.
+ * @param num  The numeric value of available stock.
  * @param unit The unit of measurement for the available stock.
  * @author HemanathMuralikrishnan
  */
 package com.fssa.agrokart.model;
 
-import com.fssa.agrokart.enums.ProductStockUnits;
+import java.time.LocalDateTime;
 
 public class ProductAvailableStock {
 
     private double num;
     private ProductStockUnits unit;
+    private LocalDateTime createdDateTime;
+    private LocalDateTime updatedTimeDate;
 
     /**
-     * Default constructor for creating an instance of ProductAvailableStock class.
+     * Default constructor for creating an instance of the ProductAvailableStock class.
      * Initializes the available stock number and unit with default values.
      */
     public ProductAvailableStock() {
@@ -25,9 +27,9 @@ public class ProductAvailableStock {
     }
 
     /**
-     * Constructor to create an instance of ProductAvailableStock class with specified values.
+     * Constructor to create an instance of the ProductAvailableStock class with specified values.
      *
-     * @param num The numeric value of available stock.
+     * @param num  The numeric value of available stock.
      * @param unit The unit of measurement for the available stock.
      */
     public ProductAvailableStock(double num, ProductStockUnits unit) {
@@ -36,7 +38,7 @@ public class ProductAvailableStock {
     }
 
     /**
-     * Get the numeric value of available stock.
+     * Gets the numeric value of available stock.
      *
      * @return The numeric value of available stock.
      */
@@ -45,7 +47,7 @@ public class ProductAvailableStock {
     }
 
     /**
-     * Set the numeric value of available stock.
+     * Sets the numeric value of available stock.
      *
      * @param num The numeric value of available stock to set.
      */
@@ -54,7 +56,7 @@ public class ProductAvailableStock {
     }
 
     /**
-     * Get the unit of measurement for the available stock.
+     * Gets the unit of measurement for the available stock.
      *
      * @return The unit of measurement for the available stock.
      */
@@ -63,7 +65,7 @@ public class ProductAvailableStock {
     }
 
     /**
-     * Set the unit of measurement for the available stock.
+     * Sets the unit of measurement for the available stock.
      *
      * @param unit The unit of measurement for the available stock to set.
      */
@@ -72,12 +74,53 @@ public class ProductAvailableStock {
     }
 
     /**
-     * Generate a string representation of the available stock.
+     * Gets the creation date and time of the available stock information.
      *
-     * @return A formatted string containing the available stock value and unit.
+     * @return The creation date and time of the available stock information.
+     */
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    /**
+     * Sets the creation date and time of the available stock information.
+     *
+     * @param createdDateTime The creation date and time to set.
+     */
+    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
+    /**
+     * Gets the last updated date and time of the available stock information.
+     *
+     * @return The last updated date and time of the available stock information.
+     */
+    public LocalDateTime getUpdatedTimeDate() {
+        return updatedTimeDate;
+    }
+
+    /**
+     * Sets the last updated date and time of the available stock information.
+     *
+     * @param updatedTimeDate The last updated date and time to set.
+     */
+    public void setUpdatedTimeDate(LocalDateTime updatedTimeDate) {
+        this.updatedTimeDate = updatedTimeDate;
+    }
+
+    /**
+     * Returns a string representation of the ProductAvailableStock object.
+     *
+     * @return A string representation of the ProductAvailableStock object.
      */
     @Override
     public String toString() {
-        return num + " " + unit;
+        return "ProductAvailableStock{" +
+                "num=" + num +
+                ", unit=" + unit +
+                ", createdDateTime=" + createdDateTime +
+                ", updatedTimeDate=" + updatedTimeDate +
+                '}';
     }
 }
