@@ -47,27 +47,32 @@ public class ProductService {
 	 *                          performing the operation.
 	 */
 	public boolean addProduct(Product product) throws ServiceException {
+
 		try {
-
-			// Check if a product with the new English name already exists
-			String newEnglishName = product.getName().getEnglishName();
-			if (productDAO.isProductWithNameExists(newEnglishName)) {
-				throw new ServiceException("A product with English name " + newEnglishName + " already exists.");
-			}
-
-			// Check if a product with the new Tamil name already exists
-			String newTamilName = product.getName().getTamilName();
-			if (productDAO.isProductWithNameExists(newTamilName)) {
-				throw new ServiceException("A product with Tamil name " + newTamilName + " already exists.");
-			}
 			// Validate the product details
+
 			if (validator.validateProduct(product)) {
+
+				// Check if a product with the new English name already exists
+				String newEnglishName = product.getName().getEnglishName();
+
+				if (productDAO.isProductWithNameExists(newEnglishName)) {
+					throw new ServiceException("A product with English name " + newEnglishName + " already exists.");
+				}
+
+				// Check if a product with the new Tamil name already exists
+				String newTamilName = product.getName().getTamilName();
+
+				if (productDAO.isProductWithNameExists(newTamilName)) {
+					throw new ServiceException("A product with Tamil name " + newTamilName + " already exists.");
+				}
+
 				// If details are valid and no duplicate name, insert into the database
 				return productDAO.insertProduct(product);
 			}
 
 		} catch (InvalidInputException | DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 		return false;
 	}
@@ -86,7 +91,7 @@ public class ProductService {
 		try {
 			product = productDAO.readProductByName(name);
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 
 		if (product == null) {
@@ -116,12 +121,7 @@ public class ProductService {
 			// Retrieve the product from the database
 			product = productDAO.readProductById(id);
 		} catch (DAOException e) {
-			throw new ServiceException(e);
-		}
-
-		// If the product is still null, it means it was not found
-		if (product == null) {
-			throw new ServiceException("Product not found with ID: " + id + ".");
+			throw new ServiceException(e.getMessage());
 		}
 
 		return product;
@@ -138,7 +138,7 @@ public class ProductService {
 		try {
 			return productDAO.getAllProducts();
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -158,7 +158,7 @@ public class ProductService {
 
 			return productDAO.deleteProduct(id);
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -185,11 +185,11 @@ public class ProductService {
 			}
 
 		} catch (InvalidInputException | DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 		return false;
 	}
- 
+
 	/**
 	 * Updates the status of a product with the given name and ID.
 	 *
@@ -213,7 +213,7 @@ public class ProductService {
 			return productDAO.updateProductStatus(name, id);
 
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
 

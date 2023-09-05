@@ -72,7 +72,7 @@ public final class ProductDAOErrors {
 
 //	Error message for isproductexsists with the id
 	public static final String IS_PRODUCT_EXISTS_WITH_ID = "Product with the given ID already exists in the database.";
-	
+
 //	Error message while updating the product status
 	public static final String UPDATE_STATUS_ERROR = "Error while updating product status";
 

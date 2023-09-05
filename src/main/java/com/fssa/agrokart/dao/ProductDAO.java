@@ -77,7 +77,7 @@ public class ProductDAO {
 				conn.rollback(); // Rollback the transaction in case of an exception
 				ExceptionLoggerUtil.logException(e);
 				throw new DAOException(ProductDAOErrors.INSERT_ERROR, e);
- 
+
 			} finally {
 				conn.setAutoCommit(true); // Reset auto-commit mode
 			}

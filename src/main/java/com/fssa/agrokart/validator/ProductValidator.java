@@ -188,7 +188,7 @@ public class ProductValidator {
 //	validation end for product image url
 
 	// validate the product category
-
+ 
 	/**
 	 * Validates the product category of a Product.
 	 *

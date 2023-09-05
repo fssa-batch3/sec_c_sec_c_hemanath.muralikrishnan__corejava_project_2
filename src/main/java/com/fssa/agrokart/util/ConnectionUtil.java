@@ -23,8 +23,7 @@ public class ConnectionUtil {
 	 * @throws ConnectionException If unable to establish a database connection.
 	 */
 	public static Connection getConnection() throws ConnectionException {
-		Connection con = null; 
-		
+		Connection con = null;
 
 		String url;
 		String userName;
@@ -35,16 +34,13 @@ public class ConnectionUtil {
 		userName = System.getenv("DATABASE_USERNAME");
 		passWord = System.getenv("DATABASE_PASSWORD");
 
-//		// For cloud database credentials
-//         url = System.getenv("CLOUD_DATABASE_HOST");
-//         userName = System.getenv("CLOUD_DATABASE_USERNAME");
-//         passWord = System.getenv("CLOUD_DATABASE_PASSWORD");
+
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(url, userName, passWord);
 		} catch (Exception e) {
-			throw new ConnectionException("Unable to connect to the database");
+			throw new ConnectionException(e);
 		}
 		return con;
 	}
