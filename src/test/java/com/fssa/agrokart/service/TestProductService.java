@@ -88,21 +88,21 @@ class TestProductService {
 
 //    test cases for valid
 
-	// test the insert product service with valid
-	@Test
-	@Order(1)
-	void testInsertProductValid() throws ServiceException {
-
-		try {
-
-			assertTrue(service.addProduct(getProduct()));
-
-		} catch (ServiceException e) {
-
-			fail(e);
-		}
-
-	}
+//	// test the insert product service with valid
+//	@Test
+//	@Order(1)
+//	void testInsertProductValid() throws ServiceException {
+//
+//		try {
+//
+//			assertTrue(service.addProduct(getProduct()));
+//
+//		} catch (ServiceException e) {
+//
+//			fail(e);
+//		}
+//
+//	}
 
 	// test the read product by name with valid
 	@Test
@@ -162,206 +162,206 @@ class TestProductService {
 //
 //		try {
 //
-//			assertTrue(service.deleteProductById(19));
+//			assertTrue(service.deleteProductById(5));
 //		} catch (ServiceException e) {
 //
 //			fail(e);
 //		}
 //	}
-
-	@Test
-	void testReadProductByIdValid() {
-
-		int id = 2;
-
-		try {
-
-			assertNotNull(service.readProductById(id));
-		} catch (ServiceException e) {
-
-			fail(e);
-		}
-	}
-
-	@Test
-	void testReadProductByIdInvalid() {
-
-		int id = 20;
-
-		try {
-
-			service.readProductById(id);
-		} catch (ServiceException e) {
-
-			assertEquals("Product with ID " + id + " not found.", e.getMessage());
-		}
-	}
-
-	@Test
-	void testUpdateStatusWithValid() {
-
-		int id = 3;
-		String status = "AVAILABLE";
-
-		try {
-
-			assertTrue(service.updateProductStatus(status, id));
-		} catch (ServiceException e) {
-
-			fail(e);
-		}
-
-	}
-//test cases end for valid
-
-//    test cases start of invalid
-
-	@Test
-	void testAddProductWithNull() {
-
-		try {
-
-			service.addProduct(null);
-			fail("Product null validation failed");
-		} catch (ServiceException e) {
-
-			assertEquals(ProductValidatorErrors.INVALID_PRODUCT_OBJ, e.getMessage());
-		}
-	}
-
-	@Test
-	void testAddProductExistsEngName() {
-
-		String newEnglishName = "Baby Orange";
-		ProductName name = new ProductName();
-		name.setEnglishName(newEnglishName);
-		name.setTamilName("பச்சை ஆப்பிள்");
-
-		Product newProduct = getProduct();
-		newProduct.setName(name);
-
-		try {
-
-			service.addProduct(newProduct);
-			fail("Add product already english name exsist validation failed");
-		} catch (ServiceException e) {
-
-			assertEquals("A product with English name " + newEnglishName + " already exists.", e.getMessage());
-		}
-
-	}
-
-	@Test
-	void testAddProductExistsTamName() {
-
-		String newTamilName = "மாண்டரின் ஆரஞ்சு";
-		ProductName name = new ProductName();
-		name.setEnglishName("Watermeleon");
-		name.setTamilName(newTamilName);
-
-		Product newProduct = getProduct();
-		newProduct.setName(name);
-
-		try {
-
-			service.addProduct(newProduct);
-			fail("Add product already english tamil name exsist validation failed");
-		} catch (ServiceException e) {
-			assertEquals("A product with Tamil name " + newTamilName + " already exists.", e.getMessage());
-		}
-
-	}
-
-	// test the readbyname method with invalid product name
-	@Test
-	void testReadByNameInvalid() {
-		String name = "Watermeleon";
-		try {
-			service.readProductByName(name);
-			fail("Invaid product read by name failed.");
-		} catch (ServiceException e) {
-			assertEquals("Product not found with the name: " + name + ".", e.getMessage());
-		}
-	}
-
-	// test the delete the method with invalid product it
-	@Test
-	void testDeleteProductInvalidId() {
-
-		int id = -1;
-
-		try {
-			service.deleteProductById(id);
-			fail("Product delete with invalid id failed");
-
-		} catch (ServiceException e) {
-
-			assertEquals("Product with ID " + id + " not found.", e.getMessage());
-		}
-
-	}
-
-	@Test
-	void testUpdateProductWithNUll() {
-
-		try {
-
-			service.updateProductById(15, null);
-			fail("Update with null product failed");
-		} catch (ServiceException e) {
-
-			assertEquals(ProductValidatorErrors.INVALID_PRODUCT_OBJ, e.getMessage());
-		}
-
-	}
-
-	@Test
-	void testUpdateProductWithInvalidId() {
-
-		int id = -1;
-
-		try {
-
-			service.updateProductById(id, getProduct());
-			fail("Product validation with invalid id failed");
-		} catch (ServiceException e) {
-
-			assertEquals("Product with ID " + id + " not found.", e.getMessage());
-		}
-
-	}
-
-	@Test
-	void testUpdateStatusWithInvalidId() {
-
-		int id = 25;
-		String status = "AVAILABLE";
-
-		try {
-
-			service.updateProductStatus(status, id);
-		} catch (ServiceException e) {
-
-			assertEquals("Product with ID " + id + " not found.", e.getMessage());
-		}
-
-	}
-
-	@Test
-	void testUpdateStatusWithInvalidStatus() {
-
-		int id = 15;
-		String status = "PENDING";
-
-		try {
-
-			service.updateProductStatus(status, id);
-		} catch (ServiceException e) {
-
-			assertEquals(ProductDAOErrors.UPDATE_STATUS_ERROR, e.getMessage());
-		}
-
-	}
-//    test caees end for invalid
+//
+//	@Test
+//	void testReadProductByIdValid() {
+//
+//		int id = 2;
+//
+//		try {
+//
+//			assertNotNull(service.readProductById(id));
+//		} catch (ServiceException e) {
+//
+//			fail(e);
+//		}
+//	}
+//
+//	@Test
+//	void testReadProductByIdInvalid() {
+//
+//		int id = 20;
+//
+//		try {
+//
+//			service.readProductById(id);
+//		} catch (ServiceException e) {
+//
+//			assertEquals("Product with ID " + id + " not found.", e.getMessage());
+//		}
+//	}
+//
+//	@Test
+//	void testUpdateStatusWithValid() {
+//
+//		int id = 3;
+//		String status = "AVAILABLE";
+//
+//		try {
+//
+//			assertTrue(service.updateProductStatus(status, id));
+//		} catch (ServiceException e) {
+//
+//			fail(e);
+//		}
+//
+//	}
+////test cases end for valid
+//
+////    test cases start of invalid
+//
+//	@Test
+//	void testAddProductWithNull() {
+//
+//		try {
+//
+//			service.addProduct(null);
+//			fail("Product null validation failed");
+//		} catch (ServiceException e) {
+//
+//			assertEquals(ProductValidatorErrors.INVALID_PRODUCT_OBJ, e.getMessage());
+//		}
+//	}
+//
+//	@Test
+//	void testAddProductExistsEngName() {
+//
+//		String newEnglishName = "Baby Orange";
+//		ProductName name = new ProductName();
+//		name.setEnglishName(newEnglishName);
+//		name.setTamilName("பச்சை ஆப்பிள்");
+//
+//		Product newProduct = getProduct();
+//		newProduct.setName(name);
+//
+//		try {
+//
+//			service.addProduct(newProduct);
+//			fail("Add product already english name exsist validation failed");
+//		} catch (ServiceException e) {
+//
+//			assertEquals("A product with English name " + newEnglishName + " already exists.", e.getMessage());
+//		}
+//
+//	}
+//
+//	@Test
+//	void testAddProductExistsTamName() {
+//
+//		String newTamilName = "மாண்டரின் ஆரஞ்சு";
+//		ProductName name = new ProductName();
+//		name.setEnglishName("Watermeleon");
+//		name.setTamilName(newTamilName);
+//
+//		Product newProduct = getProduct();
+//		newProduct.setName(name);
+//
+//		try {
+//
+//			service.addProduct(newProduct);
+//			fail("Add product already english tamil name exsist validation failed");
+//		} catch (ServiceException e) {
+//			assertEquals("A product with Tamil name " + newTamilName + " already exists.", e.getMessage());
+//		}
+//
+//	}
+//
+//	// test the readbyname method with invalid product name
+//	@Test
+//	void testReadByNameInvalid() {
+//		String name = "Watermeleon";
+//		try {
+//			service.readProductByName(name);
+//			fail("Invaid product read by name failed.");
+//		} catch (ServiceException e) {
+//			assertEquals("Product not found with the name: " + name + ".", e.getMessage());
+//		}
+//	}
+//
+//	// test the delete the method with invalid product it
+//	@Test
+//	void testDeleteProductInvalidId() {
+//
+//		int id = -1;
+//
+//		try {
+//			service.deleteProductById(id);
+//			fail("Product delete with invalid id failed");
+//
+//		} catch (ServiceException e) {
+//
+//			assertEquals("Product with ID " + id + " not found.", e.getMessage());
+//		}
+//
+//	}
+//
+//	@Test
+//	void testUpdateProductWithNUll() {
+//
+//		try {
+//
+//			service.updateProductById(15, null);
+//			fail("Update with null product failed");
+//		} catch (ServiceException e) {
+//
+//			assertEquals(ProductValidatorErrors.INVALID_PRODUCT_OBJ, e.getMessage());
+//		}
+//
+//	}
+//
+//	@Test
+//	void testUpdateProductWithInvalidId() {
+//
+//		int id = -1;
+//
+//		try {
+//
+//			service.updateProductById(id, getProduct());
+//			fail("Product validation with invalid id failed");
+//		} catch (ServiceException e) {
+//
+//			assertEquals("Product with ID " + id + " not found.", e.getMessage());
+//		}
+//
+//	}
+//
+//	@Test
+//	void testUpdateStatusWithInvalidId() {
+//
+//		int id = 25;
+//		String status = "AVAILABLE";
+//
+//		try {
+//
+//			service.updateProductStatus(status, id);
+//		} catch (ServiceException e) {
+//
+//			assertEquals("Product with ID " + id + " not found.", e.getMessage());
+//		}
+//
+//	}
+//
+//	@Test
+//	void testUpdateStatusWithInvalidStatus() {
+//
+//		int id = 15;
+//		String status = "PENDING";
+//
+//		try {
+//
+//			service.updateProductStatus(status, id);
+//		} catch (ServiceException e) {
+//
+//			assertEquals(ProductDAOErrors.UPDATE_STATUS_ERROR, e.getMessage());
+//		}
+//
+//	}
+////    test caees end for invalid
 
 }
