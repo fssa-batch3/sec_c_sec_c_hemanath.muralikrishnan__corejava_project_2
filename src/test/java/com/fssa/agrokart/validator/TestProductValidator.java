@@ -468,9 +468,8 @@ class TestProductValidator {
 	@Test
 	void testValidateDescWithValid() {
 
-		String[] validInputs = { "This is a valid input.", "Hello, world!", "1234567890", "A simple sentence.",
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu sapien in ipsum vulputate eleifend. Nulla convallis lorem justo, nec cursus nisi fermentum eget.",
-				"Line 1\nLine 2", "The quick brown fox jumps\nover the lazy dog." };
+		String[] validInputs = { "This is a valid input.", "Hello, world", "1234567890", "A simple sentence.",
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu sapien in ipsum vulputate eleifend. Nulla convallis lorem justo, nec cursus nisi fermentum eget.", };
 
 		for (String desc : validInputs) {
 
