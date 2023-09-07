@@ -21,6 +21,16 @@ public class ProductDAO {
 	// to print the success messages
 	Logger logger = new Logger();
 
+	public static final String JOIN_QUERY = "SELECT p.id, p.eng_name, p.tam_name, p.image_url, p.description, p.created_at, p.updated_at, "
+			+ "c.name AS category, s.name AS status, pa.weight, u.unit AS stock_unit_name, pa.created_at AS avbl_created_at, pa.updated_at AS avbl_updated_at, "
+			+ "pn.protein, up.unit AS protein_unit_name, pn.carbohydrates, uc.unit AS carbo_unit_name, "
+			+ "pn.calories, ucal.unit AS cal_unit_name, pn.created_at AS nutr_created_at, pn.updated_at AS nutr_updated_at "
+			+ "FROM product p " + "JOIN categories c ON p.category_id = c.id " + "JOIN status s ON p.status_id = s.id "
+			+ "LEFT JOIN product_available_stock pa ON p.id = pa.product_id "
+			+ "LEFT JOIN units u ON pa.unit_id = u.id " + "LEFT JOIN product_nutr pn ON p.id = pn.product_id "
+			+ "LEFT JOIN units up ON pn.protein_unit_id = up.id " + "LEFT JOIN units uc ON pn.carbo_unit_id = uc.id "
+			+ "LEFT JOIN units ucal ON pn.cal_unit_id = ucal.id";
+
 	/**
 	 * Inserts a new product into the database along with its related information,
 	 * such as available stock, nutrition, and quantities.
@@ -441,19 +451,7 @@ public class ProductDAO {
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			String sql = "SELECT p.id, p.eng_name, p.tam_name, p.image_url, p.description, p.created_at, p.updated_at, "
-					+ "c.name AS category, s.name AS status, pa.weight, u.unit AS stock_unit_name, pa.created_at AS avbl_created_at, pa.updated_at AS avbl_updated_at, "
-					+ "pn.protein, up.unit AS protein_unit_name, pn.carbohydrates, uc.unit AS carbo_unit_name, "
-					+ "pn.calories, ucal.unit AS cal_unit_name, pn.created_at AS nutr_created_at, pn.updated_at AS nutr_updated_at "
-					+ "FROM product p " + "JOIN categories c ON p.category_id = c.id "
-					+ "JOIN status s ON p.status_id = s.id "
-					+ "LEFT JOIN product_available_stock pa ON p.id = pa.product_id "
-					+ "LEFT JOIN units u ON pa.unit_id = u.id " + "LEFT JOIN product_nutr pn ON p.id = pn.product_id "
-					+ "LEFT JOIN units up ON pn.protein_unit_id = up.id "
-					+ "LEFT JOIN units uc ON pn.carbo_unit_id = uc.id "
-					+ "LEFT JOIN units ucal ON pn.cal_unit_id = ucal.id";
-
-			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+			try (PreparedStatement stmt = conn.prepareStatement(JOIN_QUERY)) {
 
 				try (ResultSet rs = stmt.executeQuery()) {
 
@@ -648,17 +646,7 @@ public class ProductDAO {
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			String sql = "SELECT p.id, p.eng_name, p.tam_name, p.image_url, p.description, p.created_at, p.updated_at, "
-					+ "c.name AS category, s.name AS status, pa.weight, u.unit AS stock_unit_name, pa.created_at AS avbl_created_at, pa.updated_at AS avbl_updated_at, "
-					+ "pn.protein, up.unit AS protein_unit_name, pn.carbohydrates, uc.unit AS carbo_unit_name, "
-					+ "pn.calories, ucal.unit AS cal_unit_name, pn.created_at AS nutr_created_at, pn.updated_at AS nutr_updated_at "
-					+ "FROM product p " + "JOIN categories c ON p.category_id = c.id "
-					+ "JOIN status s ON p.status_id = s.id "
-					+ "LEFT JOIN product_available_stock pa ON p.id = pa.product_id "
-					+ "LEFT JOIN units u ON pa.unit_id = u.id " + "LEFT JOIN product_nutr pn ON p.id = pn.product_id "
-					+ "LEFT JOIN units up ON pn.protein_unit_id = up.id "
-					+ "LEFT JOIN units uc ON pn.carbo_unit_id = uc.id "
-					+ "LEFT JOIN units ucal ON pn.cal_unit_id = ucal.id WHERE p.eng_name = ? OR p.tam_name = ?";
+			String sql = JOIN_QUERY + " WHERE p.eng_name = ? OR p.tam_name = ?";
 
 			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -703,17 +691,7 @@ public class ProductDAO {
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			String sql = "SELECT p.id, p.eng_name, p.tam_name, p.image_url, p.description, p.created_at, p.updated_at, "
-					+ "c.name AS category, s.name AS status, pa.weight, u.unit AS stock_unit_name, pa.created_at AS avbl_created_at, pa.updated_at AS avbl_updated_at, "
-					+ "pn.protein, up.unit AS protein_unit_name, pn.carbohydrates, uc.unit AS carbo_unit_name, "
-					+ "pn.calories, ucal.unit AS cal_unit_name, pn.created_at AS nutr_created_at, pn.updated_at AS nutr_updated_at "
-					+ "FROM product p " + "JOIN categories c ON p.category_id = c.id "
-					+ "JOIN status s ON p.status_id = s.id "
-					+ "LEFT JOIN product_available_stock pa ON p.id = pa.product_id "
-					+ "LEFT JOIN units u ON pa.unit_id = u.id " + "LEFT JOIN product_nutr pn ON p.id = pn.product_id "
-					+ "LEFT JOIN units up ON pn.protein_unit_id = up.id "
-					+ "LEFT JOIN units uc ON pn.carbo_unit_id = uc.id "
-					+ "LEFT JOIN units ucal ON pn.cal_unit_id = ucal.id WHERE p.id = ?";
+			String sql = JOIN_QUERY + " WHERE p.id = ?";
 
 			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 

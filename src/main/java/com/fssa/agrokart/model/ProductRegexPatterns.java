@@ -45,7 +45,7 @@ public final class ProductRegexPatterns {
 	 * ASCII characters, line feeds, and carriage returns. {10,} - Minimum of 10
 	 * characters. $ - End of the string.
 	 */
-	public static final String DESCRIPTION = "[A-Za-zÀ-ȕ0-9(),-_.,' ]{10,}";
+	public static final String DESCRIPTION = ".*[A-Za-z0-9(),-_.,' ]{10,}.*";
 
 	/**
 	 * Private constructor to prevent instantiation of the

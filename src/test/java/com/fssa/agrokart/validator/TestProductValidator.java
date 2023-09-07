@@ -469,7 +469,8 @@ class TestProductValidator {
 	void testValidateDescWithValid() {
 
 		String[] validInputs = { "This is a valid input.", "Hello, world", "1234567890", "A simple sentence.",
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu sapien in ipsum vulputate eleifend. Nulla convallis lorem justo, nec cursus nisi fermentum eget.", };
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu sapien in ipsum vulputate eleifend. Nulla convallis lorem justo, nec cursus nisi fermentum eget.",
+				"Grapes are full of vitamins, minerals and antioxidants. They’re also full of water, which can help keep you hydrated. Here’s how eating grapes can benefit your health." };
 
 		for (String desc : validInputs) {
 
