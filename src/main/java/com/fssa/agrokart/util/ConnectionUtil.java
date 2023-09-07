@@ -28,16 +28,11 @@ public class ConnectionUtil {
 		String url;
 		String userName;
 		String passWord;
-//
-//		// For local database credentials
-//		url = System.getenv("DATABASE_HOST");
-//		userName = System.getenv("DATABASE_USERNAME");
-//		passWord = System.getenv("DATABASE_PASSWORD");
 
-		// For cloud database credentials
-		url = System.getenv("CLOUD_DATABASE_HOST");
-		userName = System.getenv("CLOUD_DATABASE_USERNAME");
-		passWord = System.getenv("CLOUD_DATABASE_PASSWORD");
+		// For database credentials
+		url = System.getenv("DATABASE_HOST");
+		userName = System.getenv("DATABASE_USERNAME");
+		passWord = System.getenv("DATABASE_PASSWORD");
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
