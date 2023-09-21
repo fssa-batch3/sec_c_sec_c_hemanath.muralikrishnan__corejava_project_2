@@ -5,6 +5,7 @@ import com.fssa.agrokart.exception.InvalidInputException;
 import com.fssa.agrokart.exception.DAOException;
 import com.fssa.agrokart.exception.ServiceException;
 import com.fssa.agrokart.model.Product;
+import com.fssa.agrokart.util.ExceptionLoggerUtil;
 import com.fssa.agrokart.validator.ProductValidator;
 
 import java.util.List;
@@ -72,6 +73,7 @@ public class ProductService {
 			}
 
 		} catch (InvalidInputException | DAOException e) {
+			ExceptionLoggerUtil.logException(e);
 			throw new ServiceException(e.getMessage());
 		}
 		return false;
@@ -91,6 +93,7 @@ public class ProductService {
 		try {
 			product = productDAO.readProductByName(name);
 		} catch (DAOException e) {
+			ExceptionLoggerUtil.logException(e);
 			throw new ServiceException(e.getMessage());
 		}
 
@@ -121,6 +124,7 @@ public class ProductService {
 			// Retrieve the product from the database
 			product = productDAO.readProductById(id);
 		} catch (DAOException e) {
+			ExceptionLoggerUtil.logException(e);
 			throw new ServiceException(e.getMessage());
 		}
 
@@ -138,6 +142,7 @@ public class ProductService {
 		try {
 			return productDAO.getAllProducts();
 		} catch (DAOException e) {
+			ExceptionLoggerUtil.logException(e);
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -158,6 +163,7 @@ public class ProductService {
 
 			return productDAO.deleteProduct(id);
 		} catch (DAOException e) {
+			ExceptionLoggerUtil.logException(e);
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -185,6 +191,7 @@ public class ProductService {
 			}
 
 		} catch (InvalidInputException | DAOException e) {
+			ExceptionLoggerUtil.logException(e);
 			throw new ServiceException(e.getMessage());
 		}
 		return false;
@@ -213,6 +220,7 @@ public class ProductService {
 			return productDAO.updateProductStatus(name, id);
 
 		} catch (DAOException e) {
+			ExceptionLoggerUtil.logException(e);
 			throw new ServiceException(e.getMessage());
 		}
 	}

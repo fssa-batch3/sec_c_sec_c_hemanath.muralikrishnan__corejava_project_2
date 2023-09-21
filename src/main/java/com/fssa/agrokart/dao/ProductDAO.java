@@ -21,7 +21,7 @@ public class ProductDAO {
 	// to print the success messages
 	Logger logger = new Logger();
 
-	public static final String JOIN_QUERY = "SELECT p.id, p.eng_name, p.tam_name, p.image_url, p.description, p.created_at, p.updated_at, "
+	public static final String JOIN_QUERY = "SELECT p.id, p.seller_id, p.eng_name, p.tam_name, p.image_url, p.description, p.created_at, p.updated_at, "
 			+ "c.name AS category, s.name AS status, pa.weight, u.unit AS stock_unit_name, pa.created_at AS avbl_created_at, pa.updated_at AS avbl_updated_at, "
 			+ "pn.protein, up.unit AS protein_unit_name, pn.carbohydrates, uc.unit AS carbo_unit_name, "
 			+ "pn.calories, ucal.unit AS cal_unit_name, pn.created_at AS nutr_created_at, pn.updated_at AS nutr_updated_at "
@@ -51,8 +51,8 @@ public class ProductDAO {
 
 			conn.setAutoCommit(false); // Start transaction
 
-			String sql = "INSERT INTO product (eng_name, tam_name, image_Url, category_id, description, status_id)"
-					+ "VALUES (?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO product (eng_name, tam_name, image_Url, category_id, description, status_id,seller_id)"
+					+ "VALUES (?, ?, ?, ?, ?, ?,?)";
 
 			try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -62,6 +62,7 @@ public class ProductDAO {
 				stmt.setInt(4, categoryId); // Set the category ID obtained from getCategoryIDByName()
 				stmt.setString(5, product.getDescription().trim());
 				stmt.setInt(6, statusId);
+				stmt.setInt(7, product.getSeller().getId());
 				affectedRows = stmt.executeUpdate();
 
 				if (affectedRows > 0) {
@@ -489,7 +490,10 @@ public class ProductDAO {
 	private Product createProductFromResultSet(ResultSet rs) throws SQLException, ConnectionException {
 
 		Product product = new Product();
+		Seller seller = new Seller();
 
+		seller.setId(rs.getInt("seller_id"));
+		product.setSeller(seller);
 		// Set product details from ResultSet
 		product.setId(rs.getInt("id"));
 		product.setName(new ProductName(rs.getString("eng_name"), rs.getString("tam_name")));
