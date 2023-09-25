@@ -37,8 +37,8 @@ public class SellerDAO {
 
 	public Seller getSeller(int id) throws DAOException {
 
-		String sql = "SELECT name,image_url FROM sellers WHERE id = ?";
-		Seller seller = null;
+		String sql = "SELECT name, image_url FROM sellers WHERE id = ?";
+		Seller seller = new Seller();
 
 		try (Connection conn = ConnectionUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -47,7 +47,6 @@ public class SellerDAO {
 			try (ResultSet rs = stmt.executeQuery()) {
 
 				if (rs.next()) {
-
 					seller.setName(rs.getString("name"));
 					seller.setImageUrl(rs.getString("image_url"));
 				}

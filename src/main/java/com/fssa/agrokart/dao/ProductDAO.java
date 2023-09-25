@@ -594,7 +594,7 @@ public class ProductDAO {
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			String sql = "SELECT pq.weight AS qty_weight, uq.unit AS qty_unit_name, pq.rupees, pq.created_at AS pq_created_at, pq.updated_at AS pq_updated_at "
+			String sql = "SELECT pq.id, pq.weight AS qty_weight, uq.unit AS qty_unit_name, pq.rupees, pq.created_at AS pq_created_at, pq.updated_at AS pq_updated_at "
 					+ "FROM product_quantities_cate pq " + "LEFT JOIN units uq ON pq.unit_id = uq.id "
 					+ "WHERE pq.product_id = ?"; // Replace "?" with the desired product ID
 
@@ -606,12 +606,14 @@ public class ProductDAO {
 
 					while (rs.next()) {
 
+						int catId = rs.getInt("id");
 						double weight = rs.getDouble("qty_weight");
 						String unit = rs.getString("qty_unit_name");
 						double rupees = rs.getDouble("rupees");
 
 						// Create a new ProductQuantities object with the extracted data
 						ProductQuantitiesCategory quantity = new ProductQuantitiesCategory();
+						quantity.setId(catId);
 						quantity.setWeight(weight);
 
 						if (unit != null) {

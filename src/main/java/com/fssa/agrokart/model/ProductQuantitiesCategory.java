@@ -22,6 +22,7 @@ import java.util.Objects;
  */
 public class ProductQuantitiesCategory implements Comparable<ProductQuantitiesCategory> {
 
+	private int id;
 	private double rs;
 	private ProductStockUnits unit;
 	private double weight;
@@ -140,6 +141,16 @@ public class ProductQuantitiesCategory implements Comparable<ProductQuantitiesCa
 	 */
 	public void setUpdatedDateTime(LocalDateTime updatedDateTime) {
 		this.updatedDateTime = updatedDateTime;
+	}
+	
+	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**

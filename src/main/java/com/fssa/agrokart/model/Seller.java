@@ -32,9 +32,7 @@ public class Seller {
 
 	@Override
 	public String toString() {
-		return "Seller [id=" + id + ", name=" + name + ", imageUrl=" + imageUrl + ", getId()=" + getId()
-				+ ", getName()=" + getName() + ", getImageUrl()=" + getImageUrl() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+		return "Seller [id=" + id + ", name=" + name + ", imageUrl=" + imageUrl + "]";
 	}
 
 }
