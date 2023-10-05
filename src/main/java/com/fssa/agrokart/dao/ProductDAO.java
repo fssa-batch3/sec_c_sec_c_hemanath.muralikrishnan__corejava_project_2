@@ -879,7 +879,7 @@ public class ProductDAO {
 				}
 			}
 		} catch (ConnectionException | SQLException e) {
-
+			ExceptionLoggerUtil.logException(e);
 			throw new DAOException(ProductDAOErrors.IS_PRODUCT_EXISTS_WITH_NAME, e);
 		}
 
@@ -907,6 +907,7 @@ public class ProductDAO {
 				}
 			}
 		} catch (ConnectionException | SQLException e) {
+			ExceptionLoggerUtil.logException(e);
 			throw new DAOException(ProductDAOErrors.IS_PRODUCT_EXISTS_WITH_ID, e);
 		}
 
@@ -938,6 +939,7 @@ public class ProductDAO {
 				return rowsAffected > 0;
 			}
 		} catch (ConnectionException | SQLException e) {
+			ExceptionLoggerUtil.logException(e);
 			throw new DAOException(ProductDAOErrors.UPDATE_STATUS_ERROR, e);
 		}
 
