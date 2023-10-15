@@ -1,15 +1,17 @@
 package com.fssa.agrokart.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class MainOrderHistory {
 
 	private int uniqueId;
-	private int addressId;
+	private String userAddress;
 	private int userId;
+	private String razorpay_order_id;
 	private int totalProducts;
-	private DeliveryDay deliveryDay;
+	private LocalDate deliveryDay;
 	private double totalAmount;
 	private OrderStatus orderStatus;
 	private PaymentMethod paymentMethod;
@@ -31,12 +33,12 @@ public class MainOrderHistory {
 		this.uniqueId = uniqueId;
 	}
 
-	public int getAddressId() {
-		return addressId;
+	public String getUserAddress() {
+		return userAddress;
 	}
 
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
 	}
 
 	public int getUserId() {
@@ -47,6 +49,14 @@ public class MainOrderHistory {
 		this.userId = userId;
 	}
 
+	public String getRazorpay_order_id() {
+		return razorpay_order_id;
+	}
+
+	public void setRazorpay_order_id(String razorpay_order_id) {
+		this.razorpay_order_id = razorpay_order_id;
+	}
+
 	public int getTotalProducts() {
 		return totalProducts;
 	}
@@ -55,11 +65,11 @@ public class MainOrderHistory {
 		this.totalProducts = totalProducts;
 	}
 
-	public DeliveryDay getDeliveryDay() {
+	public LocalDate getDeliveryDay() {
 		return deliveryDay;
 	}
 
-	public void setDeliveryDay(DeliveryDay deliveryDay) {
+	public void setDeliveryDay(LocalDate deliveryDay) {
 		this.deliveryDay = deliveryDay;
 	}
 
@@ -129,11 +139,12 @@ public class MainOrderHistory {
 
 	@Override
 	public String toString() {
-		return "MainOrderHistory [uniqueId=" + uniqueId + ", addressId=" + addressId + ", userId=" + userId
-				+ ", totalProducts=" + totalProducts + ", deliveryDay=" + deliveryDay + ", totalAmount=" + totalAmount
-				+ ", orderStatus=" + orderStatus + ", paymentMethod=" + paymentMethod + ", paymentStatus="
-				+ paymentStatus + ", orderCreationDateTime=" + orderCreationDateTime + ", orderUpdatedDateTime="
-				+ orderUpdatedDateTime + ", isOrderCancelled=" + isOrderCancelled + ", orderItems=" + orderItems + "]";
+		return "MainOrderHistory [uniqueId=" + uniqueId + ", userAddress=" + userAddress + ", userId=" + userId
+				+ ", razorpay_order_id=" + razorpay_order_id + ", totalProducts=" + totalProducts + ", deliveryDay="
+				+ deliveryDay + ", totalAmount=" + totalAmount + ", orderStatus=" + orderStatus + ", paymentMethod="
+				+ paymentMethod + ", paymentStatus=" + paymentStatus + ", orderCreationDateTime="
+				+ orderCreationDateTime + ", orderUpdatedDateTime=" + orderUpdatedDateTime + ", isOrderCancelled="
+				+ isOrderCancelled + ", orderItems=" + orderItems + "]";
 	}
 
 }

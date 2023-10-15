@@ -34,6 +34,7 @@ public class OrderValidator {
 			boolean isAvailable = product.getStatus().equals(ProductStatus.AVAILABLE);
 			productAvailability.put(product.getId(), isAvailable);
 		}
+	
 
 		// Check if each product in orderItems is available
 		for (SubOrderItems subOrderItem : orderItems) {

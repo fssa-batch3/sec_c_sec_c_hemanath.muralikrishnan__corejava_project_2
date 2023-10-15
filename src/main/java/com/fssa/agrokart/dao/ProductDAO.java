@@ -944,4 +944,38 @@ public class ProductDAO {
 		}
 
 	}
+
+	int[] cate = { 1, 2, 3, 4, 5, 6 };
+
+	public Map<Integer, Integer> getCategoryCount() throws DAOException {
+
+		Map<Integer, Integer> counts = new HashMap<>();
+
+		String sql = "SELECT COUNT(*) FROM product WHERE category_id = ? AND status_id = 1";
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+				for (int i : cate) {
+
+					stmt.setInt(1, i);
+
+					try (ResultSet rs = stmt.executeQuery()) {
+
+						if (rs.next()) {
+
+							counts.put(i, rs.getInt(1));
+						}
+					}
+				}
+
+			}
+		} catch (ConnectionException | SQLException e) {
+			ExceptionLoggerUtil.logException(e);
+			throw new DAOException("Error while getting the category count", e);
+		}
+
+		return counts;
+	}
 }

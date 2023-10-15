@@ -9,6 +9,7 @@ import com.fssa.agrokart.util.ExceptionLoggerUtil;
 import com.fssa.agrokart.validator.ProductValidator;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Service class that provides operations related to the Product model object.
@@ -219,6 +220,17 @@ public class ProductService {
 
 			return productDAO.updateProductStatus(name, id);
 
+		} catch (DAOException e) {
+			ExceptionLoggerUtil.logException(e);
+			throw new ServiceException(e.getMessage());
+		}
+	}
+
+	public Map<Integer, Integer> getCatCounts() throws ServiceException {
+
+		try {
+
+			return productDAO.getCategoryCount();
 		} catch (DAOException e) {
 			ExceptionLoggerUtil.logException(e);
 			throw new ServiceException(e.getMessage());
