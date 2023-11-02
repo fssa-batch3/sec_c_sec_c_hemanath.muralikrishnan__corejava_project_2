@@ -2,6 +2,7 @@ package com.fssa.agrokart.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Arrays;
 
 import com.fssa.agrokart.exception.ConnectionException;
 
@@ -38,7 +39,6 @@ public class ConnectionUtil {
 			userName = System.getenv("DATABASE_USERNAME");
 			passWord = System.getenv("DATABASE_PASSWORD");
 		} else {
-			// Use local database credentials
 			url = System.getenv("DATABASE_HOST");
 			userName = System.getenv("DATABASE_USERNAME");
 			passWord = System.getenv("DATABASE_PASSWORD");
@@ -59,16 +59,5 @@ public class ConnectionUtil {
 	 * instantiated.
 	 */
 	private ConnectionUtil() {
-
 	}
-
-	public static void main(String[] args) {
-		try {
-			getConnection();
-		} catch (ConnectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 }

@@ -58,14 +58,14 @@ public class ProductService {
 				// Check if a product with the new English name already exists
 				String newEnglishName = product.getName().getEnglishName();
 
-				if (productDAO.isProductWithNameExists(newEnglishName)) {
+				if (productDAO.isProductWithNameExists(newEnglishName, product.getSeller().getId())) {
 					throw new ServiceException("A product with English name " + newEnglishName + " already exists.");
 				}
 
 				// Check if a product with the new Tamil name already exists
 				String newTamilName = product.getName().getTamilName();
 
-				if (productDAO.isProductWithNameExists(newTamilName)) {
+				if (productDAO.isProductWithNameExists(newTamilName, product.getSeller().getId())) {
 					throw new ServiceException("A product with Tamil name " + newTamilName + " already exists.");
 				}
 

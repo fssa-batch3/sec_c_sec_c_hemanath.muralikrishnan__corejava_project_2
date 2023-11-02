@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +24,6 @@ import com.fssa.agrokart.model.SubOrderItems;
 import com.fssa.agrokart.util.ConnectionUtil;
 import com.fssa.agrokart.util.ExceptionLoggerUtil;
 
-import ch.qos.logback.classic.Logger;
 
 public class OrderDAO {
 
@@ -200,8 +198,8 @@ public class OrderDAO {
 
 	public List<MainOrderHistory> readAllOrderHistory(int userId) throws DAOException {
 
-		String sql = "SELECT id,user_id,user_address,total_products,delivery_day,total_amount,order_status,payment_method,payment_status,is_order_cancelled,creation_date_time "
-				+ "FROM user_order WHERE user_id = ?";
+		String sql = "SELECT id, user_id, user_address, total_products, delivery_day, total_amount, order_status, payment_method, payment_status, is_order_cancelled, creation_date_time, updated_at "
+				+ "FROM user_order WHERE user_id = ? " + "ORDER BY GREATEST(creation_date_time, updated_at) DESC";
 
 		List<MainOrderHistory> listOfHistory = new ArrayList<>();
 

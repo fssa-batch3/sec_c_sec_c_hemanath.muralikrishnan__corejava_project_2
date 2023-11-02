@@ -864,12 +864,13 @@ public class ProductDAO {
 	 * @throws DAOException If there is an issue with the database operation.
 	 */
 
-	public boolean isProductWithNameExists(String name) throws DAOException {
+	public boolean isProductWithNameExists(String name, int id) throws DAOException {
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String query = "SELECT COUNT(*) FROM product WHERE eng_name = ? OR tam_name = ?";
+			String query = "SELECT COUNT(*) FROM product WHERE eng_name = ? OR tam_name = ? AND seller_id = ?";
 			try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 				preparedStatement.setString(1, name);
 				preparedStatement.setString(2, name);
+				preparedStatement.setInt(3, id);
 
 				try (ResultSet resultSet = preparedStatement.executeQuery()) {
 					if (resultSet.next()) {
